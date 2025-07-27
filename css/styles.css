@@ -795,21 +795,39 @@ body {
   background: var(--gray-400);
 }
 
-/* ===== GOOGLE CALENDAR STYLE GRID ===== */
-.calendar-grid-google {
+/* ===== UNIFIED CALENDAR GRID (HEADERS + DATES) ===== */
+.calendar-unified-grid {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
-  grid-template-rows: repeat(6, 1fr);
+  grid-template-rows: auto repeat(6, 1fr); /* auto for header row, 1fr for date rows */
   background: var(--white);
   min-width: 700px; /* Minimum width to ensure all 7 columns are visible */
   width: 100%;
-  aspect-ratio: 7/6;
+  border: 1px solid var(--gray-200);
 }
 
-.calendar-grid-google .day {
+/* Day header cells */
+.calendar-unified-grid .day-header {
+  background: #f8f9fa;
   border-right: 1px solid var(--gray-200);
   border-bottom: 1px solid var(--gray-200);
-    display: flex;
+  padding: var(--spacing-sm);
+  text-align: center;
+  font-weight: 600;
+  color: var(--light-text);
+  font-size: var(--font-size-sm);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 40px;
+}
+
+.calendar-unified-grid .day {
+  border-right: 1px solid var(--gray-200);
+  border-bottom: 1px solid var(--gray-200);
+  display: flex;
   flex-direction: column;
   padding: var(--spacing-sm);
   position: relative;
@@ -819,42 +837,42 @@ body {
   min-height: 70px;
 }
 
-.calendar-grid-google .day:hover {
+.calendar-unified-grid .day:hover {
   background: #f8f9fa;
 }
 
-.calendar-grid-google .day.other-month {
+.calendar-unified-grid .day.other-month {
   background: #fafafa;
   color: #ccc;
   opacity: 0.5;
 }
 
-.calendar-grid-google .day.today {
+.calendar-unified-grid .day.today {
   background: var(--primary-blue);
   color: var(--white);
-    font-weight: 600;
+  font-weight: 600;
 }
 
-.calendar-grid-google .day.has-occasion {
+.calendar-unified-grid .day.has-occasion {
   background: var(--gray-50);
   border-left: 3px solid var(--primary-blue);
 }
 
-.calendar-grid-google .day.festival-day {
+.calendar-unified-grid .day.festival-day {
   border-left-color: var(--sage-green);
 }
 
-.calendar-grid-google .day.ekadashi-day {
+.calendar-unified-grid .day.ekadashi-day {
   border-left-color: var(--apple-purple);
 }
 
-.calendar-grid-google .day-number {
+.calendar-unified-grid .day-number {
   font-size: var(--font-size-lg);
   font-weight: 600;
   margin-bottom: auto;
 }
 
-.calendar-grid-google .occasion-indicator {
+.calendar-unified-grid .occasion-indicator {
   font-size: 0.65rem;
   background: var(--primary-blue);
   color: var(--white);
@@ -904,7 +922,7 @@ body {
     min-width: 600px; /* Ensure all 7 columns are visible */
   }
   
-  .calendar-grid-google {
+  .calendar-unified-grid {
     aspect-ratio: auto;
     min-height: 400px;
   }
@@ -941,12 +959,12 @@ body {
     font-size: var(--font-size-xl);
   }
   
-  .calendar-grid-google .day {
+  .calendar-unified-grid .day {
     aspect-ratio: 1.2;
     padding: var(--spacing-xs);
   }
   
-  .calendar-grid-google .day-number {
+  .calendar-unified-grid .day-number {
     font-size: var(--font-size-md);
   }
   
@@ -956,7 +974,7 @@ body {
     border-radius: 6px;
   }
   
-  .calendar-grid-google .occasion-indicator {
+  .calendar-unified-grid .occasion-indicator {
     font-size: 0.55rem;
     padding: 1px 3px;
     max-width: calc(100% - 2px);
@@ -1113,22 +1131,22 @@ body {
     min-width: 500px; /* Ensure all 7 columns are visible */
   }
   
-  .calendar-grid-google {
+  .calendar-unified-grid {
     aspect-ratio: auto;
     min-height: 350px;
     gap: 1px;
   }
 
-  .calendar-grid-google .day {
+  .calendar-unified-grid .day {
     min-height: 50px;
     padding: 4px;
   }
 
-  .calendar-grid-google .day-number {
+  .calendar-unified-grid .day-number {
     font-size: 0.9rem;
   }
 
-  .calendar-grid-google .occasion-indicator {
+  .calendar-unified-grid .occasion-indicator {
     font-size: 0.6rem;
     padding: 1px 3px;
   }
@@ -1184,22 +1202,22 @@ body {
     min-width: 400px; /* Ensure all 7 columns are visible */
   }
   
-  .calendar-grid-google {
+  .calendar-unified-grid {
     aspect-ratio: auto;
     min-height: 300px;
     gap: 0.5px;
   }
 
-  .calendar-grid-google .day {
+  .calendar-unified-grid .day {
     min-height: 40px;
     padding: 2px;
   }
 
-  .calendar-grid-google .day-number {
+  .calendar-unified-grid .day-number {
     font-size: 0.8rem;
   }
 
-  .calendar-grid-google .occasion-indicator {
+  .calendar-unified-grid .occasion-indicator {
     font-size: 0.55rem;
     padding: 1px 2px;
   }

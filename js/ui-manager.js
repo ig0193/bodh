@@ -272,11 +272,20 @@ class HinduCalendarUI {
     // Clear existing content
     this.elements.calendarGrid.innerHTML = '';
 
+    // Create day headers first
+    const dayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+    dayNames.forEach(dayName => {
+      const headerElement = document.createElement('div');
+      headerElement.className = 'day-header';
+      headerElement.textContent = dayName;
+      this.elements.calendarGrid.appendChild(headerElement);
+    });
+
     // Ensure exactly 42 days are rendered (6 weeks × 7 days)
     const daysToRender = days.slice(0, 42);
     console.log(`Rendering ${daysToRender.length} days in calendar grid`);
 
-    // Calendar days (day headers are now in HTML)
+    // Calendar days
     daysToRender.forEach(dayData => {
       const dayElement = this.createDayElement(dayData);
       this.elements.calendarGrid.appendChild(dayElement);
