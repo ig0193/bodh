@@ -362,12 +362,15 @@ body {
 .calendar-grid {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
-  gap: 2px; /* Reduced gap */
-  background: var(--white);
-  padding: var(--spacing-sm); /* Reduced padding */
-  border-radius: var(--border-radius);
-  box-shadow: var(--shadow-md);
-  margin-bottom: var(--spacing-md);
+    gap: 2px; /* Reduced gap */
+    background: var(--white);
+    padding: var(--spacing-sm); /* Reduced padding */
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-md);
+    margin-bottom: var(--spacing-md);
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
 }
 
 .calendar-header {
@@ -858,6 +861,14 @@ body {
   .logo i {
     font-size: 1.5rem;
   }
+
+  /* Fix calendar grid for mobile */
+  .calendar-grid-google {
+    aspect-ratio: auto;
+    min-height: 400px;
+    width: 100%;
+    max-width: 100%;
+  }
   
   .calendar-layout {
     flex-direction: column;
@@ -1056,15 +1067,40 @@ body {
 
   .main-content {
     padding: var(--spacing-xs);
-}
+  }
+
+  /* Fix calendar grid for small screens */
+  .calendar-grid-google {
+    aspect-ratio: auto;
+    min-height: 350px;
+    width: 100%;
+    max-width: 100%;
+    gap: 1px;
+  }
+
+  .calendar-grid-google .day {
+    min-height: 50px;
+    padding: 4px;
+  }
+
+  .calendar-grid-google .day-number {
+    font-size: 0.9rem;
+  }
+
+  .calendar-grid-google .occasion-indicator {
+    font-size: 0.6rem;
+    padding: 1px 3px;
+  }
 
   .calendar-grid {
     gap: 0.5px;
     padding: 2px;
-    min-width: 100%;
-    overflow-x: auto;
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
     display: grid;
     grid-template-columns: repeat(7, 1fr);
+    grid-template-rows: auto;
   }
 
   .calendar-day {
@@ -1102,9 +1138,37 @@ body {
 
 /* Extra small screens */
 @media (max-width: 320px) {
+  /* Fix calendar grid for extra small screens */
+  .calendar-grid-google {
+    aspect-ratio: auto;
+    min-height: 300px;
+    width: 100%;
+    max-width: 100%;
+    gap: 0.5px;
+  }
+
+  .calendar-grid-google .day {
+    min-height: 40px;
+    padding: 2px;
+  }
+
+  .calendar-grid-google .day-number {
+    font-size: 0.8rem;
+  }
+
+  .calendar-grid-google .occasion-indicator {
+    font-size: 0.55rem;
+    padding: 1px 2px;
+  }
+
   .calendar-grid {
     gap: 0;
     padding: 1px;
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
   }
 
   .calendar-day {
