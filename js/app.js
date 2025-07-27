@@ -27,7 +27,7 @@ class HinduCalendarApp {
       console.log('Hindu Calendar: Starting initialization...');
       
       // Show loading indicator
-      this.showLoading('Initializing calendar system...');
+      // this.showLoading('Initializing calendar system...');
       
       // Wait for DOM to be ready
       if (document.readyState === 'loading') {
@@ -117,14 +117,14 @@ class HinduCalendarApp {
     console.log('Hindu Calendar: Initializing core components...');
     
     // Initialize calendar engine
-    this.showLoading('Setting up calendar engine...');
+    // this.showLoading('...');
     this.engine = new HinduCalendarEngine();
     
     // Small delay to show loading progression
-    await this.delay(200);
+    // await this.delay(100);
     
     // Initialize UI manager
-    this.showLoading('Preparing user interface...');
+    // this.showLoading('...');
     this.ui = new HinduCalendarUI(this.engine);
     
     // Setup responsive handling
