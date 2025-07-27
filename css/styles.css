@@ -799,54 +799,38 @@ body {
 .calendar-unified-grid {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
-  grid-template-rows: auto repeat(6, 1fr); /* auto for header row, 1fr for date rows */
+  grid-template-rows: 50px repeat(6, 80px); /* Fixed heights for consistency */
   background: var(--white);
   min-width: 700px; /* Minimum width to ensure all 7 columns are visible */
   width: 100%;
   border: 1px solid var(--gray-200);
-  gap: 0; /* Remove gap to prevent double borders */
+  gap: 0px; /* No gaps - clean grid */
   box-sizing: border-box;
 }
 
 /* Day header cells */
 .calendar-unified-grid .day-header {
   background: #f8f9fa;
-  border-right: 1px solid var(--gray-200);
-  border-bottom: 1px solid var(--gray-200);
-  padding: var(--spacing-sm);
+  padding: 8px;
   text-align: center;
   font-weight: 600;
   color: var(--light-text);
-  font-size: var(--font-size-sm);
+  font-size: 12px;
   text-transform: uppercase;
   letter-spacing: 0.5px;
   display: flex;
   align-items: center;
   justify-content: center;
-  min-height: 40px;
-  margin: 0; /* Remove any default margins */
+  height: 50px; /* Fixed height */
+  margin: 0;
   box-sizing: border-box;
-  position: relative; /* For clean borders */
+  border-right: 1px solid var(--gray-200);
+  border-bottom: 1px solid var(--gray-200);
 }
 
 /* Remove right border from last header cell */
 .calendar-unified-grid .day-header:nth-child(7) {
   border-right: none;
-}
-
-.calendar-unified-grid .day {
-  border-right: 1px solid var(--gray-200);
-  border-bottom: 1px solid var(--gray-200);
-  display: flex;
-  flex-direction: column;
-  padding: var(--spacing-sm);
-  position: relative;
-  cursor: pointer;
-  transition: var(--transition);
-  background: var(--white);
-  min-height: 70px;
-  margin: 0; /* Remove any default margins */
-  box-sizing: border-box;
 }
 
 /* Remove right border from last cell in each row */
@@ -857,6 +841,22 @@ body {
 /* Remove bottom border from last row */
 .calendar-unified-grid .day:nth-child(n+43):nth-child(-n+49) {
   border-bottom: none;
+}
+
+.calendar-unified-grid .day {
+  display: flex;
+  flex-direction: column;
+  padding: 8px;
+  position: relative;
+  cursor: pointer;
+  transition: var(--transition);
+  background: var(--white);
+  height: 80px; /* Fixed height */
+  margin: 0;
+  box-sizing: border-box;
+  border-right: 1px solid var(--gray-200);
+  border-bottom: 1px solid var(--gray-200);
+  overflow: hidden; /* Clip overflow text */
 }
 
 .calendar-unified-grid .day:hover {
@@ -889,27 +889,27 @@ body {
 }
 
 .calendar-unified-grid .day-number {
-  font-size: var(--font-size-lg);
+  font-size: 16px;
   font-weight: 600;
-  margin-bottom: auto;
+  margin-bottom: 4px;
+  line-height: 1;
 }
 
 .calendar-unified-grid .occasion-indicator {
-  font-size: 0.65rem;
+  font-size: 10px;
   background: var(--primary-blue);
   color: var(--white);
-  padding: 2px 6px;
-  border-radius: 6px;
-  margin-top: auto;
+  padding: 2px 4px;
+  border-radius: 4px;
   text-align: center;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  max-width: calc(100% - 4px);
+  max-width: 100%;
   line-height: 1.2;
   font-weight: 500;
   box-sizing: border-box;
-  min-width: 0;
+  margin-top: auto;
 }
 
 /* ===== RESPONSIVE DESIGN (UPDATED FOR SIDEBAR) ===== */
@@ -945,8 +945,8 @@ body {
   }
   
   .calendar-unified-grid {
-    aspect-ratio: auto;
-    min-height: 400px;
+    min-width: 600px;
+    grid-template-rows: 45px repeat(6, 70px); /* Slightly smaller on tablets */
   }
   
   .calendar-layout {
@@ -982,12 +982,12 @@ body {
   }
   
   .calendar-unified-grid .day {
-    aspect-ratio: 1.2;
-    padding: var(--spacing-xs);
+    height: 70px;
+    padding: 6px;
   }
   
   .calendar-unified-grid .day-number {
-    font-size: var(--font-size-md);
+    font-size: 14px;
   }
   
   .occasion-indicator {
@@ -997,9 +997,8 @@ body {
   }
   
   .calendar-unified-grid .occasion-indicator {
-    font-size: 0.55rem;
+    font-size: 9px;
     padding: 1px 3px;
-    max-width: calc(100% - 2px);
   }
 
   /* Modal responsive styles */
@@ -1154,22 +1153,21 @@ body {
   }
   
   .calendar-unified-grid {
-    aspect-ratio: auto;
-    min-height: 350px;
-    gap: 1px;
+    min-width: 500px;
+    grid-template-rows: 40px repeat(6, 60px); /* Smaller on mobile */
   }
 
   .calendar-unified-grid .day {
-    min-height: 50px;
+    height: 60px;
     padding: 4px;
   }
 
   .calendar-unified-grid .day-number {
-    font-size: 0.9rem;
+    font-size: 14px;
   }
 
   .calendar-unified-grid .occasion-indicator {
-    font-size: 0.6rem;
+    font-size: 9px;
     padding: 1px 3px;
   }
 
@@ -1225,22 +1223,21 @@ body {
   }
   
   .calendar-unified-grid {
-    aspect-ratio: auto;
-    min-height: 300px;
-    gap: 0.5px;
+    min-width: 400px;
+    grid-template-rows: 35px repeat(6, 50px); /* Even smaller on extra small screens */
   }
 
   .calendar-unified-grid .day {
-    min-height: 40px;
+    height: 50px;
     padding: 2px;
   }
 
   .calendar-unified-grid .day-number {
-    font-size: 0.8rem;
+    font-size: 12px;
   }
 
   .calendar-unified-grid .occasion-indicator {
-    font-size: 0.55rem;
+    font-size: 8px;
     padding: 1px 2px;
   }
 
