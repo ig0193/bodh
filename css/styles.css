@@ -774,6 +774,10 @@ body {
   scrollbar-color: var(--gray-300) transparent;
 }
 
+.calendar-scroll-container > * {
+  min-width: 700px; /* Ensure all 7 columns are visible */
+}
+
 .calendar-scroll-container::-webkit-scrollbar {
   height: 6px;
 }
@@ -896,8 +900,11 @@ body {
     overflow-x: auto;
   }
   
-  .calendar-grid-google {
+  .calendar-scroll-container > * {
     min-width: 600px; /* Ensure all 7 columns are visible */
+  }
+  
+  .calendar-grid-google {
     aspect-ratio: auto;
     min-height: 400px;
   }
@@ -1102,8 +1109,11 @@ body {
   }
 
   /* Fix calendar grid for small screens */
-  .calendar-grid-google {
+  .calendar-scroll-container > * {
     min-width: 500px; /* Ensure all 7 columns are visible */
+  }
+  
+  .calendar-grid-google {
     aspect-ratio: auto;
     min-height: 350px;
     gap: 1px;
@@ -1170,8 +1180,11 @@ body {
 /* Extra small screens */
 @media (max-width: 320px) {
   /* Fix calendar grid for extra small screens */
-  .calendar-grid-google {
+  .calendar-scroll-container > * {
     min-width: 400px; /* Ensure all 7 columns are visible */
+  }
+  
+  .calendar-grid-google {
     aspect-ratio: auto;
     min-height: 300px;
     gap: 0.5px;
