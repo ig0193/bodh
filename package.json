@@ -1,0 +1,107 @@
+{
+  "name": "hindu-calendar-panchang",
+  "version": "1.0.0",
+  "description": "A beautiful, interactive Hindu Calendar application showcasing Hindu festivals, months, and Panchang details with authentic religious aesthetic",
+  "main": "index.html",
+  "scripts": {
+    "start": "open index.html",
+    "serve": "python3 -m http.server 8000",
+    "serve-alt": "python -m SimpleHTTPServer 8000",
+    "dev": "live-server --port=8080 --entry-file=index.html",
+    "build": "echo 'No build process needed - static files ready for deployment!'",
+    "deploy:netlify": "netlify deploy --prod --dir=.",
+    "deploy:vercel": "vercel --prod",
+    "deploy:firebase": "firebase deploy",
+    "deploy:gh-pages": "gh-pages -d .",
+    "validate:pwa": "lighthouse --only-categories=pwa --chrome-flags='--headless' http://localhost:8000",
+    "test:local": "echo 'Testing local deployment...' && npm run serve",
+    "prepare-icons": "echo 'Run icon generation tool to create PWA icons from a master image'",
+    "analyze": "echo 'Bundle size: ~1MB total (all static files)'"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/username/hindu-calendar.git"
+  },
+  "keywords": [
+    "hindu",
+    "calendar",
+    "panchang",
+    "festivals",
+    "indian",
+    "sanskrit",
+    "devanagari",
+    "vikram-samvat",
+    "spirituality",
+    "culture",
+    "tradition",
+    "religious",
+    "pwa",
+    "offline",
+    "cultural-preservation",
+    "north-indian",
+    "client-side"
+  ],
+  "author": "Hindu Calendar Project",
+  "license": "MIT",
+  "homepage": "https://username.github.io/hindu-calendar",
+  "bugs": {
+    "url": "https://github.com/username/hindu-calendar/issues"
+  },
+  "engines": {
+    "node": ">=12.0.0"
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not dead"
+  ],
+  "devDependencies": {
+    "live-server": "^1.2.2",
+    "gh-pages": "^4.0.0",
+    "lighthouse": "^10.4.0"
+  },
+  "pwa": {
+    "name": "Hindu Calendar - Cultural Preservation",
+    "short_name": "HinduCalendar",
+    "theme_color": "#ff9933",
+    "background_color": "#ffffff",
+    "display": "standalone",
+    "orientation": "portrait-primary"
+  },
+  "deployment": {
+    "platforms": {
+      "web": {
+        "github-pages": "Free - https://username.github.io/hindu-calendar",
+        "netlify": "Free tier - Auto-deploy from Git",
+        "vercel": "Free tier - Instant deployments",
+        "firebase": "Free tier - Google Cloud hosting"
+      },
+      "mobile": {
+        "pwa": "Progressive Web App - Works like native app",
+        "android": "Capacitor/Cordova - Deploy to Play Store ($25)",
+        "ios": "Capacitor/Cordova - Deploy to App Store ($99/year)"
+      }
+    },
+    "cost": {
+      "web": "$0/month",
+      "android": "$25 one-time",
+      "ios": "$99/year",
+      "backend": "$0/month (client-side only!)"
+    }
+  },
+  "features": {
+    "offline": "Full offline support with Service Worker",
+    "installable": "Can be installed as PWA on mobile/desktop",
+    "notifications": "Push notifications for festival reminders (future)",
+    "fast": "Instant loading - no API calls needed",
+    "cultural": "Proactive cultural awareness engine"
+  },
+  "size": {
+    "total": "< 1MB",
+    "html": "~15KB",
+    "css": "~25KB", 
+    "js": "~50KB",
+    "manifest": "~2KB",
+    "sw": "~5KB"
+  }
+} 

@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>पंचांग - Hindu Calendar 2024 | Cultural Preservation System</title>
+    
+    <!-- Meta Tags for SEO and Social Sharing -->
+    <meta name="description" content="Accurate Hindu Calendar 2024 with precise festival dates, Ekadashi information, and cultural significance. Stay connected with Hindu traditions and festivals.">
+    <meta name="keywords" content="Hindu Calendar, Panchang, Hindu Festivals 2024, Ekadashi, Hindu Months, Indian Calendar, Religious Calendar">
+    <meta name="author" content="Hindu Calendar Project">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://hinduculture.app/">
+    <meta property="og:title" content="पंचांग - Hindu Calendar 2024">
+    <meta property="og:description" content="Accurate Hindu Calendar with festivals, Ekadashi dates, and cultural significance">
+    <meta property="og:image" content="https://hinduculture.app/og-image.jpg">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://hinduculture.app/">
+    <meta property="twitter:title" content="पंचांग - Hindu Calendar 2024">
+    <meta property="twitter:description" content="Stay connected with Hindu traditions through our accurate calendar">
+    
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#ff9933">
+    
+    <!-- PWA Meta Tags -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="Hindu Calendar">
+    
+    <!-- PWA Icons -->
+    <link rel="apple-touch-icon" href="icon-192.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="icon-32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="icon-16.png">
+    
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="css/styles.css">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@300;400;500;600;700&family=Cinzel:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous">
+    
+    <!-- Structured Data for Search Engines -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Hindu Calendar 2024",
+        "alternateName": "पंचांग",
+        "description": "Comprehensive Hindu Calendar with accurate festival dates and cultural information",
+        "url": "https://hinduculture.app",
+        "applicationCategory": "LifestyleApplication",
+        "operatingSystem": "Any",
+        "offers": {
+            "@type": "Offer",
+            "price": "0"
+        },
+        "author": {
+            "@type": "Organization",
+            "name": "Hindu Calendar Project"
+        }
+    }
+    </script>
+</head>
+<body>
+    <!-- App Container -->
+    <div class="app-container">
+        
+        <!-- Header Section -->
+        <header class="header" role="banner">
+            <div class="header-content">
+                <!-- App Identity -->
+                <div class="app-identity">
+                    <i class="fas fa-om" aria-hidden="true"></i>
+                    <div class="app-title">
+                        <h1>बोध - Bodh</h1>
+                        <p class="app-subtitle">Awakening cultural consciousness</p>
+                    </div>
+                </div>
+                
+                <!-- Current Date Info -->
+                <div class="date-info">
+                    <div class="date-display interactive" id="currentDateDisplay" title="Click for today's inspiration">
+                        July 26, 2025 • श्रावण 6, विक्रम संवत् 2081 | Saturday • शनिवार
+                    </div>
+                </div>
+                
+                <!-- Quick Actions -->
+                <div class="quick-actions">
+                    <button class="today-btn" id="todayBtn" title="Go to Today">
+                        <i class="fas fa-home"></i>
+                        <span>Today</span>
+                    </button>
+                </div>
+            </div>
+        </header>
+        
+        <!-- Navigation Bar -->
+        <nav class="nav-bar" role="navigation" aria-label="Main Navigation">
+            <button class="nav-btn active" data-view="calendar" aria-label="Calendar View">
+                <i class="fas fa-calendar-alt" aria-hidden="true"></i>
+                <span>Calendar</span>
+            </button>
+            <button class="nav-btn" data-view="upcoming" aria-label="Upcoming Events View">
+                <i class="fas fa-star" aria-hidden="true"></i>
+                <span>Upcoming</span>
+            </button>
+            <button class="nav-btn" data-view="months" aria-label="Hindu Months View">
+                <i class="fas fa-moon" aria-hidden="true"></i>
+                <span>Months</span>
+            </button>
+            <button class="nav-btn" data-view="about" aria-label="About View">
+                <i class="fas fa-info-circle" aria-hidden="true"></i>
+                <span>About</span>
+            </button>
+        </nav>
+        
+        <!-- Main Content Area -->
+        <main class="main-content" role="main">
+            
+            <!-- Calendar View -->
+            <section id="calendarView" class="view active" aria-label="Calendar View">
+                
+                <!-- Sidebar + Calendar Layout -->
+                <div class="calendar-layout">
+                    
+                    <!-- Sidebar with Monthly Occasions -->
+                    <aside class="occasions-sidebar" id="occasionsSidebar">
+                        <!-- This Month Section -->
+                        <div class="sidebar-header">
+                            <h3>📅 This Month</h3>
+                            <button class="sidebar-toggle" id="sidebarToggle" aria-label="Toggle Sidebar">
+                                <i class="fas fa-bars"></i>
+                            </button>
+                        </div>
+                        <div class="occasions-list" id="occasionsList">
+                            <!-- Current month's occasions will be populated here -->
+                            <div class="loading-occasions">Loading occasions...</div>
+                        </div>
+                    </aside>
+                    
+                    <!-- Main Calendar Area -->
+                    <div class="calendar-main">
+                        
+                        <!-- Compact Calendar Header -->
+                        <div class="calendar-header-compact">
+                            <button id="prevMonth" class="control-btn" aria-label="Previous Month">
+                                <i class="fas fa-chevron-left" aria-hidden="true"></i>
+                            </button>
+                            
+                            <div class="month-info">
+                                <h2 id="currentMonth" aria-live="polite">Loading...</h2>
+                                <div class="hindu-months-compact" id="hinduMonths">
+                                    <!-- Hindu month info will be populated here -->
+                                </div>
+                            </div>
+                            
+                            <button id="nextMonth" class="control-btn" aria-label="Next Month">
+                                <i class="fas fa-chevron-right" aria-hidden="true"></i>
+                            </button>
+                        </div>
+                        
+                        <!-- Calendar Days Header -->
+                        <div class="calendar-days-header">
+                            <div class="day-name">Sun</div>
+                            <div class="day-name">Mon</div>
+                            <div class="day-name">Tue</div>
+                            <div class="day-name">Wed</div>
+                            <div class="day-name">Thu</div>
+                            <div class="day-name">Fri</div>
+                            <div class="day-name">Sat</div>
+                        </div>
+                        
+                        <!-- Google Calendar Style Grid -->
+                        <div class="calendar-grid-google" id="calendarGrid" role="grid" aria-label="Calendar Days">
+                            <!-- Calendar will be generated here by JavaScript -->
+                        </div>
+                        
+                    </div>
+                    
+                </div>
+                
+            </section>
+            
+            <!-- Upcoming Events View -->
+            <section id="upcomingView" class="view" aria-label="Upcoming Events">
+                <div id="upcomingEvents">
+                    <!-- Upcoming events will be populated here -->
+                </div>
+            </section>
+            
+            <!-- Months View -->
+            <section id="monthsView" class="view">
+                <div class="months-container">
+                    <div class="months-header">
+                        <h2>Hindu Months( हिंदू महीने )</h2>
+                        <p class="months-description">Understanding the Hindu Calendar System</p>
+                    </div>
+                    
+                    <!-- Tab Navigation -->
+                    <div class="months-tabs">
+                        <button class="tab-btn active" data-tab="educational" aria-label="Educational Content">
+                            <i class="fas fa-graduation-cap" aria-hidden="true"></i>
+                            <span>Calendar System</span>
+                        </button>
+                        <button class="tab-btn" data-tab="interactive" aria-label="Month Encyclopedia">
+                            <i class="fas fa-book-open" aria-hidden="true"></i>
+                            <span>Month Encyclopedia</span>
+                        </button>
+                    </div>
+                    
+                    <!-- Tab Content -->
+                    <div class="tab-content">
+                        <!-- Educational Tab -->
+                        <div id="educational-tab" class="tab-panel active">
+                            <div class="educational-grid">
+                                <div class="edu-card">
+                                    <div class="edu-card-header">
+                                        <i class="fas fa-moon" aria-hidden="true"></i>
+                                        <h3>Lunar Calendar System</h3>
+                                    </div>
+                                    <div class="edu-card-content">
+                                        <h4>Purnimanta vs Amanta</h4>
+                                        <p><strong>Purnimanta:</strong> Month ends on Purnima (full moon), used in North India</p>
+                                        <p><strong>Amanta:</strong> Month ends on Amavasya (new moon), used in South India</p>
+                                        <p>Our calendar follows the North Indian Purnimanta system.</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="edu-card">
+                                    <div class="edu-card-header">
+                                        <i class="fas fa-calendar-day" aria-hidden="true"></i>
+                                        <h3>Tithi System</h3>
+                                    </div>
+                                    <div class="edu-card-content">
+                                        <h4>Lunar Days (तिथि)</h4>
+                                        <p>A tithi is a lunar day, approximately 1/30th of a lunar month.</p>
+                                        <ul>
+                                            <li><strong>Shukla Paksha:</strong> Waxing moon (1-15 tithis)</li>
+                                            <li><strong>Krishna Paksha:</strong> Waning moon (1-15 tithis)</li>
+                                            <li><strong>Special Tithis:</strong> Ekadashi (11th), Purnima (15th), Amavasya (30th)</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                
+                                <div class="edu-card">
+                                    <div class="edu-card-header">
+                                        <i class="fas fa-star" aria-hidden="true"></i>
+                                        <h3>Nakshatra System</h3>
+                                    </div>
+                                    <div class="edu-card-content">
+                                        <h4>Lunar Mansions (नक्षत्र)</h4>
+                                        <p>27 nakshatras divide the zodiac, each associated with specific qualities.</p>
+                                        <p><strong>Key Nakshatras:</strong> Rohini, Mrigashira, Ardra, Pushya, Magha, Uttara Phalguni, Hasta, Swati, Vishakha, Anuradha, Jyeshtha, Mula, Purva Ashadha, Uttara Ashadha, Shravana, Dhanishta, Shatabhisha, Purva Bhadrapada, Uttara Bhadrapada, Revati</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="edu-card">
+                                    <div class="edu-card-header">
+                                        <i class="fas fa-sun" aria-hidden="true"></i>
+                                        <h3>Seasonal Cycles</h3>
+                                    </div>
+                                    <div class="edu-card-content">
+                                        <h4>Ritu System (ऋतु)</h4>
+                                        <p>Hindu calendar recognizes six seasons:</p>
+                                        <ul>
+                                            <li><strong>Vasant:</strong> Spring (Chaitra, Vaishakh)</li>
+                                            <li><strong>Grishma:</strong> Summer (Jyeshtha, Ashadha)</li>
+                                            <li><strong>Varsha:</strong> Monsoon (Shravana, Bhadrapada)</li>
+                                            <li><strong>Sharad:</strong> Autumn (Ashwin, Kartik)</li>
+                                            <li><strong>Hemant:</strong> Pre-winter (Margashirsha, Pausha)</li>
+                                            <li><strong>Shishir:</strong> Winter (Magha, Phalguna)</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                
+                                <div class="edu-card">
+                                    <div class="edu-card-header">
+                                        <i class="fas fa-compass" aria-hidden="true"></i>
+                                        <h3>Panchang Elements</h3>
+                                    </div>
+                                    <div class="edu-card-content">
+                                        <h4>Five Elements (पंचांग)</h4>
+                                        <ul>
+                                            <li><strong>Tithi:</strong> Lunar day</li>
+                                            <li><strong>Vara:</strong> Day of week</li>
+                                            <li><strong>Nakshatra:</strong> Lunar mansion</li>
+                                            <li><strong>Yoga:</strong> Sun-Moon combination</li>
+                                            <li><strong>Karana:</strong> Half of a tithi</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                
+                                <div class="edu-card">
+                                    <div class="edu-card-header">
+                                        <i class="fas fa-info-circle" aria-hidden="true"></i>
+                                        <h3>Calendar Usage</h3>
+                                    </div>
+                                    <div class="edu-card-content">
+                                        <h4>Practical Applications</h4>
+                                        <ul>
+                                            <li><strong>Festival Timing:</strong> Based on tithi and nakshatra</li>
+                                            <li><strong>Auspicious Moments:</strong> Muhurta for ceremonies</li>
+                                            <li><strong>Fasting Days:</strong> Ekadashi, Purnima, Amavasya</li>
+                                            <li><strong>Seasonal Practices:</strong> Aligned with nature's cycles</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Interactive Tab -->
+                        <div id="interactive-tab" class="tab-panel">
+                            <div class="current-month-highlight">
+                                <div class="current-month-card">
+                                    <div class="current-month-header">
+                                        <h3>Current Month</h3>
+                                        <div class="current-month-name" id="currentMonthName">Loading...</div>
+                                    </div>
+                                    <div class="current-month-details" id="currentMonthDetails">
+                                        <!-- Current month details will be populated by JavaScript -->
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="months-encyclopedia">
+                                <h3>Month Encyclopedia</h3>
+                                <div class="months-grid" id="monthsGrid">
+                                    <!-- All 12 months will be populated by JavaScript -->
+                                    <div class="loading-months">Loading month encyclopedia...</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- About View -->
+            <section id="aboutView" class="view" aria-label="About This Application">
+                <div class="about-container">
+                    <div class="about-header">
+                        <h2>About बोध - Bodh</h2>
+                        <p class="about-subtitle">Awakening cultural consciousness</p>
+                    </div>
+                    
+                    <div class="about-content">
+                        <div class="about-section">
+                            <h3>Our Mission</h3>
+                            <p>To bridge the gap between ancient Hindu wisdom and modern life by providing accessible, accurate calendar information that helps people stay connected with their cultural and spiritual traditions.</p>
+                        </div>
+                        
+                        <div class="about-section">
+                            <h3>Significance</h3>
+                            <p>In today's fast-paced world, maintaining connection with cultural roots becomes increasingly important. This application serves as a bridge, making traditional Hindu calendar knowledge accessible to everyone, regardless of their background or location.</p>
+                        </div>
+                        
+                        <div class="about-section">
+                            <h3>Calendar System</h3>
+                            <p>We follow the <strong>North Indian Purnimanta calendar system</strong>, which is based on lunar cycles and is widely used across northern India. This system:</p>
+                            <ul>
+                                <li>Calculates months based on lunar phases</li>
+                                <li>Determines festival dates through astronomical calculations</li>
+                                <li>Accounts for regional variations in timing</li>
+                                <li>Provides accurate tithi (lunar day) information</li>
+                            </ul>
+                            <p class="note">Note: Dates may vary by 1-2 days based on local astronomical calculations. For important ceremonies, please verify with local authorities.</p>
+                        </div>
+                        
+                        <div class="about-section">
+                            <h3>What We Offer</h3>
+                            <ul>
+                                <li>Accurate festival and Ekadashi dates</li>
+                                <li>Daily cultural significance and practices</li>
+                                <li>Educational content about Hindu months and traditions</li>
+                                <li>Modern ways to observe traditional practices</li>
+                                <li>Multi-language support (Hindi, Roman, English)</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+        </main>
+        
+    </div>
+    
+    <!-- Loading Indicator -->
+    <div id="loadingIndicator" class="loading-indicator" style="display: none;" aria-hidden="true">
+        <div class="spinner"></div>
+        <p>Loading calendar data...</p>
+    </div>
+    
+    <!-- JavaScript Files -->
+    <!-- Data Files -->
+    <script src="data/hindu-months.js" defer></script>
+    <script src="data/festivals-2024.js" defer></script>
+    <script src="data/ekadashi-2024.js" defer></script>
+    
+    <!-- Core Engine Files -->
+    <script src="js/calendar-engine.js" defer></script>
+    <script src="js/ui-manager.js" defer></script>
+    
+    <!-- Main Application -->
+    <script src="js/app.js" defer></script>
+    
+    <!-- Service Worker Registration -->
+    <script>
+        // Register Service Worker for PWA functionality
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js')
+                    .then(registration => {
+                        console.log('Hindu Calendar: Service Worker registered successfully');
+                    })
+                    .catch(error => {
+                        console.log('Hindu Calendar: Service Worker registration failed:', error);
+                    });
+            });
+        }
+    </script>
+    
+    <!-- Analytics (Optional - add your tracking code here) -->
+    <!-- <script async src="https://www.googletagmanager.com/gtag/js?id=GA_TRACKING_ID"></script> -->
+    <!-- <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'GA_TRACKING_ID');
+    </script> -->
+    
+    <!-- Today's Inspiration Modal -->
+    <div class="popup-backdrop" id="popupBackdrop"></div>
+    <div class="today-popup" id="todayPopup" tabindex="-1" role="dialog" aria-labelledby="popupDateTitle">
+        <div class="popup-header">
+            <h4>📅 Today - <span id="popupDateTitle">July 26, 2025</span></h4>
+            <div class="popup-subtitle" id="popupSubtitle">श्रावण, विक्रम संवत् 2081 • शनिवार</div>
+        </div>
+        <div class="popup-content">
+            <div class="inspiration-section">
+                <h5>Today's Inspiration</h5>
+                <p class="significance-text" id="popupSignificance">Loading...</p>
+                <p class="inspiration-text" id="popupInspiration">Loading...</p>
+            </div>
+        </div>
+    </div>
+    
+</body>
+</html> 
