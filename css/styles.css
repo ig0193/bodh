@@ -1059,13 +1059,78 @@ body {
 }
 
   .calendar-grid {
-    gap: 1px;
-    padding: var(--spacing-xs);
-}
+    gap: 0.5px;
+    padding: 2px;
+    min-width: 100%;
+    overflow-x: auto;
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+  }
 
   .calendar-day {
-    min-height: 45px;
+    min-height: 40px;
+    min-width: 35px;
+    padding: 2px;
+    font-size: 0.75rem;
+  }
+
+  .day-number {
+    font-size: 0.8rem;
+    font-weight: 500;
+  }
+
+  .occasion-indicator {
+    font-size: 0.55rem;
+    padding: 1px;
+    line-height: 1;
+  }
+
+  .calendar-header {
+    font-size: 0.7rem;
+    padding: 4px;
+  }
+
+  .month-year h2 {
+    font-size: 1.2rem;
+  }
+
+  .calendar-controls button {
+    padding: 6px 8px;
+    font-size: 0.8rem;
+  }
 }
+
+/* Extra small screens */
+@media (max-width: 320px) {
+  .calendar-grid {
+    gap: 0;
+    padding: 1px;
+  }
+
+  .calendar-day {
+    min-height: 35px;
+    min-width: 30px;
+    padding: 1px;
+    font-size: 0.7rem;
+  }
+
+  .day-number {
+    font-size: 0.75rem;
+  }
+
+  .occasion-indicator {
+    font-size: 0.5rem;
+    padding: 0.5px;
+  }
+
+  .calendar-header {
+    font-size: 0.6rem;
+    padding: 2px;
+  }
+
+  .month-year h2 {
+    font-size: 1rem;
+  }
 
   /* Reduce motion for mobile performance */
   .today-card:hover {
