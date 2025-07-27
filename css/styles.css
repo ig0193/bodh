@@ -805,7 +805,6 @@ body {
   width: 100%;
   border: 1px solid var(--gray-200);
   gap: 0; /* Remove gap to prevent double borders */
-  overflow: hidden; /* Ensure clean borders */
   box-sizing: border-box;
 }
 
@@ -827,6 +826,12 @@ body {
   min-height: 40px;
   margin: 0; /* Remove any default margins */
   box-sizing: border-box;
+  position: relative; /* For clean borders */
+}
+
+/* Remove right border from last header cell */
+.calendar-unified-grid .day-header:nth-child(7) {
+  border-right: none;
 }
 
 .calendar-unified-grid .day {
@@ -842,6 +847,16 @@ body {
   min-height: 70px;
   margin: 0; /* Remove any default margins */
   box-sizing: border-box;
+}
+
+/* Remove right border from last cell in each row */
+.calendar-unified-grid .day:nth-child(7n) {
+  border-right: none;
+}
+
+/* Remove bottom border from last row */
+.calendar-unified-grid .day:nth-child(n+43):nth-child(-n+49) {
+  border-bottom: none;
 }
 
 .calendar-unified-grid .day:hover {
