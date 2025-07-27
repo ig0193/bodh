@@ -825,7 +825,7 @@ body {
   margin: 0;
   box-sizing: border-box;
   border-right: 1px solid var(--gray-200);
-  border-bottom: 1px solid var(--gray-200);
+  /* Remove bottom border to prevent intersection with date grid */
 }
 
 /* Remove right border from last header cell */
@@ -856,6 +856,7 @@ body {
   box-sizing: border-box;
   border-right: 1px solid var(--gray-200);
   border-bottom: 1px solid var(--gray-200);
+  border-top: 1px solid var(--gray-200); /* Add top border to create clean separation */
   overflow: hidden; /* Clip overflow text */
 }
 
