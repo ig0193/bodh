@@ -764,12 +764,40 @@ body {
   letter-spacing: 0.5px;
 }
 
+/* ===== CALENDAR SCROLL CONTAINER ===== */
+.calendar-scroll-container {
+  width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+  scrollbar-color: var(--gray-300) transparent;
+}
+
+.calendar-scroll-container::-webkit-scrollbar {
+  height: 6px;
+}
+
+.calendar-scroll-container::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.calendar-scroll-container::-webkit-scrollbar-thumb {
+  background: var(--gray-300);
+  border-radius: 3px;
+}
+
+.calendar-scroll-container::-webkit-scrollbar-thumb:hover {
+  background: var(--gray-400);
+}
+
 /* ===== GOOGLE CALENDAR STYLE GRID ===== */
 .calendar-grid-google {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
   grid-template-rows: repeat(6, 1fr);
   background: var(--white);
+  min-width: 700px; /* Minimum width to ensure all 7 columns are visible */
   width: 100%;
   aspect-ratio: 7/6;
 }
@@ -863,11 +891,15 @@ body {
   }
 
   /* Fix calendar grid for mobile */
+  .calendar-scroll-container {
+    width: 100%;
+    overflow-x: auto;
+  }
+  
   .calendar-grid-google {
+    min-width: 600px; /* Ensure all 7 columns are visible */
     aspect-ratio: auto;
     min-height: 400px;
-    width: 100%;
-    max-width: 100%;
   }
   
   .calendar-layout {
@@ -1071,10 +1103,9 @@ body {
 
   /* Fix calendar grid for small screens */
   .calendar-grid-google {
+    min-width: 500px; /* Ensure all 7 columns are visible */
     aspect-ratio: auto;
     min-height: 350px;
-    width: 100%;
-    max-width: 100%;
     gap: 1px;
   }
 
@@ -1140,10 +1171,9 @@ body {
 @media (max-width: 320px) {
   /* Fix calendar grid for extra small screens */
   .calendar-grid-google {
+    min-width: 400px; /* Ensure all 7 columns are visible */
     aspect-ratio: auto;
     min-height: 300px;
-    width: 100%;
-    max-width: 100%;
     gap: 0.5px;
   }
 
