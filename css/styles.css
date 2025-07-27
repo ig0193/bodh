@@ -804,6 +804,9 @@ body {
   min-width: 700px; /* Minimum width to ensure all 7 columns are visible */
   width: 100%;
   border: 1px solid var(--gray-200);
+  gap: 0; /* Remove gap to prevent double borders */
+  overflow: hidden; /* Ensure clean borders */
+  box-sizing: border-box;
 }
 
 /* Day header cells */
@@ -822,6 +825,8 @@ body {
   align-items: center;
   justify-content: center;
   min-height: 40px;
+  margin: 0; /* Remove any default margins */
+  box-sizing: border-box;
 }
 
 .calendar-unified-grid .day {
@@ -835,6 +840,8 @@ body {
   transition: var(--transition);
   background: var(--white);
   min-height: 70px;
+  margin: 0; /* Remove any default margins */
+  box-sizing: border-box;
 }
 
 .calendar-unified-grid .day:hover {
