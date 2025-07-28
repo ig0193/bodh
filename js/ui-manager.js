@@ -1448,13 +1448,14 @@ class HinduCalendarUI {
 
   updateTodayHighlight() {
     // Remove existing today highlights
-    document.querySelectorAll('.calendar-day.today').forEach(day => {
+    document.querySelectorAll('.day.today').forEach(day => {
       day.classList.remove('today');
     });
-
+ 
     // Add today highlight
-    const today = new Date().toISOString().split('T')[0];
-    const todayElement = document.querySelector(`[data-date="${today}"]`);
+    const now = new Date();
+    const today = `${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}-${String(now.getDate()).padStart(2,'0')}`;
+    const todayElement = document.querySelector(`.day[data-date="${today}"]`);
     if (todayElement) {
       todayElement.classList.add('today');
     }
