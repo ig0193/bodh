@@ -3346,3 +3346,34 @@ body {
     display: flex !important;
   }
 }
+
+@media (max-width: 768px) {
+  /* Show the sidebar list inside This Month view on mobile */
+  #thisMonthView .occasions-sidebar {
+    display: block !important;
+    width: 100%;
+    padding: var(--spacing-md);
+  }
+}
+
+/* ===== This Month card refinements ===== */
+#thisMonthView .occasion-item {
+  padding: var(--spacing-md) var(--spacing-md) var(--spacing-md) calc(var(--spacing-md) + 8px);
+  margin-bottom: var(--spacing-md);
+  border-radius: var(--border-radius-lg);
+  border-left-width: 6px;
+  border-left-style: solid;
+  background: var(--white);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+}
+#thisMonthView .occasion-item.festival { border-left-color: var(--sacred-red); }
+#thisMonthView .occasion-item.ekadashi { border-left-color: var(--spiritual-purple); }
+#thisMonthView .occasion-type-badge { display:none !important; }
+#thisMonthView .occasion-name { font-size: 1rem; margin-bottom:2px; }
+#thisMonthView .occasion-roman { font-size: 0.85rem; color: var(--gray-600); font-style: italic; margin-bottom:4px; }
+#thisMonthView .occasion-date { font-size: 0.8rem; color: var(--gray-500); }
+
+#thisMonthView .occasion-item { text-align:left; }
+#thisMonthView .occasion-name { font-size:1.1rem; font-weight:600; }
+#thisMonthView .occasion-roman { font-size:0.95rem; }
+#thisMonthView .occasion-date { font-size:0.9rem; }

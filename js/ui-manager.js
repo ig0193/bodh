@@ -1270,7 +1270,10 @@ class HinduCalendarUI {
 
   goToToday() {
     this.engine.setToday();
-    this.renderCalendar();
+    // Switch to calendar view and re-render
+    this.showView('calendar');
+    // Close mobile menu if open
+    this.closeMobileMenu();
   }
 
   /**
@@ -1313,7 +1316,9 @@ class HinduCalendarUI {
     this.elements.navButtons.forEach(btn => btn.classList.remove('active'));
     
     // Show selected view
-    const selectedView = document.getElementById(`${viewName}View`);
+    let viewId = `${viewName}View`;
+    if (viewName === 'this-month') viewId = 'thisMonthView';
+    const selectedView = document.getElementById(viewId);
     if (selectedView) {
       selectedView.classList.add('active');
       this.currentView = viewName;
