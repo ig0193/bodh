@@ -32,6 +32,12 @@ class HinduCalendarUI {
       currentDateDisplay: document.getElementById('currentDateDisplay'),
       todayBtn: document.getElementById('todayBtn'),
 
+      // Mobile menu elements
+      mobileMenuToggle: document.getElementById('mobileMenuToggle'),
+      mobileMenuOverlay: document.getElementById('mobileMenuOverlay'),
+      mobileMenuClose: document.getElementById('mobileMenuClose'),
+      mobileMenuItems: document.querySelectorAll('.mobile-menu-item'),
+
       // Today's popup elements
       popupBackdrop: document.getElementById('popupBackdrop'),
       todayPopup: document.getElementById('todayPopup'),
@@ -79,9 +85,64 @@ class HinduCalendarUI {
   }
 
   /**
+   * Set up mobile menu functionality
+   */
+  setupMobileMenu() {
+    // Mobile menu toggle
+    if (this.elements.mobileMenuToggle) {
+      this.elements.mobileMenuToggle.addEventListener('click', () => this.toggleMobileMenu());
+    }
+
+    // Mobile menu close
+    if (this.elements.mobileMenuClose) {
+      this.elements.mobileMenuClose.addEventListener('click', () => this.closeMobileMenu());
+    }
+
+    // Mobile menu items
+    this.elements.mobileMenuItems.forEach(item => {
+      item.addEventListener('click', (e) => {
+        e.preventDefault();
+        const view = item.getAttribute('data-view');
+        this.showView(view);
+        this.closeMobileMenu();
+      });
+    });
+
+    // Close menu when clicking overlay
+    if (this.elements.mobileMenuOverlay) {
+      this.elements.mobileMenuOverlay.addEventListener('click', (e) => {
+        if (e.target === this.elements.mobileMenuOverlay) {
+          this.closeMobileMenu();
+        }
+      });
+    }
+  }
+
+  /**
+   * Toggle mobile menu
+   */
+  toggleMobileMenu() {
+    if (this.elements.mobileMenuOverlay) {
+      this.elements.mobileMenuOverlay.classList.toggle('show');
+    }
+  }
+
+  /**
+   * Close mobile menu
+   */
+  closeMobileMenu() {
+    if (this.elements.mobileMenuOverlay) {
+      this.elements.mobileMenuOverlay.classList.remove('show');
+    }
+  }
+
+  /**
    * Setup event listeners for user interactions
    */
   setupEventListeners() {
+    // Mobile menu
+    this.setupMobileMenu();
+    
     // Today button
     if (this.elements.todayBtn) {
       this.elements.todayBtn.addEventListener('click', () => this.goToToday());
@@ -216,7 +277,7 @@ class HinduCalendarUI {
     const calendarData = this.engine.generateCalendarData();
     
     this.renderCalendarHeader(calendarData);
-    this.renderCalendarGrid(calendarData);
+    this.renderCalendarGrid();
     this.renderOccasionsSidebar(calendarData);
   }
 
@@ -264,97 +325,121 @@ class HinduCalendarUI {
   /**
    * Render calendar grid with days
    */
-  renderCalendarGrid(calendarData) {
-    if (!this.elements.calendarGrid) return;
+  renderCalendarGrid() {
+    const calendarGrid = this.elements.calendarGrid;
+    calendarGrid.innerHTML = '';
 
-    const { days } = calendarData;
-    
-    // Clear existing content
-    this.elements.calendarGrid.innerHTML = '';
+    const isMobile = window.innerWidth <= 768;
+    calendarGrid.classList.toggle('mobile-grid', isMobile);
 
-    // Create day headers first
-    const dayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-    dayNames.forEach(dayName => {
-      const headerElement = document.createElement('div');
-      headerElement.className = 'day-header';
-      headerElement.textContent = dayName;
-      this.elements.calendarGrid.appendChild(headerElement);
-    });
+    const calendarData = this.engine.generateCalendarData();
+    if (!calendarData || !calendarData.days) {
+      console.error("Failed to generate calendar data. Aborting render.");
+      return;
+    }
 
-    // Ensure exactly 42 days are rendered (6 weeks × 7 days)
-    const daysToRender = days.slice(0, 42);
-    console.log(`Rendering ${daysToRender.length} days in calendar grid`);
+    let daysToRender = calendarData.days;
 
-    // Calendar days
-    daysToRender.forEach(dayData => {
-      const dayElement = this.createDayElement(dayData);
-      this.elements.calendarGrid.appendChild(dayElement);
+    if (isMobile) {
+      const currentMonthDays = calendarData.days.filter(d => d.isCurrentMonth);
+
+      const lastDayOfMonth = currentMonthDays.length > 0 ? currentMonthDays[currentMonthDays.length - 1].date : new Date(this.engine.currentYear, this.engine.currentMonth + 1, 0);
+      const nextMonthDate = new Date(lastDayOfMonth);
+      nextMonthDate.setDate(nextMonthDate.getDate() + 1);
+      const nextMonth = nextMonthDate.getMonth();
+      const nextYear = nextMonthDate.getFullYear();
+
+      const paddingNeeded = 32 - currentMonthDays.length;
+      
+      const paddingDays = [];
+      if (paddingNeeded > 0) {
+        for (let i = 1; i <= paddingNeeded; i++) {
+          const dayData = this.engine.createDayData(nextYear, nextMonth, i);
+          dayData.isCurrentMonth = false;
+          dayData.isOtherMonth = true;
+          paddingDays.push(dayData);
+        }
+      }
+      
+      daysToRender = [...currentMonthDays, ...paddingDays];
+
+    } else {
+      const dayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+      dayNames.forEach(day => {
+        const headerCell = document.createElement('div');
+        headerCell.className = 'day-header';
+        headerCell.textContent = day;
+        calendarGrid.appendChild(headerCell);
+      });
+    }
+
+    daysToRender.forEach((dayData, index) => {
+      if (dayData) {
+        const dayElement = this.createDayElement(dayData);
+        calendarGrid.appendChild(dayElement);
+      }
     });
   }
 
   /**
-   * Render occasions sidebar with current month's festivals and events
+   * Render occasions list for a specific container
    */
-  renderOccasionsSidebar(calendarData) {
-    if (!this.elements.occasionsList) return;
+  renderOccasionsList(calendarData, containerId) {
+    const container = document.getElementById(containerId);
+    if (!container) return;
 
     // Get current month's occasions
     const occasions = [];
     
     calendarData.days.forEach(dayData => {
       if (dayData.occasion && dayData.isCurrentMonth) {
+        const dayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+        const dayName = dayNames[dayData.date.getDay()];
+        
         occasions.push({
-          name: dayData.occasion.name || dayData.occasion.roman || 'Festival',
-          date: dayData.date,
-          dateString: dayData.dateString,
-          type: dayData.occasionType,
-          data: dayData
+          ...dayData.occasion,
+          date: dayData.dateString,
+          dayNumber: dayData.day,
+          dayName: dayName,
+          type: dayData.occasionType
         });
       }
     });
 
-    // Sort occasions by date
-    occasions.sort((a, b) => new Date(a.dateString) - new Date(b.dateString));
-
-    // Render occasions
     if (occasions.length === 0) {
-      this.elements.occasionsList.innerHTML = `
-        <div class="loading-occasions">
-          No special occasions this month
+      container.innerHTML = `
+        <div class="no-occasions">
+          <p>No occasions this month</p>
         </div>
       `;
       return;
     }
 
-    this.elements.occasionsList.innerHTML = occasions.map((occasion, index) => {
-      const dateObj = new Date(occasion.dateString);
-      const formattedDate = dateObj.toLocaleDateString('en-US', { 
-        month: 'short', 
-        day: 'numeric' 
-      });
+    // Sort occasions by date
+    occasions.sort((a, b) => new Date(a.date) - new Date(b.date));
 
-      // Get both Hindi and Roman names
-      const hindiName = occasion.data.occasion.name || '';
-      const romanName = occasion.data.occasion.roman || occasion.data.occasion.english || '';
-      
-      return `
-        <div class="occasion-item ${occasion.type}" data-occasion-index="${index}">
-          <div class="occasion-name">${hindiName}</div>
-          <div class="occasion-roman">${romanName}</div>
-          <div class="occasion-date">${formattedDate}</div>
+    // Create occasions HTML
+    const occasionsHTML = occasions.map(occasion => `
+      <div class="occasion-item ${occasion.type === 'festival' ? 'festival' : 'ekadashi'}">
+        <div class="occasion-info">
+          <div class="occasion-name">${occasion.name || occasion.hindi || occasion.roman}</div>
+          <div class="occasion-roman">${occasion.roman || occasion.english || ''}</div>
+          <div class="occasion-date">${occasion.dayName} ${occasion.dayNumber}</div>
         </div>
-      `;
-    }).join('');
+        <div class="occasion-type-badge ${occasion.type === 'festival' ? 'festival' : 'ekadashi'}">
+          ${occasion.type === 'festival' ? '🎉' : '🙏'}
+        </div>
+      </div>
+    `).join('');
 
-    // Add click event listeners for occasion items
-    this.elements.occasionsList.querySelectorAll('.occasion-item').forEach((item, index) => {
-      item.addEventListener('click', () => {
-        const occasionData = occasions[index];
-        if (occasionData && occasionData.data) {
-          this.showDayDetails(occasionData.data);
-        }
-      });
-    });
+    container.innerHTML = occasionsHTML;
+  }
+
+  /**
+   * Render occasions sidebar with current month's festivals and events
+   */
+  renderOccasionsSidebar(calendarData) {
+    this.renderOccasionsList(calendarData, 'occasionsList');
   }
 
   /**
@@ -409,57 +494,77 @@ class HinduCalendarUI {
   }
 
   /**
-   * Create individual day element
+   * Create a day element for the calendar grid
    */
   createDayElement(dayData) {
-    const { day, occasion, occasionType, isToday, isAuspicious, isOtherMonth } = dayData;
-    
-    // Generate CSS classes for the day
-    const cssClasses = ['day'];
-    if (isToday) cssClasses.push('today');
-    if (isOtherMonth) cssClasses.push('other-month');
-    if (occasion && !isOtherMonth) {
-      cssClasses.push('has-occasion');
-      if (occasionType === 'festival') cssClasses.push('festival-day');
-      if (occasionType === 'ekadashi') cssClasses.push('ekadashi-day');
-    }
-    if (isAuspicious && !isOtherMonth) cssClasses.push('auspicious');
-    
-    const dayElement = this.createElement('div', cssClasses.join(' '));
-    dayElement.dataset.date = dayData.dateString;
-    
-    // Day number
-    const dayNumber = this.createElement('div', 'day-number', day.toString());
-    dayElement.appendChild(dayNumber);
+    const dayElement = document.createElement('div');
 
-    // Occasion indicator (only for current month)
-    if (occasion && !isOtherMonth) {
-      const indicator = this.createElement('div', 'occasion-indicator');
-      
-      // Use shortened display name
-      const displayName = this.getShortDisplayName(occasion, occasionType);
-      indicator.textContent = displayName;
-      
-      // Add tooltip with full name
-      const fullName = occasion.name || occasion.roman || occasion.english || displayName;
-      indicator.title = fullName;
-      
+    if (!dayData || dayData.isEmpty) {
+      dayElement.className = 'day empty';
+      return dayElement;
+    }
+
+    const { date, day, isCurrentMonth, isToday, occasion, occasionType } = dayData;
+    
+    dayElement.className = 'day';
+    dayElement.setAttribute('data-date', dayData.dateString);
+    dayElement.setAttribute('role', 'gridcell');
+    dayElement.setAttribute('tabindex', '0');
+    
+    // Add classes based on day properties
+    if (!isCurrentMonth) dayElement.classList.add('other-month');
+    if (isToday) dayElement.classList.add('today');
+    if (occasion) {
+      dayElement.classList.add('has-occasion');
       if (occasionType === 'festival') {
-        indicator.classList.add(`festival-${occasion.type || 'major'}`);
+        dayElement.classList.add('festival-day');
+        if (occasion.importance === 'major') {
+          dayElement.classList.add('festival-major');
+        }
       } else if (occasionType === 'ekadashi') {
-        indicator.classList.add('ekadashi-indicator');
+        dayElement.classList.add('ekadashi-day');
       }
-      
-      dayElement.appendChild(indicator);
     }
-
-    // Click event for details (only for current month)
-    if (occasion && !isOtherMonth) {
-      dayElement.addEventListener('click', () => this.showDayDetails(dayData));
-      dayElement.style.cursor = 'pointer';
-      dayElement.title = dayData.significance || occasion.significance || '';
+    
+    // Get day name for mobile layout
+    const dayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+    const dayName = dayNames[date.getDay()];
+    
+    // Create day content
+    const dayContent = document.createElement('div');
+    dayContent.className = 'day-content';
+    
+    // Add day name (always visible on mobile)
+    const dayNameElement = document.createElement('div');
+    dayNameElement.className = 'day-name';
+    dayNameElement.textContent = dayName;
+    dayContent.appendChild(dayNameElement);
+    
+    // Add day number
+    const dayNumberElement = document.createElement('div');
+    dayNumberElement.className = 'day-number';
+    dayNumberElement.textContent = day;
+    dayContent.appendChild(dayNumberElement);
+    
+    // Add occasion indicator if exists
+    if (occasion) {
+      const occasionElement = document.createElement('div');
+      occasionElement.className = `occasion-indicator ${occasionType === 'festival' ? 'festival-major' : 'ekadashi-indicator'}`;
+      occasionElement.textContent = this.getShortDisplayName(occasion, occasionType);
+      dayContent.appendChild(occasionElement);
     }
-
+    
+    dayElement.appendChild(dayContent);
+    
+    // Add click event
+    dayElement.addEventListener('click', () => this.showDayDetails(dayData));
+    dayElement.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        this.showDayDetails(dayData);
+      }
+    });
+    
     return dayElement;
   }
 
@@ -1197,25 +1302,89 @@ class HinduCalendarUI {
     this.elements.currentDateDisplay.focus();
   }
 
+  /**
+   * Show a specific view
+   */
   showView(viewName) {
-    // Update navigation buttons
-    this.elements.navButtons.forEach(btn => btn.classList.remove('active'));
-    document.querySelector(`[data-view="${viewName}"]`)?.classList.add('active');
-
-    // Update views
+    // Hide all views
     this.elements.views.forEach(view => view.classList.remove('active'));
-    document.getElementById(`${viewName}View`)?.classList.add('active');
-
-    this.currentView = viewName;
-
-    // Render specific view content
-    if (viewName === 'calendar') {
-      this.renderCalendar();
-    } else if (viewName === 'upcoming') {
-      this.renderUpcomingEvents();
-    } else if (viewName === 'months') {
-      this.renderMonthsView();
+    
+    // Remove active class from all nav buttons
+    this.elements.navButtons.forEach(btn => btn.classList.remove('active'));
+    
+    // Show selected view
+    const selectedView = document.getElementById(`${viewName}View`);
+    if (selectedView) {
+      selectedView.classList.add('active');
+      this.currentView = viewName;
     }
+    
+    // Add active class to nav button
+    document.querySelector(`[data-view="${viewName}"]`)?.classList.add('active');
+    
+    // Render view-specific content
+    switch (viewName) {
+      case 'calendar':
+        this.renderCalendar();
+        break;
+      case 'upcoming':
+        this.renderUpcomingEvents();
+        break;
+      case 'months':
+        this.renderMonthsView();
+        break;
+      case 'this-month':
+        this.renderThisMonthView();
+        break;
+      case 'festivals':
+        this.renderFestivalsView();
+        break;
+      case 'search':
+        this.renderSearchView();
+        break;
+      case 'about':
+        // About view is static HTML
+        break;
+      case 'donate':
+        // Donate view is static HTML
+        break;
+    }
+  }
+
+  /**
+   * Render This Month view
+   */
+  renderThisMonthView() {
+    const calendarData = this.engine.generateCalendarData();
+    this.renderOccasionsList(calendarData, 'thisMonthOccasionsList');
+  }
+
+  /**
+   * Render Festivals view
+   */
+  renderFestivalsView() {
+    const festivalsContainer = document.querySelector('.festivals-content');
+    if (!festivalsContainer) return;
+    
+    // Placeholder for festivals view
+    festivalsContainer.innerHTML = `
+      <div class="festivals-loading">
+        <p>Festivals view coming soon...</p>
+      </div>
+    `;
+  }
+
+  /**
+   * Render Search view
+   */
+  renderSearchView() {
+    const searchResults = document.getElementById('searchResults');
+    if (!searchResults) return;
+    
+    // Placeholder for search functionality
+    searchResults.innerHTML = `
+      <p class="search-placeholder">Search functionality coming soon...</p>
+    `;
   }
 
   /**
@@ -1307,6 +1476,22 @@ class HinduCalendarUI {
     // Adjust layout for mobile
     const isMobile = window.innerWidth < 768;
     document.body.classList.toggle('mobile-layout', isMobile);
+    
+    // Update calendar grid for mobile
+    if (this.elements.calendarGrid) {
+      const wasMobile = this.elements.calendarGrid.classList.contains('mobile-grid');
+      if (isMobile && !wasMobile) {
+        // Switching to mobile - re-render grid
+        this.renderCalendar();
+      } else if (!isMobile && wasMobile) {
+        // Switching to desktop - re-render grid
+        this.renderCalendar();
+      } else if (isMobile) {
+        this.elements.calendarGrid.classList.add('mobile-grid');
+      } else {
+        this.elements.calendarGrid.classList.remove('mobile-grid');
+      }
+    }
   }
 
   /**

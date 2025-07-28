@@ -78,6 +78,11 @@
         <!-- Header Section -->
         <header class="header" role="banner">
             <div class="header-content">
+                <!-- Mobile Hamburger Menu -->
+                <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Toggle Mobile Menu">
+                    <i class="fas fa-bars"></i>
+                </button>
+                
                 <!-- App Identity -->
                 <div class="app-identity">
                     <i class="fas fa-om" aria-hidden="true"></i>
@@ -124,6 +129,58 @@
             </button>
         </nav>
         
+        <!-- Mobile Menu Overlay -->
+        <div class="mobile-menu-overlay" id="mobileMenuOverlay">
+            <div class="mobile-menu-content">
+                <div class="mobile-menu-header">
+                    <div class="mobile-app-identity">
+                        <i class="fas fa-om" aria-hidden="true"></i>
+                        <div class="mobile-app-title">
+                            <h2>बोध - Bodh</h2>
+                            <p class="mobile-app-subtitle">Awakening cultural consciousness</p>
+                        </div>
+                    </div>
+                    <button class="mobile-menu-close" id="mobileMenuClose" aria-label="Close Menu">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <nav class="mobile-menu-nav">
+                    <a href="#" class="mobile-menu-item" data-view="calendar">
+                        <i class="fas fa-calendar-alt"></i>
+                        <span>Calendar</span>
+                    </a>
+                    <a href="#" class="mobile-menu-item" data-view="upcoming">
+                        <i class="fas fa-star"></i>
+                        <span>Upcoming</span>
+                    </a>
+                    <a href="#" class="mobile-menu-item" data-view="this-month">
+                        <i class="fas fa-calendar-week"></i>
+                        <span>This Month</span>
+                    </a>
+                    <a href="#" class="mobile-menu-item" data-view="months">
+                        <i class="fas fa-moon"></i>
+                        <span>Months</span>
+                    </a>
+                    <a href="#" class="mobile-menu-item" data-view="festivals">
+                        <i class="fas fa-list"></i>
+                        <span>Festivals</span>
+                    </a>
+                    <a href="#" class="mobile-menu-item" data-view="search">
+                        <i class="fas fa-search"></i>
+                        <span>Search</span>
+                    </a>
+                    <a href="#" class="mobile-menu-item" data-view="about">
+                        <i class="fas fa-info-circle"></i>
+                        <span>About</span>
+                    </a>
+                    <a href="#" class="mobile-menu-item" data-view="donate">
+                        <i class="fas fa-heart"></i>
+                        <span>Donate</span>
+                    </a>
+                </nav>
+            </div>
+        </div>
+        
         <!-- Main Content Area -->
         <main class="main-content" role="main">
             
@@ -149,38 +206,52 @@
                     </aside>
                     
                     <!-- Main Calendar Area -->
-                    <div class="calendar-main">
-                        
-                        <!-- Compact Calendar Header -->
+                    <main class="calendar-main">
+                        <!-- Calendar Header -->
                         <div class="calendar-header-compact">
-                            <button id="prevMonth" class="control-btn" aria-label="Previous Month">
-                                <i class="fas fa-chevron-left" aria-hidden="true"></i>
-                            </button>
-                            
                             <div class="month-info">
-                                <h2 id="currentMonth" aria-live="polite">Loading...</h2>
+                                <h2 id="currentMonth">July 2025</h2>
                                 <div class="hindu-months-compact" id="hinduMonths">
-                                    <!-- Hindu month info will be populated here -->
+                                    <!-- Hindu month names will be populated here -->
                                 </div>
                             </div>
                             
-                            <button id="nextMonth" class="control-btn" aria-label="Next Month">
-                                <i class="fas fa-chevron-right" aria-hidden="true"></i>
-                            </button>
+                            <!-- Navigation Controls -->
+                            <div class="calendar-controls">
+                                <button class="control-btn" id="prevMonth" aria-label="Previous Month">
+                                    <i class="fas fa-chevron-left"></i>
+                                </button>
+                                <button class="control-btn" id="nextMonth" aria-label="Next Month">
+                                    <i class="fas fa-chevron-right"></i>
+                                </button>
+                            </div>
                         </div>
                         
-                        <!-- Calendar Container with Horizontal Scroll -->
+                        <!-- Calendar Grid -->
                         <div class="calendar-scroll-container">
                             <!-- Unified Calendar Grid (Headers + Dates) -->
                             <div class="calendar-unified-grid" id="calendarGrid" role="grid" aria-label="Calendar Days">
                                 <!-- Calendar will be generated here by JavaScript -->
                             </div>
                         </div>
-                        
-                    </div>
-                    
+                    </main>
                 </div>
-                
+            </section>
+
+            <!-- This Month View -->
+            <section id="thisMonthView" class="view" aria-label="This Month View">
+                <div class="this-month-container">
+                    <div class="this-month-header">
+                        <h2>This Month's Occasions</h2>
+                        <p class="this-month-subtitle">Sacred days and festivals in the current month</p>
+                    </div>
+                    <div class="this-month-content">
+                        <div class="occasions-list" id="thisMonthOccasionsList">
+                            <!-- Current month's occasions will be populated here -->
+                            <div class="loading-occasions">Loading occasions...</div>
+                        </div>
+                    </div>
+                </div>
             </section>
             
             <!-- Upcoming Events View -->
@@ -376,6 +447,73 @@
                                 <li>Modern ways to observe traditional practices</li>
                                 <li>Multi-language support (Hindi, Roman, English)</li>
                             </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Festivals View -->
+            <section id="festivalsView" class="view" aria-label="Festivals View">
+                <div class="festivals-container">
+                    <div class="festivals-header">
+                        <h2>Festivals & Ekadashi</h2>
+                        <p class="festivals-subtitle">Complete list of sacred occasions for the year</p>
+                    </div>
+                    <div class="festivals-content">
+                        <div class="festivals-loading">
+                            <p>Loading festivals...</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Search View -->
+            <section id="searchView" class="view" aria-label="Search View">
+                <div class="search-container">
+                    <div class="search-header">
+                        <h2>Search</h2>
+                        <p class="search-subtitle">Find festivals, Ekadashi, and cultural information</p>
+                    </div>
+                    <div class="search-content">
+                        <div class="search-box">
+                            <input type="text" id="searchInput" placeholder="Search for festivals, Ekadashi, or months..." />
+                            <button id="searchBtn">
+                                <i class="fas fa-search"></i>
+                            </button>
+                        </div>
+                        <div class="search-results" id="searchResults">
+                            <p class="search-placeholder">Enter a search term to find cultural information...</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Donate View -->
+            <section id="donateView" class="view" aria-label="Donate View">
+                <div class="donate-container">
+                    <div class="donate-header">
+                        <h2>Support बोध - Bodh</h2>
+                        <p class="donate-subtitle">Help us preserve and promote Hindu cultural heritage</p>
+                    </div>
+                    <div class="donate-content">
+                        <div class="donate-section">
+                            <h3>Why Support Us?</h3>
+                            <p>Your support helps us maintain and expand our platform, ensuring that Hindu cultural knowledge remains accessible to everyone. We're committed to keeping this resource free while continuously improving its content and features.</p>
+                        </div>
+                        
+                        <div class="donate-section">
+                            <h3>How Your Contribution Helps</h3>
+                            <ul>
+                                <li><strong>Content Development:</strong> Research and creation of accurate cultural information</li>
+                                <li><strong>Platform Maintenance:</strong> Keeping the application running smoothly</li>
+                                <li><strong>Feature Development:</strong> Adding new educational content and features</li>
+                                <li><strong>Accessibility:</strong> Ensuring the platform works for all users</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="donate-section">
+                            <h3>Coming Soon</h3>
+                            <p>We're working on setting up secure donation options. For now, please reach out to us with your feedback and suggestions. Your support in spreading awareness about our platform is greatly appreciated.</p>
                         </div>
                     </div>
                 </div>
