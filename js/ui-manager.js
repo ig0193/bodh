@@ -575,7 +575,15 @@ class HinduCalendarUI {
     const { date, occasion, occasionType, significance, recommendations, hinduMonth } = dayData;
     
     const content = this.createDetailContent(dayData);
-    this.showModal('Day Details', content);
+
+    // Dynamic modal title: festival/ekadashi name when available
+    let modalTitle = 'Day Details';
+    if (occasion) {
+      const nameComposite = `${occasion.roman || ''}${occasion.name ? ` (${occasion.name})` : ''}`.trim();
+      modalTitle = nameComposite || modalTitle;
+    }
+
+    this.showModal(modalTitle, content);
   }
 
   /**
@@ -616,7 +624,7 @@ class HinduCalendarUI {
           </div>
           
           <div class="what-to-do">
-            <h4>What to Do (क्या करें)</h4>
+            <h4>Usual Practices (प्रथाएँ)</h4>
             <ul>
               ${occasion.whatToDo && Array.isArray(occasion.whatToDo) ? occasion.whatToDo.map(item => `<li>${item}</li>`).join('') : '<li>Loading recommendations...</li>'}
             </ul>
@@ -646,15 +654,12 @@ class HinduCalendarUI {
             ${occasion.warning ? `<p class="warning"><strong>⚠️ Note:</strong> ${occasion.warning}</p>` : ''}
           </div>
           
-          <div class="fasting-rules">
-            <h4>Fasting Rules (व्रत नियम)</h4>
-            <p>${occasion.fastingRules}</p>
-          </div>
-          
-          <div class="prayer-time">
-            <h4>Prayer Time</h4>
-            <p>${occasion.prayerTime}</p>
-          </div>
+          ${occasion.fasting ? `
+            <div class="fasting-rules">
+              <h4>Fasting Rules (व्रत नियम)</h4>
+              <p>${occasion.fasting}</p>
+            </div>
+          ` : ''}
           
           ${occasion.storyBrief ? `
             <div class="story-brief">
@@ -662,18 +667,6 @@ class HinduCalendarUI {
               <p>${occasion.storyBrief}</p>
             </div>
           ` : ''}
-        </div>
-      `;
-    }
-
-    // General recommendations
-    if (Array.isArray(recommendations) && recommendations.length > 0) {
-      content += `
-        <div class="recommendations-section">
-          <h3>Today's Recommendations (आज की सिफारिशें)</h3>
-          <ul>
-            ${recommendations.map(rec => `<li>${rec}</li>`).join('')}
-          </ul>
         </div>
       `;
     }

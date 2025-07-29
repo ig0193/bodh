@@ -19,7 +19,6 @@ const EKADASHI_2024 = {
     story: "Observing this Ekadashi blesses devotees with children and prosperity",
     significance: "Known for blessing devotees with children, especially for couples seeking progeny",
     fasting: "Complete fast from sunrise to next day sunrise",
-    prayerTime: "Early morning and evening",
     benefits: "Progeny, prosperity, and spiritual merit",
     deity: "Lord Vishnu",
     mantra: "ॐ नमो भगवते वासुदेवाय"
@@ -35,7 +34,6 @@ const EKADASHI_2024 = {
     story: "This Ekadashi helps in removing sins and grants salvation",
     significance: "Removes all sins, especially related to falsehood and stealing",
     fasting: "Complete fast, donation of sesame seeds (til)",
-    prayerTime: "Throughout the day",
     benefits: "Removal of sins, spiritual purification",
     deity: "Lord Vishnu",
     mantra: "ॐ नमो भगवते वासुदेवाय"
@@ -51,7 +49,6 @@ const EKADASHI_2024 = {
     story: "Victory over enemies and obstacles through divine grace",
     significance: "Grants victory in all endeavors and removes obstacles",
     fasting: "Complete fast with water allowed",
-    prayerTime: "Dawn to dusk prayers",
     benefits: "Victory, success, and divine protection",
     deity: "Lord Vishnu",
     mantra: "ॐ नमो भगवते वासुदेवाय"
@@ -67,7 +64,6 @@ const EKADASHI_2024 = {
     story: "Guarantees victory and success in all spiritual and material pursuits",
     significance: "Ensures victory in battles, both spiritual and worldly",
     fasting: "Complete fast recommended",
-    prayerTime: "Morning and evening worship",
     benefits: "Victory, courage, and divine strength",
     deity: "Lord Vishnu",
     mantra: "ॐ नमो भगवते वासुदेवाय"
@@ -83,7 +79,6 @@ const EKADASHI_2024 = {
     story: "Worship of Amla tree along with Lord Vishnu grants immense merit",
     significance: "Connected to Amla tree worship, grants health and longevity",
     fasting: "Fast with Amla tree worship",
-    prayerTime: "Under Amla tree if possible",
     benefits: "Health, longevity, and spiritual merit",
     deity: "Lord Vishnu and Amla Tree",
     mantra: "ॐ नमो भगवते वासुदेवाय"
@@ -99,7 +94,6 @@ const EKADASHI_2024 = {
     story: "Liberates from all sins accumulated over lifetimes", 
     significance: "Most powerful for removing all types of sins",
     fasting: "Complete fast with sincere repentance",
-    prayerTime: "Continuous prayer and meditation",
     benefits: "Complete liberation from sins",
     deity: "Lord Vishnu",
     mantra: "ॐ नमो भगवते वासुदेवाय"
@@ -115,7 +109,6 @@ const EKADASHI_2024 = {
     story: "Fulfills all desires and grants liberation from ghost yoni",
     significance: "Fulfills righteous desires and grants spiritual progress",
     fasting: "Complete fast with prayer",
-    prayerTime: "Early morning to evening",
     benefits: "Fulfillment of desires and spiritual advancement",
     deity: "Lord Vishnu",
     mantra: "ॐ नमो भगवते वासुदेवाय"
@@ -131,7 +124,6 @@ const EKADASHI_2024 = {
     story: "Equivalent to ten years of penance and grants heaven",
     significance: "Grants happiness and ultimate salvation",
     fasting: "Strict fast recommended", 
-    prayerTime: "Dawn and dusk",
     benefits: "Happiness, prosperity, and salvation",
     deity: "Lord Vishnu",
     mantra: "ॐ नमो भगवते वासुदेवाय"
@@ -147,7 +139,6 @@ const EKADASHI_2024 = {
     story: "Removes all sorrows and grants liberation to Vishnuloka",
     significance: "Most powerful for removing sorrows and sufferings",
     fasting: "Complete fast until next day",
-    prayerTime: "Continuous worship and prayer",
     benefits: "Relief from all sufferings",
     deity: "Lord Vishnu (Mohini Avatar)",
     mantra: "ॐ नमो भगवते वासुदेवाय"
@@ -163,7 +154,6 @@ const EKADASHI_2024 = {
     story: "Grants immense virtue and destroys great sins",
     significance: "Known for granting name, fame, and removing major sins", 
     fasting: "Complete fast with Tulsi worship",
-    prayerTime: "Full day prayer and meditation",
     benefits: "Virtue, fame, and sin removal",
     deity: "Lord Vishnu", 
     mantra: "ॐ नमो भगवते वासुदेवाय"
@@ -179,7 +169,6 @@ const EKADASHI_2024 = {
     story: "Bhima's special Ekadashi - equivalent to all 24 Ekadashis of the year",
     significance: "Most austere Ekadashi - without water, equals all Ekadashis",
     fasting: "Complete fast without food and water",
-    prayerTime: "Dawn to next dawn",
     benefits: "Merit of all Ekadashis and ultimate salvation",
     deity: "Lord Vishnu",
     mantra: "ॐ नमो भगवते वासुदेवाय"
@@ -195,7 +184,6 @@ const EKADASHI_2024 = {
     story: "Grants power of yoga and spiritual advancement",
     significance: "Enhances spiritual practices and yogic powers",
     fasting: "Fast with meditation and yoga",
-    prayerTime: "Meditation throughout",
     benefits: "Spiritual powers and yogic advancement", 
     deity: "Lord Vishnu",
     mantra: "ॐ नमो भगवते वासुदेवाय"
@@ -211,7 +199,6 @@ const EKADASHI_2024 = {
     story: "Lord Vishnu goes to sleep for four months (Chaturmas begins)",
     significance: "Beginning of Chaturmas, Lord Vishnu's four-month rest",
     fasting: "Complete fast with special prayers",
-    prayerTime: "Evening prayers for Lord's rest",
     benefits: "Spiritual merit and divine protection during Chaturmas",
     deity: "Lord Vishnu (Sleeping Form)",
     mantra: "ॐ नमो भगवते वासुदेवाय"
@@ -227,7 +214,6 @@ const EKADASHI_2024 = {
     story: "Lighting lamp on this day removes all sins and grants virtue",
     significance: "Special emphasis on lighting lamps and charity",
     fasting: "Fast with lamp lighting",
-    prayerTime: "Evening lamp ceremony", 
     benefits: "Sin removal and accumulation of virtue",
     deity: "Lord Vishnu",
     mantra: "ॐ नमो भगवते वासुदेवाय"
@@ -243,7 +229,6 @@ const EKADASHI_2024 = {
     story: "Especially powerful for blessing with children",
     significance: "Second Putrada Ekadashi, grants children and prosperity",
     fasting: "Complete fast with child-seeking prayers",
-    prayerTime: "Special prayers for progeny",
     benefits: "Children, family happiness, and prosperity",
     deity: "Lord Vishnu",
     mantra: "ॐ नमो भगवते वासुदेवाय"
@@ -259,7 +244,6 @@ const EKADASHI_2024 = {
     story: "Grants spiritual knowledge and higher consciousness",
     significance: "Eliminates sins and ignorance, grants wisdom",
     fasting: "Fast with study of scriptures", 
-    prayerTime: "Study and meditation", 
     benefits: "Spiritual knowledge and consciousness",
     deity: "Lord Vishnu",
     mantra: "ॐ नमो भगवते वासुदेवाय"
@@ -275,7 +259,6 @@ const EKADASHI_2024 = {
     story: "Lord Vishnu changes His sleeping position during Chaturmas",
     significance: "Lord Vishnu turns to His other side while sleeping",
     fasting: "Fast with worship of changing Lord",
-    prayerTime: "Special midnight worship",
     benefits: "Purification of body, mind, and soul",
     deity: "Lord Vishnu (Vamana Avatar)",
     mantra: "ॐ नमो भगवते वासुदेवाय"
@@ -291,7 +274,6 @@ const EKADASHI_2024 = {
     story: "Liberates ancestors from hell and grants them salvation",
     significance: "Special for ancestors' liberation during Pitru Paksha", 
     fasting: "Fast for ancestors' souls",
-    prayerTime: "Prayers for forefathers",
     benefits: "Ancestors' liberation and family blessings",
     deity: "Lord Vishnu",
     mantra: "ॐ नमो भगवते वासुदेवाय"
@@ -307,7 +289,6 @@ const EKADASHI_2024 = {
     story: "Destroys all sins like a hook (ankusha) removes elephant's stubbornness",
     significance: "Powerful for destroying all sins and fulfilling desires",
     fasting: "Fast with sincere repentance",
-    prayerTime: "Dawn to dusk prayers",
     benefits: "Complete sin removal and wish fulfillment",
     deity: "Lord Padmanabha",
     mantra: "ॐ नमो भगवते वासुदेवाय"
@@ -323,7 +304,6 @@ const EKADASHI_2024 = {
     story: "Grants blessings of both Lord Vishnu and Goddess Lakshmi",
     significance: "Brings wealth, prosperity, and spiritual elevation",
     fasting: "Fast with Rama-Lakshmi worship",
-    prayerTime: "Morning and evening prayers",
     benefits: "Wealth, prosperity, and higher consciousness", 
     deity: "Lord Rama and Goddess Lakshmi",
     mantra: "ॐ नमो भगवते वासुदेवाय"
@@ -339,7 +319,6 @@ const EKADASHI_2024 = {
     story: "Lord Vishnu wakes up from His four-month sleep (Chaturmas ends)",
     significance: "End of Chaturmas, Lord Vishnu awakens, auspicious activities resume",
     fasting: "Celebrate Lord's awakening with fast",
-    prayerTime: "Early morning awakening prayers",
     benefits: "Body-mind purification and new beginnings",
     deity: "Lord Vishnu (Awakening Form)", 
     mantra: "ॐ नमो भगवते वासुदेवाय"
@@ -355,7 +334,6 @@ const EKADASHI_2024 = {
     story: "Birth of Ekadashi Devi to destroy demon Mura",
     significance: "Celebrates the origin of Ekadashi observance",
     fasting: "Fast honoring Ekadashi Devi",
-    prayerTime: "Prayers to Ekadashi Devi and Lord Vishnu",
     benefits: "Merit equal to thousand cow donations",
     deity: "Ekadashi Devi and Lord Vishnu",
     mantra: "ॐ नमो भगवते वासुदेवाय"
@@ -371,7 +349,6 @@ const EKADASHI_2024 = {
     story: "Grants liberation (moksha) from cycle of birth and death",
     significance: "Most powerful Ekadashi for achieving salvation",
     fasting: "Complete fast with liberation prayers",
-    prayerTime: "Continuous prayer and meditation",
     benefits: "Ultimate liberation and moksha",
     deity: "Lord Vishnu",
     mantra: "ॐ नमो भगवते वासुदेवाय"
@@ -387,7 +364,6 @@ const EKADASHI_2024 = {
     story: "Makes all endeavors successful and fruitful",
     significance: "Grants success in all undertakings",
     fasting: "Fast for success and prosperity",
-    prayerTime: "Prayers for successful ventures",
     benefits: "Success, prosperity, and achievement",
     deity: "Lord Vishnu",
     mantra: "ॐ नमो भगवते वासुदेवाय"
@@ -408,7 +384,6 @@ const EKADASHI_2025 = {
     story: "Observing this Ekadashi blesses devotees with children and prosperity",
     significance: "Known for blessing devotees with children, especially for couples seeking progeny",
     fasting: "Complete fast from sunrise to next day sunrise",
-    prayerTime: "Early morning and evening",
     benefits: "Progeny, prosperity, and spiritual merit",
     deity: "Lord Vishnu",
     mantra: "ॐ नमो भगवते वासुदेवाय"
@@ -426,7 +401,6 @@ const EKADASHI_2025 = {
     story: "This Ekadashi helps in removing sins and grants salvation",
     significance: "Removes all sins, especially related to falsehood and stealing",
     fasting: "Complete fast, donation of sesame seeds (til)",
-    prayerTime: "Throughout the day",
     benefits: "Removal of sins, spiritual purification",
     deity: "Lord Vishnu",
     mantra: "ॐ नमो भगवते वासुदेवाय"
@@ -444,7 +418,6 @@ const EKADASHI_2025 = {
     story: "Victory over enemies and obstacles through divine grace",
     significance: "Grants victory in all endeavors and removes obstacles",
     fasting: "Complete fast with water allowed",
-    prayerTime: "Dawn to dusk prayers",
     benefits: "Victory, success, and divine protection",
     deity: "Lord Vishnu",
     mantra: "ॐ नमो भगवते वासुदेवाय"
@@ -462,7 +435,6 @@ const EKADASHI_2025 = {
     story: "Guarantees victory and success in all spiritual and material pursuits",
     significance: "Ensures victory in battles, both spiritual and worldly",
     fasting: "Complete fast recommended",
-    prayerTime: "Morning and evening worship",
     benefits: "Victory, courage, and divine strength",
     deity: "Lord Vishnu",
     mantra: "ॐ नमो भगवते वासुदेवाय"
@@ -480,7 +452,6 @@ const EKADASHI_2025 = {
     story: "Worship of Amla tree along with Lord Vishnu grants immense merit",
     significance: "Connected to Amla tree worship, grants health and longevity",
     fasting: "Fast with Amla tree worship",
-    prayerTime: "Under Amla tree if possible",
     benefits: "Health, longevity, and spiritual merit",
     deity: "Lord Vishnu and Amla Tree",
     mantra: "ॐ नमो भगवते वासुदेवाय"
@@ -498,7 +469,6 @@ const EKADASHI_2025 = {
     story: "Liberates from all sins accumulated over lifetimes",
     significance: "Most powerful for removing all types of sins",
     fasting: "Complete fast with sincere repentance",
-    prayerTime: "Continuous prayer and meditation",
     benefits: "Complete liberation from sins",
     deity: "Lord Vishnu",
     mantra: "ॐ नमो भगवते वासुदेवाय"
@@ -516,7 +486,6 @@ const EKADASHI_2025 = {
     story: "Fulfills all desires and grants liberation from ghost yoni",
     significance: "Fulfills righteous desires and grants spiritual progress",
     fasting: "Complete fast with prayer",
-    prayerTime: "Early morning to evening",
     benefits: "Fulfillment of desires and spiritual advancement",
     deity: "Lord Vishnu",
     mantra: "ॐ नमो भगवते वासुदेवाय"
@@ -534,7 +503,6 @@ const EKADASHI_2025 = {
     story: "Equivalent to ten years of penance and grants heaven",
     significance: "Grants happiness and ultimate salvation",
     fasting: "Strict fast recommended",
-    prayerTime: "Dawn and dusk",
     benefits: "Happiness, prosperity, and salvation",
     deity: "Lord Vishnu",
     mantra: "ॐ नमो भगवते वासुदेवाय"
@@ -552,7 +520,6 @@ const EKADASHI_2025 = {
     story: "Removes all sorrows and grants liberation to Vishnuloka",
     significance: "Most powerful for removing sorrows and sufferings",
     fasting: "Complete fast until next day",
-    prayerTime: "Continuous worship and prayer",
     benefits: "Relief from all sufferings",
     deity: "Lord Vishnu (Mohini Avatar)",
     mantra: "ॐ नमो भगवते वासुदेवाय"
@@ -570,7 +537,6 @@ const EKADASHI_2025 = {
     story: "Grants immense virtue and destroys great sins",
     significance: "Known for granting name, fame, and removing major sins",
     fasting: "Complete fast with Tulsi worship",
-    prayerTime: "Full day prayer and meditation",
     benefits: "Virtue, fame, and sin removal",
     deity: "Lord Vishnu",
     mantra: "ॐ नमो भगवते वासुदेवाय"
@@ -588,7 +554,6 @@ const EKADASHI_2025 = {
     story: "Bhima's special Ekadashi - equivalent to all 24 Ekadashis of the year",
     significance: "Most austere Ekadashi - without water, equals all Ekadashis",
     fasting: "Complete fast without food and water",
-    prayerTime: "Dawn to next dawn",
     benefits: "Merit of all Ekadashis and ultimate salvation",
     deity: "Lord Vishnu",
     mantra: "ॐ नमो भगवते वासुदेवाय"
@@ -606,7 +571,6 @@ const EKADASHI_2025 = {
     story: "Grants power of yoga and spiritual advancement",
     significance: "Enhances spiritual practices and yogic powers",
     fasting: "Fast with meditation and yoga",
-    prayerTime: "Meditation throughout",
     benefits: "Spiritual powers and yogic advancement",
     deity: "Lord Vishnu",
     mantra: "ॐ नमो भगवते वासुदेवाय"
@@ -624,7 +588,6 @@ const EKADASHI_2025 = {
     story: "Lord Vishnu goes to sleep for four months (Chaturmas begins)",
     significance: "Beginning of Chaturmas, Lord Vishnu's four-month rest",
     fasting: "Complete fast with special prayers",
-    prayerTime: "Evening prayers for Lord's rest",
     benefits: "Spiritual merit and divine protection during Chaturmas",
     deity: "Lord Vishnu (Sleeping Form)",
     mantra: "ॐ नमो भगवते वासुदेवाय"
@@ -642,7 +605,6 @@ const EKADASHI_2025 = {
     story: "Lighting lamp on this day removes all sins and grants virtue",
     significance: "Special emphasis on lighting lamps and charity",
     fasting: "Fast with lamp lighting",
-    prayerTime: "Evening lamp ceremony",
     benefits: "Sin removal and accumulation of virtue",
     deity: "Lord Vishnu",
     mantra: "ॐ नमो भगवते वासुदेवाय"
@@ -660,7 +622,6 @@ const EKADASHI_2025 = {
     story: "Especially powerful for blessing with children",
     significance: "Second Putrada Ekadashi, grants children and prosperity",
     fasting: "Complete fast with child-seeking prayers",
-    prayerTime: "Special prayers for progeny",
     benefits: "Children, family happiness, and prosperity",
     deity: "Lord Vishnu",
     mantra: "ॐ नमो भगवते वासुदेवाय"
@@ -678,7 +639,6 @@ const EKADASHI_2025 = {
     story: "Grants spiritual knowledge and higher consciousness",
     significance: "Eliminates sins and ignorance, grants wisdom",
     fasting: "Fast with study of scriptures",
-    prayerTime: "Study and meditation",
     benefits: "Spiritual knowledge and consciousness",
     deity: "Lord Vishnu",
     mantra: "ॐ नमो भगवते वासुदेवाय"
@@ -695,8 +655,7 @@ const EKADASHI_2025 = {
     endTime: "04:21 AM, Sep 04",
     story: "Lord Vishnu changes His sleeping position during Chaturmas",
     significance: "Lord Vishnu turns to His other side while sleeping",
-    fasting: "Fast with worship of changing Lord",
-    prayerTime: "Special midnight worship",
+    fasting: "Fast with worship of changing Lord",  
     benefits: "Purification of body, mind, and soul",
     deity: "Lord Vishnu (Vamana Avatar)",
     mantra: "ॐ नमो भगवते वासुदेवाय"
@@ -714,7 +673,6 @@ const EKADASHI_2025 = {
     story: "Liberates ancestors from hell and grants them salvation",
     significance: "Special for ancestors' liberation during Pitru Paksha",
     fasting: "Fast for ancestors' souls",
-    prayerTime: "Prayers for forefathers",
     benefits: "Ancestors' liberation and family blessings",
     deity: "Lord Vishnu",
     mantra: "ॐ नमो भगवते वासुदेवाय"
@@ -732,7 +690,6 @@ const EKADASHI_2025 = {
     story: "Destroys all sins like a hook (ankusha) removes elephant's stubbornness",
     significance: "Powerful for destroying all sins and fulfilling desires",
     fasting: "Fast with sincere repentance",
-    prayerTime: "Dawn to dusk prayers",
     benefits: "Complete sin removal and wish fulfillment",
     deity: "Lord Padmanabha",
     mantra: "ॐ नमो भगवते वासुदेवाय"
@@ -750,7 +707,6 @@ const EKADASHI_2025 = {
     story: "Grants blessings of both Lord Vishnu and Goddess Lakshmi",
     significance: "Brings wealth, prosperity, and spiritual elevation",
     fasting: "Fast with Rama-Lakshmi worship",
-    prayerTime: "Morning and evening prayers",
     benefits: "Wealth, prosperity, and higher consciousness",
     deity: "Lord Rama and Goddess Lakshmi",
     mantra: "ॐ नमो भगवते वासुदेवाय"
@@ -768,7 +724,6 @@ const EKADASHI_2025 = {
     story: "Lord Vishnu wakes up from His four-month sleep (Chaturmas ends)",
     significance: "End of Chaturmas, Lord Vishnu awakens, auspicious activities resume",
     fasting: "Celebrate Lord's awakening with fast",
-    prayerTime: "Early morning awakening prayers",
     benefits: "Body-mind purification and new beginnings",
     deity: "Lord Vishnu (Awakening Form)",
     mantra: "ॐ नमो भगवते वासुदेवाय"
@@ -786,7 +741,6 @@ const EKADASHI_2025 = {
     story: "Birth of Ekadashi Devi to destroy demon Mura",
     significance: "Celebrates the origin of Ekadashi observance",
     fasting: "Fast honoring Ekadashi Devi",
-    prayerTime: "Prayers to Ekadashi Devi and Lord Vishnu",
     benefits: "Merit equal to thousand cow donations",
     deity: "Ekadashi Devi and Lord Vishnu",
     mantra: "ॐ नमो भगवते वासुदेवाय"
@@ -804,7 +758,6 @@ const EKADASHI_2025 = {
     story: "Grants liberation (moksha) from cycle of birth and death",
     significance: "Most powerful Ekadashi for achieving salvation",
     fasting: "Complete fast with liberation prayers",
-    prayerTime: "Continuous prayer and meditation",
     benefits: "Ultimate liberation and moksha",
     deity: "Lord Vishnu",
     mantra: "ॐ नमो भगवते वासुदेवाय"
@@ -822,7 +775,6 @@ const EKADASHI_2025 = {
     story: "Makes all endeavors successful and fruitful",
     significance: "Grants success in all undertakings",
     fasting: "Fast for success and prosperity",
-    prayerTime: "Prayers for successful ventures",
     benefits: "Success, prosperity, and achievement",
     deity: "Lord Vishnu",
     mantra: "ॐ नमो भगवते वासुदेवाय"
@@ -840,7 +792,6 @@ const EKADASHI_2025 = {
     story: "Observing this Ekadashi blesses devotees with children and prosperity",
     significance: "Known for blessing devotees with children, especially for couples seeking progeny",
     fasting: "Complete fast from sunrise to next day sunrise",
-    prayerTime: "Early morning and evening",
     benefits: "Progeny, prosperity, and spiritual merit",
     deity: "Lord Vishnu",
     mantra: "ॐ नमो भगवते वासुदेवाय"
