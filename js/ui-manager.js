@@ -6,14 +6,12 @@
 class HinduCalendarUI {
   constructor(calendarEngine) {
     this.engine = calendarEngine;
-    this.modal = null;
     this.currentView = 'calendar';
     this.elements = {};
     
-    // Initialize multi-event modal state
-    this.currentEventIndex = 0;
-    this.dayEvents = [];
-    this.modalDayData = null;
+    // Handlers will be initialized after elements are cached
+    this.mobileMenuHandler = null;
+    this.modalManager = null;
     
     this.init();
   }
@@ -23,6 +21,8 @@ class HinduCalendarUI {
    */
   init() {
     this.cacheElements();
+    this.initializeMobileMenuHandler();
+    this.initializeModalManager();
     this.setupEventListeners();
     this.setupSidebarToggle();
     this.render();
@@ -90,54 +90,25 @@ class HinduCalendarUI {
   }
 
   /**
-   * Set up mobile menu functionality
+   * Initialize mobile menu handler
    */
-  setupMobileMenu() {
-    // Mobile menu toggle
-    if (this.elements.mobileMenuToggle) {
-      this.elements.mobileMenuToggle.addEventListener('click', () => this.toggleMobileMenu());
-    }
-
-    // Mobile menu close
-    if (this.elements.mobileMenuClose) {
-      this.elements.mobileMenuClose.addEventListener('click', () => this.closeMobileMenu());
-    }
-
-    // Mobile menu items
-    this.elements.mobileMenuItems.forEach(item => {
-      item.addEventListener('click', (e) => {
-        e.preventDefault();
-        const view = item.getAttribute('data-view');
-        this.showView(view);
-        this.closeMobileMenu();
-      });
-    });
-
-    // Close menu when clicking overlay
-    if (this.elements.mobileMenuOverlay) {
-      this.elements.mobileMenuOverlay.addEventListener('click', (e) => {
-        if (e.target === this.elements.mobileMenuOverlay) {
-          this.closeMobileMenu();
-        }
-      });
-    }
+  initializeMobileMenuHandler() {
+    this.mobileMenuHandler = new MobileMenuHandler(this.elements, this);
   }
 
   /**
-   * Toggle mobile menu
+   * Initialize modal manager
    */
-  toggleMobileMenu() {
-    if (this.elements.mobileMenuOverlay) {
-      this.elements.mobileMenuOverlay.classList.toggle('show');
-    }
+  initializeModalManager() {
+    this.modalManager = new ModalManager(this);
   }
 
   /**
-   * Close mobile menu
+   * Close mobile menu (delegated to handler)
    */
   closeMobileMenu() {
-    if (this.elements.mobileMenuOverlay) {
-      this.elements.mobileMenuOverlay.classList.remove('show');
+    if (this.mobileMenuHandler) {
+      this.mobileMenuHandler.closeMobileMenu();
     }
   }
 
@@ -145,8 +116,7 @@ class HinduCalendarUI {
    * Setup event listeners for user interactions
    */
   setupEventListeners() {
-    // Mobile menu
-    this.setupMobileMenu();
+    // Mobile menu is now handled by MobileMenuHandler
     
     // Today button
     if (this.elements.todayBtn) {
@@ -180,13 +150,13 @@ class HinduCalendarUI {
 
     // Modal events
     if (this.elements.modalClose) {
-      this.elements.modalClose.addEventListener('click', () => this.closeModal());
+      this.elements.modalClose.addEventListener('click', () => this.modalManager.closeModal());
     }
 
     // Close modal on outside click
     window.addEventListener('click', (e) => {
       if (e.target.classList.contains('modal')) {
-        this.closeModal();
+        this.modalManager.closeModal();
       }
     });
 
@@ -592,11 +562,11 @@ class HinduCalendarUI {
     dayElement.appendChild(dayContent);
     
     // Add click event
-    dayElement.addEventListener('click', () => this.showDayDetails(dayData));
+    dayElement.addEventListener('click', () => this.modalManager.showDayDetails(dayData));
     dayElement.addEventListener('keydown', (e) => {
       if (e.key === 'Enter' || e.key === ' ') {
         e.preventDefault();
-        this.showDayDetails(dayData);
+        this.modalManager.showDayDetails(dayData);
       }
     });
     
@@ -604,243 +574,10 @@ class HinduCalendarUI {
   }
 
   /**
-   * Show detailed information for a day
+   * Show detailed information for a day (delegated to modal manager)
    */
   showDayDetails(dayData) {
-    const { date, events } = dayData;
-    
-    if (!events || events.length === 0) {
-      // No events - show basic day info
-      const content = this.createDetailContent(dayData);
-      this.showModal('Day Details', content);
-      return;
-    }
-    
-    if (events.length === 1) {
-      // Single event - use existing modal
-      const content = this.createDetailContent(dayData);
-      const event = events[0];
-      const modalTitle = `${event.roman || ''}${event.name ? ` (${event.name})` : ''}`.trim() || 'Day Details';
-      this.showModal(modalTitle, content);
-      return;
-    }
-    
-    // Multiple events - use swipe modal
-    this.showMultiEventModal(dayData);
-  }
-
-  /**
-   * Show multi-event swipe modal for multiple events on same day
-   */
-  showMultiEventModal(dayData) {
-    const { date, events } = dayData;
-    
-    // Create modal if it doesn't exist
-    if (!this.modal) {
-      this.createModal();
-    }
-    
-    // Set up multi-event modal
-    this.currentEventIndex = 0;
-    this.dayEvents = events;
-    this.modalDayData = dayData;
-    
-    // Create swipe modal content
-    const content = this.createMultiEventContent();
-    
-    // Show modal with date as title
-    const dateStr = date.toLocaleDateString('en-US', { 
-      weekday: 'long', 
-      year: 'numeric', 
-      month: 'long', 
-      day: 'numeric' 
-    });
-    
-    this.showModal(dateStr, content);
-    
-    // Add navigation dots to modal header
-    this.addDotsToModalHeader();
-    
-    // Set up swipe gestures
-    this.setupSwipeGestures();
-    
-    // Ensure initial state is properly displayed
-    this.updateMultiEventModal();
-  }
-
-  /**
-   * Add navigation dots to modal header
-   */
-  addDotsToModalHeader() {
-    const modalHeader = document.querySelector('.modal-header');
-    if (!modalHeader) return;
-    
-    // Clear any existing dots and reset header state
-    const existingDots = modalHeader.querySelector('.modal-header-dots');
-    if (existingDots) {
-      existingDots.remove();
-    }
-    modalHeader.classList.remove('multi-event-header');
-    
-    // Only show dots if there are multiple events (2 or more)
-    if (!this.dayEvents || this.dayEvents.length <= 1) return;
-    
-    // Create dots container
-    const dotsContainer = document.createElement('div');
-    dotsContainer.className = 'modal-header-dots';
-    
-    // Create dots
-    const dotsHTML = this.dayEvents.map((_, index) => 
-      `<div class="dot ${index === this.currentEventIndex ? 'active' : ''}" data-index="${index}"></div>`
-    ).join('');
-    
-    dotsContainer.innerHTML = `<div class="event-dots">${dotsHTML}</div>`;
-    
-    // Add dots as a separate element in the header, not inside the title
-    modalHeader.appendChild(dotsContainer);
-    
-    // Add class to modal header to identify multi-event modal
-    modalHeader.classList.add('multi-event-header');
-  }
-
-  /**
-   * Create content for multi-event modal with swipe functionality
-   */
-  createMultiEventContent() {
-    const currentEvent = this.dayEvents[this.currentEventIndex];
-    const totalEvents = this.dayEvents.length;
-    
-    // Create slider container
-    const content = `
-      <div class="multi-event-modal">
-        <!-- Swipeable content area -->
-        <div class="swipe-container" id="swipeContainer">
-          <div class="swipe-wrapper" id="swipeWrapper" style="transform: translateX(-${this.currentEventIndex * 100}%)">
-            ${this.dayEvents.map((event, index) => `
-              <div class="swipe-slide">
-                ${this.createSingleEventContent(event, this.modalDayData)}
-              </div>
-            `).join('')}
-          </div>
-        </div>
-      </div>
-    `;
-    
-    return content;
-  }
-
-  /**
-   * Create content for a single event (similar to existing createDetailContent but for one event)
-   */
-  createSingleEventContent(event, dayData) {
-    const { date, hinduMonth } = dayData;
-    
-    const content = `
-      <div class="day-details">
-        <div class="significance-section">
-          <h3>Significance (महत्व)</h3>
-          <p class="significance-text">${event.significance || 'A sacred day in the Hindu calendar.'}</p>
-        </div>
-
-        <div class="${event.type}-section">
-          <h3>${event.roman || event.name} (${event.hindi || event.name})</h3>
-          <div class="${event.type}-info">
-            ${event.type === 'festival' ? this.createFestivalContent(event) : this.createEkadashiContent(event)}
-          </div>
-        </div>
-      </div>
-    `;
-    
-    return content;
-  }
-
-  /**
-   * Create detailed content for modal
-   */
-  createDetailContent(dayData) {
-    const { date, occasion, occasionType, significance, recommendations, hinduMonth } = dayData;
-    
-    let content = `
-      <div class="day-details">
-        <div class="date-header">
-          <div class="gregorian-date">${date.toLocaleDateString('en-US', { 
-            weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' 
-          })}</div>
-          ${hinduMonth ? `
-            <div class="hindu-date">
-              ${hinduMonth.name} (${hinduMonth.roman}) मास
-            </div>
-          ` : ''}
-        </div>
-        
-        <div class="significance-section">
-          <h3>Significance (महत्व)</h3>
-          <p>${significance}</p>
-        </div>
-    `;
-
-    // Occasion details
-    if (occasion && occasionType === 'festival') {
-      content += `
-        <div class="festival-section">
-          <h3>${occasion.roman} (${occasion.name})</h3>
-          <div class="festival-info">
-            <p><strong>Category:</strong> ${occasion.category}</p>
-            <p><strong>Mythology:</strong> ${occasion.mythology}</p>
-            ${occasion.deity ? `<p><strong>Deity:</strong> ${occasion.deity}</p>` : ''}
-            ${occasion.mantra ? `<p><strong>Mantra:</strong> ${occasion.mantra}</p>` : ''}
-          </div>
-          
-          <div class="what-to-do">
-            <h4>Usual Practices (प्रथाएँ)</h4>
-            <ul>
-              ${occasion.whatToDo && Array.isArray(occasion.whatToDo) ? occasion.whatToDo.map(item => `<li>${item}</li>`).join('') : '<li>Loading recommendations...</li>'}
-            </ul>
-          </div>
-          
-
-          
-          ${occasion.foods && Array.isArray(occasion.foods) ? `
-            <div class="festival-foods">
-              <h4>Traditional Foods</h4>
-              <p>${occasion.foods.join(', ')}</p>
-            </div>
-          ` : ''}
-        </div>
-      `;
-    }
-
-    // Ekadashi details
-    if (occasion && occasionType === 'ekadashi') {
-      content += `
-        <div class="ekadashi-section">
-          <h3>${occasion.roman} (${occasion.name})</h3>
-          <div class="ekadashi-info">
-            <p><strong>Type:</strong> ${occasion.type}</p>
-            <p><strong>Month:</strong> ${occasion.month}</p>
-            <p><strong>Benefits:</strong> ${occasion.benefits}</p>
-            ${occasion.warning ? `<p class="warning"><strong>⚠️ Note:</strong> ${occasion.warning}</p>` : ''}
-          </div>
-          
-          ${occasion.fasting ? `
-            <div class="fasting-rules">
-              <h4>Fasting Rules (व्रत नियम)</h4>
-              <p>${occasion.fasting}</p>
-            </div>
-          ` : ''}
-          
-          ${occasion.storyBrief ? `
-            <div class="story-brief">
-              <h4>Brief Story</h4>
-              <p>${occasion.storyBrief}</p>
-            </div>
-          ` : ''}
-        </div>
-      `;
-    }
-
-    content += '</div>';
-    return content;
+    this.modalManager.showDayDetails(dayData);
   }
 
   /**
@@ -990,7 +727,7 @@ class HinduCalendarUI {
    */
   showEventDetails(event) {
     const content = this.createEventDetailContent(event);
-    this.showModal(`${event.name} (${event.roman})`, content);
+    this.modalManager.showModal(`${event.name} (${event.roman})`, content);
   }
 
   /**
@@ -1413,7 +1150,7 @@ class HinduCalendarUI {
       </div>
     `;
 
-    this.showModal(`${monthData.name} (${monthData.roman})`, content);
+    this.modalManager.showModal(`${monthData.name} (${monthData.roman})`, content);
   }
 
   /**
@@ -1561,57 +1298,14 @@ class HinduCalendarUI {
   }
 
   /**
-   * Modal functions
+   * Modal functions (delegated to modal manager)
    */
   showModal(title, content) {
-    // Create modal if it doesn't exist
-    if (!this.modal) {
-      this.createModal();
-    }
-
-    const modalHeader = this.modal.querySelector('.modal-header');
-    const modalTitle = modalHeader.querySelector('.modal-title');
-    const modalBody = this.modal.querySelector('.modal-body');
-
-    // Clear previous dynamic content from header (like nav dots)
-    const oldNav = modalHeader.querySelector('.modal-header-dots');
-    if (oldNav) {
-      oldNav.remove();
-    }
-
-    if (modalTitle) modalTitle.textContent = title;
-    if (modalBody) modalBody.innerHTML = content;
-
-    // The logic to add dots should be here or in createDetailContent
-    // For now, let's assume it's handled when 'content' is built.
-
-    this.modal.style.display = 'block';
-    document.body.style.overflow = 'hidden';
+    this.modalManager.showModal(title, content);
   }
 
   closeModal() {
-    if (this.modal) {
-      this.modal.style.display = 'none';
-      document.body.style.overflow = 'auto';
-    }
-  }
-
-  createModal() {
-    this.modal = this.createElement('div', 'modal');
-    this.modal.innerHTML = `
-      <div class="modal-content">
-        <div class="modal-header">
-          <h2 class="modal-title"></h2>
-          <span class="modal-close">&times;</span>
-        </div>
-        <div class="modal-body"></div>
-      </div>
-    `;
-
-    document.body.appendChild(this.modal);
-
-    // Add close event
-    this.modal.querySelector('.modal-close').addEventListener('click', () => this.closeModal());
+    this.modalManager.closeModal();
   }
 
   /**
@@ -1648,7 +1342,7 @@ class HinduCalendarUI {
         this.nextMonth();
         break;
       case 'Escape':
-        this.closeModal();
+        this.modalManager.closeModal();
         break;
     }
   }
@@ -1686,182 +1380,6 @@ class HinduCalendarUI {
     this.handleResize(); // Initial check
   }
 
-  /**
-   * Setup swipe gestures for multi-event modal
-   */
-  setupSwipeGestures() {
-    const swipeContainer = document.getElementById('swipeContainer');
-    const dots = document.querySelectorAll('.dot');
-    
-    if (!swipeContainer) return;
-    
-    // Touch event variables
-    let startX = 0;
-    let startY = 0;
-    let currentX = 0;
-    let currentY = 0;
-    let isDragging = false;
-    let isSwipe = false;
-    
-    // Touch start
-    swipeContainer.addEventListener('touchstart', (e) => {
-      startX = e.touches[0].clientX;
-      startY = e.touches[0].clientY;
-      currentX = startX;
-      currentY = startY;
-      isDragging = true;
-      isSwipe = false;
-    });
-    
-    // Touch move
-    swipeContainer.addEventListener('touchmove', (e) => {
-      if (!isDragging) return;
-      
-      currentX = e.touches[0].clientX;
-      currentY = e.touches[0].clientY;
-      
-      const deltaX = currentX - startX;
-      const deltaY = currentY - startY;
-      
-      // Determine if this is a horizontal swipe
-      if (Math.abs(deltaX) > Math.abs(deltaY) && Math.abs(deltaX) > 10) {
-        isSwipe = true;
-        e.preventDefault(); // Prevent scrolling
-      }
-    });
-    
-    // Touch end
-    swipeContainer.addEventListener('touchend', (e) => {
-      if (!isDragging || !isSwipe) {
-        isDragging = false;
-        return;
-      }
-      
-      const deltaX = currentX - startX;
-      const threshold = 50; // Minimum swipe distance
-      
-      if (Math.abs(deltaX) > threshold) {
-        if (deltaX > 0) {
-          // Swipe right - go to previous event
-          this.prevEvent();
-        } else {
-          // Swipe left - go to next event
-          this.nextEvent();
-        }
-      }
-      
-      isDragging = false;
-      isSwipe = false;
-    });
-    
-    // Click handlers for dots
-    dots.forEach((dot, index) => {
-      dot.addEventListener('click', () => {
-        this.goToEvent(index);
-      });
-    });
-  }
-
-  /**
-   * Navigate to previous event
-   */
-  prevEvent() {
-    if (this.currentEventIndex > 0) {
-      this.currentEventIndex--;
-      this.updateMultiEventModal();
-    }
-  }
-
-  /**
-   * Navigate to next event
-   */
-  nextEvent() {
-    if (this.currentEventIndex < this.dayEvents.length - 1) {
-      this.currentEventIndex++;
-      this.updateMultiEventModal();
-    }
-  }
-
-  /**
-   * Navigate to specific event by index
-   */
-  goToEvent(index) {
-    if (index >= 0 && index < this.dayEvents.length) {
-      this.currentEventIndex = index;
-      this.updateMultiEventModal();
-    }
-  }
-
-  /**
-   * Update multi-event modal content and indicators
-   */
-  updateMultiEventModal() {
-    const swipeWrapper = document.getElementById('swipeWrapper');
-    const dots = document.querySelectorAll('.dot');
-    
-    if (swipeWrapper) {
-      // Update transform to show current event
-      swipeWrapper.style.transform = `translateX(-${this.currentEventIndex * 100}%)`;
-    }
-    
-    // Update dots
-    dots.forEach((dot, index) => {
-      dot.classList.toggle('active', index === this.currentEventIndex);
-    });
-  }
-
-  /**
-   * Create festival content for single event modal
-   */
-  createFestivalContent(festival) {
-    return `
-      <div class="festival-content">
-        <div class="festival-meta">
-          <div class="festival-type">${festival.type || 'Festival'}</div>
-          ${festival.fasting ? '<div class="fasting-indicator">🚫 Fasting Day</div>' : ''}
-        </div>
-        
-        ${festival.whatToDo && Array.isArray(festival.whatToDo) ? `
-          <div class="what-to-do">
-            <h4>How to Observe (क्या करें)</h4>
-            <ul>
-              ${festival.whatToDo.map(action => `<li>${action}</li>`).join('')}
-            </ul>
-          </div>
-        ` : ''}
-      </div>
-    `;
-  }
-
-  /**
-   * Create ekadashi content for single event modal
-   */
-  createEkadashiContent(ekadashi) {
-    return `
-      <div class="ekadashi-content">
-        <div class="ekadashi-meta">
-          <div class="ekadashi-type">${ekadashi.type || 'Ekadashi'}</div>
-          <div class="fasting-indicator">🚫 Fasting Day</div>
-        </div>
-        
-        ${ekadashi.whatToDo && Array.isArray(ekadashi.whatToDo) ? `
-          <div class="what-to-do">
-            <h4>How to Observe (क्या करें)</h4>
-            <ul>
-              ${ekadashi.whatToDo.map(action => `<li>${action}</li>`).join('')}
-            </ul>
-          </div>
-        ` : ''}
-        
-        ${ekadashi.significance ? `
-          <div class="ekadashi-significance">
-            <h4>Spiritual Benefits</h4>
-            <p>${ekadashi.significance}</p>
-          </div>
-        ` : ''}
-      </div>
-    `;
-  }
 }
 
 // ===== GLOBAL EXPOSURE =====
