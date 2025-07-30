@@ -193,16 +193,96 @@ class HinduCalendarEngine {
     const ekadashi = this.getEkadashiForDate(dateString);
     const hinduMonth = this.getHinduMonthForDate(date);
 
-    // Determine primary occasion
+    // Collect all events for this date
+    const events = [];
+    
+    if (festival) {
+      events.push({
+        ...festival,
+        type: 'festival',
+        priority: 1
+      });
+    }
+    
+    if (ekadashi) {
+      events.push({
+        ...ekadashi,
+        type: 'ekadashi',
+        priority: 2
+      });
+    }
+    
+    // ===== TEST DATA: Multiple Events for Testing ===== 
+    // Add fake multiple events for testing (remove in production)
+    const today = new Date();
+    const testDates = [
+      // Today
+      `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}-${String(today.getDate()).padStart(2, '0')}`,
+      // Tomorrow
+      `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}-${String(today.getDate() + 1).padStart(2, '0')}`,
+      // Day after tomorrow
+      `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}-${String(today.getDate() + 2).padStart(2, '0')}`
+    ];
+    
+    if (testDates.includes(dateString)) {
+      // Add multiple test events
+      const testEvents = [
+        {
+          name: 'Diwali',
+          roman: 'Diwali',
+          hindi: 'दीवाली',
+          type: 'festival',
+          significance: 'Festival of lights celebrating the victory of light over darkness',
+          whatToDo: ['Light diyas and candles', 'Perform Lakshmi Puja', 'Share sweets with family'],
+          fasting: false,
+          priority: 1
+        },
+        {
+          name: 'Kartik Ekadashi',
+          roman: 'Kartik Ekadashi',
+          hindi: 'कार्तिक एकादशी',
+          type: 'ekadashi',
+          significance: 'Sacred fasting day dedicated to Lord Vishnu for spiritual purification',
+          whatToDo: ['Observe complete fast', 'Chant Vishnu mantras', 'Read Bhagavad Gita'],
+          fasting: true,
+          priority: 2
+        },
+        
+        {
+          name: 'Diwali2',
+          roman: 'Diwali',
+          hindi: 'दीवाली',
+          type: 'festival',
+          significance: 'Festival of lights celebrating the victory of light over darkness',
+          whatToDo: ['Light diyas and candles', 'Perform Lakshmi Puja', 'Share sweets with family'],
+          fasting: false,
+          priority: 1
+        },
+      ];
+      
+      // Add test events only if we don't already have real events for this date
+      if (events.length === 0) {
+        events.push(...testEvents);
+      } else {
+        // Add additional test events to existing real events
+        events.push(...testEvents.slice(0, 2)); // Add 2 extra events
+      }
+    }
+    
+    // Sort events alphabetically by name for consistent ordering
+    events.sort((a, b) => {
+      const nameA = a.roman || a.name || a.hindi || '';
+      const nameB = b.roman || b.name || b.hindi || '';
+      return nameA.localeCompare(nameB);
+    });
+
+    // Legacy support - keep primary occasion as first event
     let occasion = null;
     let occasionType = null;
-
-    if (festival) {
-      occasion = festival;
-      occasionType = 'festival';
-    } else if (ekadashi) {
-      occasion = ekadashi;
-      occasionType = 'ekadashi';
+    
+    if (events.length > 0) {
+      occasion = events[0];
+      occasionType = events[0].type;
     }
 
     return {
@@ -214,8 +294,9 @@ class HinduCalendarEngine {
       isToday: this.isToday(date),
       isCurrentMonth: true,
       hinduMonth: hinduMonth,
-      occasion: occasion,
-      occasionType: occasionType,
+      occasion: occasion, // Legacy - primary occasion
+      occasionType: occasionType, // Legacy - primary occasion type
+      events: events, // New - all events for this date
       significance: this.getDaySignificance(date, occasion, hinduMonth),
       recommendations: this.getDayRecommendations(date, occasion, hinduMonth),
       isAuspicious: this.isAuspiciousDay(date, occasion),

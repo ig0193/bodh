@@ -509,9 +509,9 @@ body {
 .calendar-grid {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
-    gap: 2px; /* Reduced gap */
+    gap: 1px; /* Very small gap for mobile */
     background: var(--white);
-    padding: var(--spacing-sm); /* Reduced padding */
+    padding: 4px; /* Minimal padding */
     border-radius: var(--border-radius);
     box-shadow: var(--shadow-md);
     margin-bottom: var(--spacing-md);
@@ -533,9 +533,9 @@ body {
 .calendar-day {
   background: var(--white);
   border: 1px solid #e0e0e0;
-  border-radius: var(--border-radius);
-  padding: var(--spacing-xs); /* Much smaller padding */
-  min-height: 60px; /* Reduced from 80px */
+  border-radius: 3px;
+  padding: 2px; /* Very small padding */
+  min-height: 42px; /* Much smaller for mobile fit */
     display: flex;
     flex-direction: column;
     position: relative;
@@ -1194,7 +1194,7 @@ body {
   }
   
   .calendar-unified-grid .day-number {
-    font-size: 14px;
+    font-size: 12px;
   }
   
   .occasion-indicator {
@@ -1281,7 +1281,7 @@ body {
     }
     
     .calendar-day {
-    min-height: 50px; /* Even smaller on mobile */
+    min-height: 35px; /* Much smaller for mobile fit */
     padding: 2px;
     }
     
@@ -1370,7 +1370,7 @@ body {
   }
 
   .calendar-unified-grid .day-number {
-    font-size: 14px;
+    font-size: 12px;
   }
 
   .calendar-unified-grid .occasion-indicator {
@@ -1379,8 +1379,8 @@ body {
   }
 
   .calendar-grid {
-    gap: 0.5px;
-    padding: 2px;
+    gap: 1px;
+    padding: 4px;
     width: 100%;
     max-width: 100%;
     overflow-x: hidden;
@@ -1390,10 +1390,10 @@ body {
     }
     
     .calendar-day {
-    min-height: 40px;
-    min-width: 35px;
-    padding: 2px;
-    font-size: 0.75rem;
+    min-height: 32px;
+    min-width: 30px;
+    padding: 1px;
+    font-size: 0.7rem;
   }
 
   .day-number {
@@ -1459,10 +1459,10 @@ body {
   }
 
 .calendar-day {
-    min-height: 35px;
-    min-width: 30px;
+    min-height: 30px;
+    min-width: 28px;
     padding: 1px;
-    font-size: 0.7rem;
+    font-size: 0.65rem;
   }
 
   .day-number {
@@ -1533,24 +1533,53 @@ body {
 }
 
 .modal-header {
-  background: var(--white);
-  color: var(--dark-text);
+  position: relative; /* Context for absolute positioning */
+  display: flex;
+  justify-content: center; /* Center the title block */
+  align-items: center;
   padding: var(--spacing-lg);
-    display: flex;
+  border-bottom: 1px solid var(--gray-200);
+}
+
+/* Header layout for multi-event modals */
+.modal-header.multi-event-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.modal-header.multi-event-header .modal-close {
+  position: absolute;
+  top: var(--spacing-lg);
+  right: var(--spacing-lg);
+}
+
+/* Default header layout for single events */
+.modal-header:not(.multi-event-header) {
+  display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 1px solid var(--gray-200);
 }
 
 .modal-title {
   font-family: var(--font-secondary);
   font-size: var(--font-size-xl);
-  margin: 0;
-    font-weight: 600;
+  font-weight: 600;
   color: var(--dark-text);
+  text-align: center; /* Center text within the title element */
+  line-height: 1.2;
+  /* Give space on the right to avoid overlapping with the button */
+  padding: 0 40px; /* Adjust as needed */
+  margin: 0;
 }
 
 .modal-close {
+  position: absolute; /* Position relative to the header */
+  top: 50%;
+  right: var(--spacing-lg);
+  transform: translateY(-50%);
+
   background: var(--gray-100);
   border: none;
   color: var(--gray-600);
@@ -1564,6 +1593,7 @@ body {
   justify-content: center;
   border-radius: 50%;
   transition: all 0.2s ease;
+  flex-shrink: 0; /* Prevents the button from being squished */
 }
 
 .modal-close:hover {
@@ -1575,6 +1605,7 @@ body {
   padding: var(--spacing-lg);
   max-height: calc(80vh - 80px);
   overflow-y: auto;
+  position: relative; /* Container for absolutely positioned footer */
 }
 
 /* ===== REDESIGNED DAY DETAILS MODAL ===== */
@@ -1718,6 +1749,178 @@ body {
   margin: var(--spacing-lg) 0;
   color: var(--gray-600);
     }
+
+/* ===== MULTI-EVENT MODAL STYLES ===== */
+.multi-event-modal {
+  position: relative;
+  overflow: hidden;
+}
+
+/* Header Dots Navigation */
+.modal-header-dots {
+  display: flex;
+  justify-content: center;
+  margin-top: 0.75rem;
+  width: 100%;
+}
+
+/* Event Dots Navigation */
+.event-dots {
+  display: flex;
+  justify-content: center;
+  gap: 0.4rem;
+  padding: 0;
+}
+
+.event-dots .dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--gray-300);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.event-dots .dot.active {
+  background: var(--saffron);
+  transform: scale(1.2);
+}
+
+.event-dots .dot:hover {
+  background: var(--gray-400);
+  transform: scale(1.1);
+}
+
+/* Swipe Container */
+.swipe-container {
+  position: relative;
+  overflow: hidden;
+  touch-action: pan-y;
+  border-radius: 8px;
+}
+
+.swipe-wrapper {
+  display: flex;
+  transition: transform 0.3s ease;
+  will-change: transform;
+}
+
+.swipe-slide {
+  flex: 0 0 100%;
+  width: 100%;
+}
+
+
+/* Single Event Content */
+.festival-content,
+.ekadashi-content {
+  padding: 0.5rem 0;
+}
+
+.festival-meta,
+.ekadashi-meta {
+  display: flex;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+}
+
+.festival-type,
+.ekadashi-type {
+  background: var(--saffron);
+  color: var(--white);
+  padding: 0.25rem 0.75rem;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+.fasting-indicator {
+  background: var(--apple-red);
+  color: var(--white);
+  padding: 0.25rem 0.75rem;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+.what-to-do h4 {
+  color: var(--dark-text);
+  font-size: 1rem;
+  font-weight: 600;
+  margin: 0 0 0.5rem 0;
+}
+
+.what-to-do ul {
+  margin: 0;
+  padding-left: 1.25rem;
+}
+
+.what-to-do li {
+  margin-bottom: 0.5rem;
+  color: var(--gray-700);
+  line-height: 1.5;
+}
+
+.ekadashi-significance h4 {
+  color: var(--dark-text);
+  font-size: 1rem;
+  font-weight: 600;
+  margin: 1rem 0 0.5rem 0;
+}
+
+.ekadashi-significance p {
+  color: var(--gray-700);
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+  .modal-header-dots {
+    margin-top: 0.75rem;
+  }
+  
+  .event-dots {
+    gap: 0.5rem;
+  }
+  
+  .event-dots .dot {
+    width: 8px;
+    height: 8px;
+  }
+  
+  .festival-meta,
+  .ekadashi-meta {
+    gap: 0.5rem;
+  }
+  
+  .festival-type,
+  .ekadashi-type,
+  .fasting-indicator {
+    font-size: 0.75rem;
+    padding: 0.2rem 0.6rem;
+  }
+}
+
+/* ===== EVENTS CONTAINER POSITIONING ===== */
+.events-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5px;
+  width: 100%;
+  margin-top: auto; /* Push events to bottom of day cell */
+}
+
+.has-multiple-events .events-container {
+  gap: 0.25px; /* Tighter spacing for multiple events */
+}
+
+.overflow-indicator {
+  background: var(--gray-400) !important;
+  color: var(--white) !important;
+  font-weight: 600;
+}
     
 /* ===== UPCOMING SACRED OCCASIONS STYLES ===== */
 .upcoming-events-container {
@@ -3360,9 +3563,9 @@ body {
 
 @media (max-width: 768px) {
     .calendar-container {
-        padding: var(--spacing-md);
-        /* Ensure the container is tall enough for the 8-row grid */
-        min-height: 800px; 
+        padding: 6px;
+        /* Compact container for mobile */
+        min-height: auto;
     }
 }
 
@@ -3420,28 +3623,26 @@ body {
 
 /* ===== DAY DETAILS MODAL – COMPACT REFINEMENT ===== */
 .modal-content {
-  max-width: 520px; /* slimmer card */
+  max-width: 480px;
 }
 
 .modal-body {
-  padding: var(--spacing-md); /* reduce white-space */
-  max-height: calc(80vh - 120px); /* increased room to prevent clipping */
-  overflow-y: auto; /* ensure scrolling when content overflows */
+  padding: 1rem;
+  max-height: calc(75vh - 70px);
+  overflow-y: auto;
 }
 
 .day-details .date-header {
-  margin-bottom: var(--spacing-lg);
-  padding: var(--spacing-md);
-  background: var(--gray-50);
+  margin-bottom: 1rem;
+  padding: 0.75rem;
 }
 
-.gregorian-date {
-  font-size: var(--font-size-2xl);
+.day-details .gregorian-date {
+  font-size: 1.3rem;
 }
 
-.hindu-date {
-  font-size: var(--font-size-lg);
-  color: var(--saffron);
+.day-details .hindu-date {
+  font-size: 0.9rem;
 }
 
 .significance-section h3,
@@ -3568,16 +3769,16 @@ body {
   }
     
   .date-header {
-    padding: 1rem;
-    margin-bottom: 1rem;
+    padding: 0.6rem;
+    margin-bottom: 0.75rem;
   }
   
   .gregorian-date {
-    font-size: 1.4rem;
+    font-size: 1.2rem;
   }
   
   .hindu-date {
-    font-size: 0.95rem;
+    font-size: 0.85rem;
   }
   
   .significance-section h3,
@@ -3627,4 +3828,153 @@ body {
     font-size: 0.9rem;
     margin-top: 0.75rem;
   }
+}
+
+/* ===== MOBILE CALENDAR FIT OPTIMIZATION ===== */
+@media (max-width: 768px) {
+    /* Force calendar to fit in viewport - no scrolling */
+    .calendar-container {
+        padding: 1px;
+        height: calc(100vh - 80px); /* Much smaller allowance */
+        max-height: calc(100vh - 80px);
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        box-sizing: border-box;
+    }
+    
+    /* Extremely compact calendar grid */
+    .calendar-grid {
+        flex: 1;
+        height: 100%;
+        gap: 0px; /* No gaps */
+        padding: 0;
+        display: grid;
+        grid-template-columns: repeat(7, 1fr);
+        grid-template-rows: 12px repeat(6, minmax(15px, 1fr)); /* Tiny header, flexible rows */
+        box-sizing: border-box;
+    }
+    
+    /* Micro day cells */
+    .calendar-day {
+        min-height: 15px;
+        max-height: 18px;
+        padding: 0.5px;
+        font-size: 0.5rem;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        border-radius: 0;
+        border: 0.5px solid #ddd;
+        box-sizing: border-box;
+    }
+    
+    /* Tiny day numbers */
+    .calendar-day .day-number {
+        font-size: 0.55rem;
+        line-height: 0.8;
+        margin-bottom: 0px;
+        font-weight: 500;
+    }
+    
+    /* Ultra-micro occasion indicators */
+    .calendar-day .occasion-indicator {
+        font-size: 0.35rem;
+        padding: 0px 1px;
+        margin: 0px;
+        line-height: 0.8;
+        border-radius: 1px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        max-width: 100%;
+    }
+    
+    /* Minimal header row */
+    .calendar-days-header {
+        font-size: 0.45rem;
+        padding: 0;
+        height: 12px;
+        align-items: center;
+        background: var(--gray-100);
+    }
+    
+    .calendar-days-header .day-header {
+        font-weight: 600;
+        text-align: center;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
+        padding: 0;
+        font-size: 0.45rem;
+    }
+    
+    /* Minimal month header */
+    .calendar-header {
+        padding: 1px;
+        font-size: 0.5rem;
+        margin-bottom: 0;
+    }
+    
+    /* Tiny month navigation */
+    .month-year h2 {
+        font-size: 0.75rem;
+        margin: 0;
+        line-height: 0.9;
+    }
+    
+    .hindu-month {
+        font-size: 0.55rem;
+        line-height: 0.9;
+    }
+    
+    /* Remove extra margins */
+    .calendar-header-section {
+        margin-bottom: 0;
+    }
+    
+    /* Tiny navigation buttons */
+    .calendar-controls button {
+        padding: 1px 2px;
+        font-size: 0.6rem;
+        min-width: 20px;
+        height: 20px;
+    }
+    
+    /* Override any conflicting styles */
+    .calendar-day.today {
+        transform: none; /* Remove scale transform */
+    }
+    
+    .calendar-day:hover {
+        transform: none; /* Remove hover transforms */
+    }
+    
+    /* Multiple events styling */
+    .events-container {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5px;
+        width: 100%;
+        margin-top: auto; /* Push to bottom of flex container */
+    }
+    
+    .has-multiple-events .events-container {
+        gap: 0.25px; /* Tighter spacing for multiple events */
+    }
+    
+    .has-multiple-events .occasion-indicator {
+        font-size: 0.3rem; /* Even smaller for multiple events */
+        padding: 0px 0.5px;
+        margin: 0px;
+        line-height: 0.7;
+    }
+    
+    .overflow-indicator {
+        background: var(--gray-500) !important;
+        color: var(--white) !important;
+        font-weight: 600;
+    }
 } 
