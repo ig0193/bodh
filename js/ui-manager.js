@@ -728,7 +728,7 @@ class HinduCalendarUI {
         </div>
         
         <div class="events-section">
-          <h4 class="section-title">This Week</h4>
+          <h4 class="section-title">Within Week</h4>
           <div class="events-list">
             ${thisWeek.length > 0 ? 
               thisWeek.map(event => this.createEventItemHTML(event)).join('') :
@@ -738,7 +738,7 @@ class HinduCalendarUI {
         </div>
         
         <div class="events-section">
-          <h4 class="section-title">This Month</h4>
+          <h4 class="section-title">Within Month</h4>
           <div class="events-list">
             ${thisMonth.length > 0 ? 
               thisMonth.map(event => this.createEventItemHTML(event)).join('') :

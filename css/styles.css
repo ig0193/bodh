@@ -1577,66 +1577,91 @@ body {
   overflow-y: auto;
 }
 
-/* ===== MODERN DAY DETAILS STYLES ===== */
+/* ===== REDESIGNED DAY DETAILS MODAL ===== */
 .day-details {
   font-family: var(--font-primary);
+  line-height: 1.6;
 }
 
+/* Header Section - Minimalist Design */
 .date-header {
   text-align: center;
-  margin-bottom: var(--spacing-xl);
-  padding: var(--spacing-lg);
-  background: var(--gray-100);
-  border-radius: var(--border-radius);
+  margin-bottom: 1.5rem;
+  padding: 1.25rem;
+  background: var(--white);
+  border-radius: 8px;
+  border: 2px solid var(--gray-200);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
 }
 
 .gregorian-date {
-  font-size: 1.75rem;
-  font-weight: 700;
+  font-size: 1.6rem;
+  font-weight: 600;
+  margin-bottom: 0.4rem;
+  letter-spacing: -0.01em;
   color: var(--dark-text);
-  margin-bottom: var(--spacing-sm);
-  letter-spacing: -0.02em;
 }
 
 .hindu-date {
-  font-size: var(--font-size-lg);
-  color: var(--primary-blue);
+  font-size: 1rem;
   font-weight: 500;
+  color: var(--saffron);
+  letter-spacing: 0.01em;
 }
 
+/* Section Organization - Consistent */
 .significance-section,
 .festival-section,
 .ekadashi-section,
 .recommendations-section {
-  margin-bottom: var(--spacing-lg);
+  margin-bottom: 1.5rem;
 }
 
+/* Main content sections get consistent padding */
+.day-details > div {
+  padding: 0;
+}
+
+/* Significance text styling */
+.significance-section p {
+  color: var(--gray-700);
+  font-size: 0.9rem;
+  line-height: 1.6;
+  margin: 0.5rem 0;
+}
+
+/* Section Headers - Consistent Alignment */
 .significance-section h3,
 .festival-section h3,
 .ekadashi-section h3,
 .recommendations-section h3 {
   color: var(--dark-text);
   font-family: var(--font-secondary);
-  font-size: 1.25rem;
-  font-weight: 700;
-  margin-bottom: var(--spacing-lg);
-  letter-spacing: -0.02em;
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin: 0 0 0.75rem 0;
+  padding: 0 0 0.4rem 0;
+  border-bottom: 1px solid var(--gray-300);
+  letter-spacing: -0.005em;
 }
 
+/* Content Cards - Clean Modern Style */
 .festival-info,
 .ekadashi-info {
-  background: var(--gray-100);
-  padding: var(--spacing-lg);
-  border-radius: var(--border-radius);
-  margin-bottom: var(--spacing-lg);
+  background: var(--white);
+  padding: 1rem;
+  border-radius: 6px;
+  margin-bottom: 1.25rem;
   border: 1px solid var(--gray-200);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
 }
 
 .festival-info p,
 .ekadashi-info p {
-  margin-bottom: var(--spacing-md);
-  color: var(--gray-600);
-  line-height: 1.5;
+  margin-bottom: 0.75rem;
+  color: var(--gray-700);
+  line-height: 1.6;
+  font-size: 0.95rem;
 }
 
 .festival-info strong,
@@ -1650,12 +1675,14 @@ body {
 .festival-foods h4,
 .fasting-rules h4,
 .prayer-time h4,
-.story-brief h4 {
+.story-brief h4,
+.usual-practices h4,
+.traditional-foods h4 {
   color: var(--primary-blue);
-  font-size: 1.1rem;
+  font-size: 0.95rem;
   font-weight: 600;
-  margin-bottom: var(--spacing-md);
-  margin-top: var(--spacing-lg);
+  margin: 1rem 0 0.5rem 0;
+  padding: 0;
 }
 
 .what-to-do ul,
@@ -1746,46 +1773,47 @@ body {
 .event-item {
   display: flex;
   align-items: center;
-  gap: var(--spacing-sm);
-  padding: var(--spacing-sm);
-  border-radius: var(--border-radius-sm);
+  gap: 1rem;
+  padding: 0.75rem;
+  border-radius: 8px;
   cursor: pointer;
-  transition: var(--transition);
+  transition: all 0.2s ease;
   border: 1px solid var(--gray-200);
   background: var(--white);
+  margin-bottom: 0.75rem;
 }
 
 .event-item:hover {
   background: var(--gray-50);
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-sm);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   border-color: var(--primary-blue);
 }
 
 .event-item.festival {
-  border-left: 4px solid var(--sage-green);
+  border-left: 3px solid var(--sage-green);
 }
 
 .event-item.ekadashi {
-  border-left: 4px solid var(--apple-purple);
+  border-left: 3px solid var(--apple-purple);
 }
 
 .event-date {
   display: flex;
   flex-direction: column;
   align-items: center;
-  min-width: 70px;
-    gap: 4px;
+  min-width: 65px;
+  gap: 0.25rem;
 }
 
 .countdown-badge {
   background: var(--primary-blue);
   color: var(--white);
-  font-size: 0.75rem;
-    font-weight: 600;
-  padding: 2px 8px;
-  border-radius: 12px;
-    text-align: center;
+  font-size: 0.7rem;
+  font-weight: 600;
+  padding: 0.15rem 0.5rem;
+  border-radius: 10px;
+  text-align: center;
+  white-space: nowrap;
 }
 
 .date-details {
@@ -1793,43 +1821,53 @@ body {
 }
 
 .event-day {
-  font-size: var(--font-size-lg);
+  font-size: 1.25rem;
   font-weight: 700;
   color: var(--dark-text);
   line-height: 1;
 }
 
 .date-meta {
-  font-size: 0.75rem;
+  font-size: 0.7rem;
   color: var(--gray-600);
-    font-weight: 500;
+  font-weight: 500;
+  line-height: 1.2;
 }
 
 .event-info {
   flex: 1;
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 0.25rem;
+  min-width: 0;
 }
 
 .event-name {
-  font-size: var(--font-size-md);
-    font-weight: 600;
+  font-size: 0.95rem;
+  font-weight: 600;
   color: var(--dark-text);
   line-height: 1.3;
+  margin: 0;
 }
 
 .event-roman {
-  font-size: var(--font-size-sm);
+  font-size: 0.8rem;
   color: var(--primary-blue);
-    font-style: italic;
+  font-style: italic;
   font-weight: 500;
+  line-height: 1.2;
+  margin: 0;
 }
 
 .event-significance {
-  font-size: var(--font-size-sm);
+  font-size: 0.8rem;
   color: var(--gray-600);
   line-height: 1.4;
+  margin: 0;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
 }
 
 .event-actions {
@@ -2093,7 +2131,7 @@ body {
   border: 1px solid var(--gray-200);
   border-radius: var(--border-radius);
   box-shadow: var(--shadow-sm);
-  overflow: hidden;
+    overflow: hidden;
   transition: var(--transition);
 }
 
@@ -2160,7 +2198,7 @@ body {
   content: "•";
   color: var(--primary-blue);
   font-weight: bold;
-  position: absolute;
+    position: absolute;
   left: 0;
 }
 
@@ -2669,8 +2707,9 @@ body {
   .event-item {
     flex-direction: column;
     align-items: flex-start;
-    gap: var(--spacing-xs);
-    padding: var(--spacing-xs);
+    gap: 0.5rem;
+    padding: 0.6rem;
+    margin-bottom: 0.5rem;
   }
 
   .event-date {
@@ -2679,6 +2718,7 @@ body {
     min-width: auto;
     width: 100%;
     justify-content: space-between;
+    gap: 0.5rem;
   }
 
   .countdown-badge {
@@ -3084,7 +3124,7 @@ body {
 .calendar-unified-grid.mobile-grid .day-content {
   display: flex;
   flex-direction: column;
-  height: 100%;
+    height: 100%;
 }
 
 .calendar-unified-grid.mobile-grid .day-name {
@@ -3135,7 +3175,7 @@ body {
 }
 
 .this-month-header {
-  text-align: center;
+        text-align: center;
   margin-bottom: var(--spacing-xl);
 }
 
@@ -3180,8 +3220,8 @@ body {
 }
 
 .occasion-item {
-  display: flex;
-  align-items: center;
+    display: flex;
+    align-items: center;
   justify-content: space-between;
   padding: var(--spacing-md);
   margin-bottom: var(--spacing-sm);
@@ -3194,7 +3234,7 @@ body {
 
 .occasion-item:hover {
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 .occasion-item.festival {
@@ -3210,7 +3250,7 @@ body {
 }
 
 .occasion-name {
-  font-weight: 600;
+    font-weight: 600;
   color: var(--dark-text);
   margin-bottom: 4px;
   font-size: var(--font-size-md);
@@ -3225,14 +3265,14 @@ body {
 .occasion-date {
   color: var(--gray-500);
   font-size: var(--font-size-sm);
-  font-weight: 500;
+    font-weight: 500;
 }
 
 .occasion-type-badge {
-  padding: 4px 8px;
-  border-radius: 12px;
+    padding: 4px 8px;
+    border-radius: 12px;
   font-size: 12px;
-  font-weight: 600;
+    font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.5px;
 }
@@ -3385,7 +3425,8 @@ body {
 
 .modal-body {
   padding: var(--spacing-md); /* reduce white-space */
-  max-height: calc(80vh - 60px); /* extra room after padding tweak */
+  max-height: calc(80vh - 120px); /* increased room to prevent clipping */
+  overflow-y: auto; /* ensure scrolling when content overflows */
 }
 
 .day-details .date-header {
@@ -3415,37 +3456,175 @@ body {
   padding: var(--spacing-md);
 }
 
+/* Modern Consolidated List Styles */
 .what-to-do ul,
-.recommendations-section ul {
+.recommendations-section ul,
+.modern-practice ul,
+.usual-practices ul {
   list-style: none;
-  padding-left: 0;
+  padding: 0.6rem 0.75rem;
+  margin: 0;
+  background: var(--gray-50);
+  border-radius: 6px;
+  border-left: 3px solid var(--primary-blue);
 }
 
 .what-to-do li,
-.recommendations-section li {
-  background: var(--gray-100);
-  padding: var(--spacing-sm) var(--spacing-md);
-  margin-bottom: var(--spacing-xs);
-  border-radius: var(--border-radius-sm);
-  border: 1px solid var(--gray-200);
-  font-size: var(--font-size-sm);
-  line-height: 1.45;
+.recommendations-section li,
+.modern-practice li,
+.usual-practices li {
+  background: none;
+  padding: 0.2rem 0;
+  margin-bottom: 0.1rem;
+  border: none;
+  font-size: 0.85rem;
+  line-height: 1.4;
+  color: var(--gray-700);
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+}
+
+.what-to-do li:last-child,
+.recommendations-section li:last-child,
+.modern-practice li:last-child,
+.usual-practices li:last-child {
+  margin-bottom: 0;
+}
+
+/* Category and Type Info - Modern Grid */
+.festival-category,
+.ekadashi-type,
+.festival-deity,
+.ekadashi-month,
+.festival-mythology,
+.ekadashi-benefits {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.5rem 1rem;
+  margin: 0.75rem 0;
+  background: var(--gray-50);
+  padding: 0.75rem;
+  border-radius: 6px;
+  border-left: 3px solid var(--saffron);
+  font-size: 0.85rem;
+}
+
+.festival-category strong,
+.ekadashi-type strong,
+.festival-deity strong,
+.ekadashi-month strong,
+.festival-mythology strong,
+.ekadashi-benefits strong {
+  color: var(--dark-text);
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.festival-category span,
+.ekadashi-type span,
+.festival-deity span,
+.ekadashi-month span,
+.festival-mythology span,
+.ekadashi-benefits span {
+  color: var(--gray-700);
 }
 
 .what-to-do li::before,
-.recommendations-section li::before {
-  color: var(--saffron);
-  font-size: 0.9rem;
+.recommendations-section li::before,
+.modern-practice li::before,
+.usual-practices li::before {
+  content: '•';
+  color: var(--primary-blue);
+  font-weight: bold;
+  font-size: 1rem;
+  flex-shrink: 0;
+  margin-top: 0.1rem;
+}
+
+/* Content Text Blocks - Modern */
+.festival-foods p,
+.fasting-rules p,
+.traditional-foods p {
+  background: var(--gray-50);
+  padding: 0.75rem;
+  border-radius: 6px;
+  margin: 0.5rem 0;
+  border-left: 3px solid var(--saffron);
+  font-size: 0.85rem;
+  line-height: 1.5;
+  color: var(--gray-700);
 }
 
 @media (max-width: 480px) {
   .modal-content {
-    margin: 8% auto;
+    margin: 5% auto;
+    max-height: 90vh; /* increase modal height on mobile */
   }
-  .gregorian-date {
-    font-size: 1.25rem;
-  }
+  
   .modal-body {
     padding: var(--spacing-sm);
+    max-height: calc(90vh - 100px); /* adjust for mobile */
   }
-}
+    
+  .date-header {
+    padding: 1rem;
+    margin-bottom: 1rem;
+  }
+  
+  .gregorian-date {
+    font-size: 1.4rem;
+  }
+  
+  .hindu-date {
+    font-size: 0.95rem;
+  }
+  
+  .significance-section h3,
+  .festival-section h3,
+  .ekadashi-section h3 {
+    font-size: 1.1rem;
+  }
+  
+  .festival-info,
+  .ekadashi-info {
+    padding: 1rem;
+  }
+  
+  .what-to-do ul,
+  .recommendations-section ul,
+  .modern-practice ul,
+  .usual-practices ul {
+    padding: 0.5rem 0.6rem;
+  }
+  
+  .what-to-do li,
+  .recommendations-section li,
+  .modern-practice li,
+  .usual-practices li {
+    padding: 0.15rem 0;
+    font-size: 0.8rem;
+    margin-bottom: 0.05rem;
+  }
+  
+  .festival-category,
+  .ekadashi-type,
+  .festival-deity,
+  .ekadashi-month,
+  .festival-mythology,
+  .ekadashi-benefits {
+    padding: 0.6rem;
+    font-size: 0.8rem;
+    gap: 0.4rem 0.75rem;
+  }
+  
+  .what-to-do h4,
+  .modern-practice h4,
+  .festival-foods h4,
+  .fasting-rules h4,
+  .usual-practices h4,
+  .traditional-foods h4 {
+    font-size: 0.9rem;
+    margin-top: 0.75rem;
+  }
+} 
