@@ -530,19 +530,25 @@
     </div>
     
     <!-- JavaScript Files -->
-    <!-- Data Files -->
-    <script src="data/hindu-months.js" defer></script>
-    <script src="data/festivals-2024.js" defer></script>
-    <script src="data/ekadashi-2024.js" defer></script>
+    <!-- Data Files - Load synchronously to ensure availability -->
+    <script src="data/hindu-months.js"></script>
+    <script src="data/festivals-2024.js"></script>
+    <script src="data/festivals-2025.js"></script>
+    <script src="data/festivals.js"></script>
+    <script src="data/ekadashi-2024.js"></script>
+    <script src="data/ekadashi-2025.js"></script>
+    <script src="data/ekadashi-unified.js"></script>
     
-    <!-- Core Engine Files -->
-    <script src="js/calendar-engine.js" defer></script>
-    <script src="js/mobile-menu-handler.js" defer></script>
-    <script src="js/modal-manager.js" defer></script>
-    <script src="js/ui-manager.js" defer></script>
+    <!-- Core Engine Files - Load synchronously for proper dependency order -->
+    <script src="js/calendar-engine.js"></script>
+    <script src="js/mobile-menu-handler.js"></script>
+    <script src="js/modal-manager.js"></script>
+    <script src="js/calendar-renderer.js"></script>
+    <script src="js/upcoming-events-handler.js"></script>
+    <script src="js/ui-manager.js"></script>
     
     <!-- Main Application -->
-    <script src="js/app.js" defer></script>
+    <script src="js/app.js"></script>
     
     <!-- Service Worker Registration -->
     <script>

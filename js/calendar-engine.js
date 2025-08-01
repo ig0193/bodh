@@ -212,63 +212,6 @@ class HinduCalendarEngine {
       });
     }
     
-    // ===== TEST DATA: Multiple Events for Testing ===== 
-    // Add fake multiple events for testing (remove in production)
-    const today = new Date();
-    const testDates = [
-      // Today
-      `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}-${String(today.getDate()).padStart(2, '0')}`,
-      // Tomorrow
-      `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}-${String(today.getDate() + 1).padStart(2, '0')}`,
-      // Day after tomorrow
-      `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}-${String(today.getDate() + 2).padStart(2, '0')}`
-    ];
-    
-    if (testDates.includes(dateString)) {
-      // Add multiple test events
-      const testEvents = [
-        {
-          name: 'Diwali',
-          roman: 'Diwali',
-          hindi: 'दीवाली',
-          type: 'festival',
-          significance: 'Festival of lights celebrating the victory of light over darkness',
-          whatToDo: ['Light diyas and candles', 'Perform Lakshmi Puja', 'Share sweets with family'],
-          fasting: false,
-          priority: 1
-        },
-        {
-          name: 'Kartik Ekadashi',
-          roman: 'Kartik Ekadashi',
-          hindi: 'कार्तिक एकादशी',
-          type: 'ekadashi',
-          significance: 'Sacred fasting day dedicated to Lord Vishnu for spiritual purification',
-          whatToDo: ['Observe complete fast', 'Chant Vishnu mantras', 'Read Bhagavad Gita'],
-          fasting: true,
-          priority: 2
-        },
-        
-        {
-          name: 'Diwali2',
-          roman: 'Diwali',
-          hindi: 'दीवाली',
-          type: 'festival',
-          significance: 'Festival of lights celebrating the victory of light over darkness',
-          whatToDo: ['Light diyas and candles', 'Perform Lakshmi Puja', 'Share sweets with family'],
-          fasting: false,
-          priority: 1
-        },
-      ];
-      
-      // Add test events only if we don't already have real events for this date
-      if (events.length === 0) {
-        events.push(...testEvents);
-      } else {
-        // Add additional test events to existing real events
-        events.push(...testEvents.slice(0, 2)); // Add 2 extra events
-      }
-    }
-    
     // Sort events alphabetically by name for consistent ordering
     events.sort((a, b) => {
       const nameA = a.roman || a.name || a.hindi || '';
@@ -317,6 +260,12 @@ class HinduCalendarEngine {
    * Get Ekadashi for a specific date with year support
    */
   getEkadashiForDate(dateString) {
+    // Use unified ekadashi function if available
+    if (window.getEkadashiData) {
+      return window.getEkadashiData(dateString);
+    }
+    
+    // Fallback to direct access
     const year = parseInt(dateString.substring(0, 4));
     const ekadashiData = this.ekadashi[year] || this.ekadashi[2025];
     return ekadashiData[dateString] || null;
@@ -519,8 +468,11 @@ class HinduCalendarEngine {
       upcoming.push(...upcomingFestivals.map(f => ({...f, type: 'festival'})));
     }
 
-    // Get upcoming Ekadashis
-    if (window.getNextEkadashi) {
+    // Get upcoming Ekadashis using unified function
+    if (window.getUpcomingEkadashis) {
+      const upcomingEkadashis = window.getUpcomingEkadashis(today, daysAhead);
+      upcoming.push(...upcomingEkadashis.map(e => ({...e, type: 'ekadashi'})));
+    } else if (window.getNextEkadashi) {
       let nextEkadashi = window.getNextEkadashi(today);
       let checkDate = new Date(today);
       
@@ -559,7 +511,16 @@ class HinduCalendarEngine {
     }
 
     const festivalsData = this.festivals[year] || {};
-    const ekadashiData = this.ekadashi[year] || {};
+    
+    // Use direct access to ekadashi data for statistics
+    let ekadashiData = {};
+    if (year === 2024 && window.EKADASHI_2024) {
+      ekadashiData = window.EKADASHI_2024;
+    } else if (year === 2025 && window.EKADASHI_2025) {
+      ekadashiData = window.EKADASHI_2025;
+    } else {
+      ekadashiData = this.ekadashi[year] || {};
+    }
 
     return {
       year: year,

@@ -12,6 +12,8 @@ class HinduCalendarUI {
     // Handlers will be initialized after elements are cached
     this.mobileMenuHandler = null;
     this.modalManager = null;
+    this.calendarRenderer = null;
+    this.upcomingEventsHandler = null;
     
     this.init();
   }
@@ -23,6 +25,8 @@ class HinduCalendarUI {
     this.cacheElements();
     this.initializeMobileMenuHandler();
     this.initializeModalManager();
+    this.initializeCalendarRenderer();
+    this.initializeUpcomingEventsHandler();
     this.setupEventListeners();
     this.setupSidebarToggle();
     this.render();
@@ -104,6 +108,20 @@ class HinduCalendarUI {
   }
 
   /**
+   * Initialize calendar renderer
+   */
+  initializeCalendarRenderer() {
+    this.calendarRenderer = new CalendarRenderer(this.elements, this);
+  }
+
+  /**
+   * Initialize upcoming events handler
+   */
+  initializeUpcomingEventsHandler() {
+    this.upcomingEventsHandler = new UpcomingEventsHandler(this.elements, this);
+  }
+
+  /**
    * Close mobile menu (delegated to handler)
    */
   closeMobileMenu() {
@@ -181,9 +199,9 @@ class HinduCalendarUI {
    */
   render() {
     this.renderHeader();
-    this.renderCalendar();
-    this.renderUpcomingEvents();
-    this.updateTodayHighlight();
+    this.calendarRenderer.renderCalendar();
+    this.upcomingEventsHandler.renderUpcomingEvents();
+    this.calendarRenderer.updateTodayHighlight();
   }
 
   /**
@@ -246,331 +264,21 @@ class HinduCalendarUI {
   }
 
   /**
-   * Render main calendar view
+   * Render main calendar view (delegated to calendar renderer)
    */
   renderCalendar() {
-    const calendarData = this.engine.generateCalendarData();
-    
-    this.renderCalendarHeader(calendarData);
-    this.renderCalendarGrid();
-    this.renderOccasionsSidebar(calendarData);
-  }
-
-  /**
-   * Render calendar header with month/year info
-   */
-  renderCalendarHeader(calendarData) {
-    const { year, monthName, hinduMonths } = calendarData;
-
-    // Gregorian month/year
-    if (this.elements.currentMonth) {
-      this.elements.currentMonth.textContent = `${monthName} ${year}`;
-    }
-
-    // Hindu months (simplified - no descriptions)
-    if (this.elements.hinduMonths) {
-      if (Array.isArray(hinduMonths) && hinduMonths.length > 1) {
-        // Multiple Hindu months in this Gregorian month
-        this.elements.hinduMonths.innerHTML = `
-          <div class="multiple-hindu-months">
-            ${hinduMonths.map(month => `
-              <span class="hindu-month-name">${month.name} (${month.roman})</span>
-            `).join(' • ')}
-          </div>
-        `;
-      } else if (Array.isArray(hinduMonths) && hinduMonths.length === 1) {
-        // Single Hindu month
-        const month = hinduMonths[0];
-        this.elements.hinduMonths.innerHTML = `
-          <div class="single-hindu-month">
-            <span class="hindu-month-name">${month.name} (${month.roman})</span>
-          </div>
-        `;
-      } else {
-        // Fallback when no Hindu months data is available
-        this.elements.hinduMonths.innerHTML = `
-          <div class="hindu-months-loading">
-            Loading Hindu calendar data...
-          </div>
-        `;
-      }
+    if (this.calendarRenderer) {
+      this.calendarRenderer.renderCalendar();
     }
   }
 
   /**
-   * Render calendar grid with days
-   */
-  renderCalendarGrid() {
-    const calendarGrid = this.elements.calendarGrid;
-    calendarGrid.innerHTML = '';
-
-    const isMobile = window.innerWidth <= 768;
-    calendarGrid.classList.toggle('mobile-grid', isMobile);
-
-    const calendarData = this.engine.generateCalendarData();
-    if (!calendarData || !calendarData.days) {
-      console.error("Failed to generate calendar data. Aborting render.");
-      return;
-    }
-
-    let daysToRender = calendarData.days;
-
-    if (isMobile) {
-      const currentMonthDays = calendarData.days.filter(d => d.isCurrentMonth);
-
-      const lastDayOfMonth = currentMonthDays.length > 0 ? currentMonthDays[currentMonthDays.length - 1].date : new Date(this.engine.currentYear, this.engine.currentMonth + 1, 0);
-      const nextMonthDate = new Date(lastDayOfMonth);
-      nextMonthDate.setDate(nextMonthDate.getDate() + 1);
-      const nextMonth = nextMonthDate.getMonth();
-      const nextYear = nextMonthDate.getFullYear();
-
-      const paddingNeeded = 32 - currentMonthDays.length;
-      
-      const paddingDays = [];
-      if (paddingNeeded > 0) {
-        for (let i = 1; i <= paddingNeeded; i++) {
-          const dayData = this.engine.createDayData(nextYear, nextMonth, i);
-          dayData.isCurrentMonth = false;
-          dayData.isOtherMonth = true;
-          paddingDays.push(dayData);
-        }
-      }
-      
-      daysToRender = [...currentMonthDays, ...paddingDays];
-
-    } else {
-      const dayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-      dayNames.forEach(day => {
-        const headerCell = document.createElement('div');
-        headerCell.className = 'day-header';
-        headerCell.textContent = day;
-        calendarGrid.appendChild(headerCell);
-      });
-    }
-
-    daysToRender.forEach((dayData, index) => {
-      if (dayData) {
-        const dayElement = this.createDayElement(dayData);
-        calendarGrid.appendChild(dayElement);
-      }
-    });
-  }
-
-  /**
-   * Render occasions list for a specific container
+   * Render occasions list for a specific container (delegated to calendar renderer)
    */
   renderOccasionsList(calendarData, containerId) {
-    const container = document.getElementById(containerId);
-    if (!container) return;
-
-    // Get current month's occasions
-    const occasions = [];
-    
-    calendarData.days.forEach(dayData => {
-      if (dayData.occasion && dayData.isCurrentMonth) {
-        const dayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-        const dayName = dayNames[dayData.date.getDay()];
-        
-        occasions.push({
-          ...dayData.occasion,
-          date: dayData.dateString,
-          dayNumber: dayData.day,
-          dayName: dayName,
-          type: dayData.occasionType
-        });
-      }
-    });
-
-    if (occasions.length === 0) {
-      container.innerHTML = `
-        <div class="no-occasions">
-          <p>No occasions this month</p>
-        </div>
-      `;
-      return;
+    if (this.calendarRenderer) {
+      this.calendarRenderer.renderOccasionsList(calendarData, containerId);
     }
-
-    // Sort occasions by date
-    occasions.sort((a, b) => new Date(a.date) - new Date(b.date));
-
-    // Create occasions HTML
-    const occasionsHTML = occasions.map(occasion => `
-      <div class="occasion-item ${occasion.type === 'festival' ? 'festival' : 'ekadashi'}">
-        <div class="occasion-info">
-          <div class="occasion-name">${occasion.name || occasion.hindi || occasion.roman}</div>
-          <div class="occasion-roman">${occasion.roman || occasion.english || ''}</div>
-          <div class="occasion-date">${occasion.dayName} ${occasion.dayNumber}</div>
-        </div>
-        <div class="occasion-type-badge ${occasion.type === 'festival' ? 'festival' : 'ekadashi'}">
-          ${occasion.type === 'festival' ? '🎉' : '🙏'}
-        </div>
-      </div>
-    `).join('');
-
-    container.innerHTML = occasionsHTML;
-  }
-
-  /**
-   * Render occasions sidebar with current month's festivals and events
-   */
-  renderOccasionsSidebar(calendarData) {
-    this.renderOccasionsList(calendarData, 'occasionsList');
-  }
-
-  /**
-   * Get shortened display name for festivals
-   */
-  getShortDisplayName(occasion, occasionType) {
-    if (occasionType === 'ekadashi') {
-      return 'Ekadashi';
-    }
-    
-    if (!occasion) return '';
-    
-    // Festival name mappings for shorter display
-    const shortNames = {
-      'Dussehra/Vijayadashami': 'Dussehra',
-      'Krishna Janmashtami': 'Janmashtami',
-      'Ganesh Chaturthi': 'Ganesh',
-      'Raksha Bandhan': 'Rakhi',
-      'Guru Purnima': 'Guru Purnima',
-      'Makar Sankranti': 'Sankranti',
-      'Vasant Panchami': 'Saraswati',
-      'Maha Shivratri': 'Shivratri',
-      'Ram Navami': 'Ram Navami',
-      'Hanuman Jayanti': 'Hanuman',
-      'Buddha Purnima': 'Buddha',
-      'Akshaya Tritiya': 'Akshaya',
-      'Dhanteras': 'Dhanteras',
-      'Diwali/Deepavali': 'Diwali',
-      'Govardhan Puja': 'Govardhan',
-      'Bhai Dooj': 'Bhai Dooj',
-      'Karva Chauth': 'Karva Chauth',
-      'Navratri Shuru': 'Navratri'
-    };
-    
-    // Try different name sources
-    const possibleNames = [
-      occasion.english,
-      occasion.roman, 
-      occasion.name
-    ].filter(name => name);
-    
-    // Find the shortest mapped name or use roman/english
-    for (const name of possibleNames) {
-      if (shortNames[name]) {
-        return shortNames[name];
-      }
-    }
-    
-    // Fallback: use roman or english name, truncated if too long
-    const fallbackName = occasion.roman || occasion.english || occasion.name || '';
-    return fallbackName.length > 12 ? fallbackName.substring(0, 10) + '...' : fallbackName;
-  }
-
-  /**
-   * Create a day element for the calendar grid
-   */
-  createDayElement(dayData) {
-    const dayElement = document.createElement('div');
-
-    if (!dayData || dayData.isEmpty) {
-      dayElement.className = 'day empty';
-      return dayElement;
-    }
-
-    const { date, day, isCurrentMonth, isToday, occasion, occasionType, events } = dayData;
-    
-    dayElement.className = 'day';
-    dayElement.setAttribute('data-date', dayData.dateString);
-    dayElement.setAttribute('role', 'gridcell');
-    dayElement.setAttribute('tabindex', '0');
-    
-    // Add classes based on day properties
-    if (!isCurrentMonth) dayElement.classList.add('other-month');
-    if (isToday) dayElement.classList.add('today');
-    
-    // Multiple events styling
-    if (events && events.length > 0) {
-      dayElement.classList.add('has-occasion');
-      
-      // Add classes for all event types present
-      const hasFestival = events.some(e => e.type === 'festival');
-      const hasEkadashi = events.some(e => e.type === 'ekadashi');
-      
-      if (hasFestival) dayElement.classList.add('festival-day');
-      if (hasEkadashi) dayElement.classList.add('ekadashi-day');
-      
-      // Add major festival class if any festival is major
-      if (events.some(e => e.type === 'festival' && e.importance === 'major')) {
-        dayElement.classList.add('festival-major');
-      }
-      
-      // Add multi-event class for styling
-      if (events.length > 1) {
-        dayElement.classList.add('has-multiple-events');
-      }
-    }
-    
-    // Get day name for mobile layout
-    const dayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-    const dayName = dayNames[date.getDay()];
-    
-    // Create day content
-    const dayContent = document.createElement('div');
-    dayContent.className = 'day-content';
-    
-    // Add day name (always visible on mobile)
-    const dayNameElement = document.createElement('div');
-    dayNameElement.className = 'day-name';
-    dayNameElement.textContent = dayName;
-    dayContent.appendChild(dayNameElement);
-    
-    // Add day number
-    const dayNumberElement = document.createElement('div');
-    dayNumberElement.className = 'day-number';
-    dayNumberElement.textContent = day;
-    dayContent.appendChild(dayNumberElement);
-    
-    // Add multiple event indicators
-    if (events && events.length > 0) {
-      const eventsContainer = document.createElement('div');
-      eventsContainer.className = 'events-container';
-      
-      // Show up to 2-3 events, with overflow indicator
-      const maxVisible = 4;
-      const visibleEvents = events.slice(0, maxVisible);
-      
-      visibleEvents.forEach((event, index) => {
-        const eventElement = document.createElement('div');
-        eventElement.className = `occasion-indicator ${event.type === 'festival' ? 'festival-major' : 'ekadashi-indicator'}`;
-        eventElement.textContent = this.getShortDisplayName(event, event.type);
-        eventsContainer.appendChild(eventElement);
-      });
-      
-      // Add overflow indicator if more events exist
-      if (events.length > maxVisible) {
-        const overflowElement = document.createElement('div');
-        overflowElement.className = 'occasion-indicator overflow-indicator';
-        overflowElement.textContent = `+${events.length - maxVisible}`;
-        eventsContainer.appendChild(overflowElement);
-      }
-      
-      dayContent.appendChild(eventsContainer);
-    }
-    
-    dayElement.appendChild(dayContent);
-    
-    // Add click event
-    dayElement.addEventListener('click', () => this.modalManager.showDayDetails(dayData));
-    dayElement.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter' || e.key === ' ') {
-        e.preventDefault();
-        this.modalManager.showDayDetails(dayData);
-      }
-    });
-    
-    return dayElement;
   }
 
   /**
@@ -581,185 +289,12 @@ class HinduCalendarUI {
   }
 
   /**
-   * Render upcoming sacred occasions section
+   * Render upcoming sacred occasions section (delegated to upcoming events handler)
    */
   renderUpcomingEvents() {
-    if (!this.elements.upcomingEvents) return;
-
-    const upcoming = this.engine.getUpcomingOccasions(30);
-    
-    if (upcoming.length === 0) {
-      this.elements.upcomingEvents.innerHTML = `
-        <div class="upcoming-events-container">
-          <div class="upcoming-header">
-            <h3>Sacred Days Ahead</h3>
-            <div class="period-info">Next 30 days</div>
-          </div>
-          <div class="no-events">
-            <p>No sacred occasions in the next 30 days.</p>
-          </div>
-        </div>
-      `;
-      return;
+    if (this.upcomingEventsHandler) {
+      this.upcomingEventsHandler.renderUpcomingEvents();
     }
-
-    // Group by time periods
-    const today = new Date();
-    const thisWeek = [];
-    const thisMonth = [];
-    const beyond = [];
-
-    upcoming.forEach(event => {
-      if (event.daysUntil <= 7) {
-        thisWeek.push(event);
-      } else if (event.daysUntil <= 30) {
-        thisMonth.push(event);
-      } else {
-        beyond.push(event);
-      }
-    });
-
-    const eventsHTML = `
-      <div class="upcoming-events-container">
-        <div class="upcoming-header">
-          <h3>Sacred Days Ahead</h3>
-          <div class="period-info">Next 30 days • ${upcoming.length} occasions</div>
-        </div>
-        
-        <div class="view-options">
-          <button class="filter-btn active" data-filter="all">All</button>
-          <button class="filter-btn" data-filter="festival">Festivals</button>
-          <button class="filter-btn" data-filter="ekadashi">Ekadashi</button>
-        </div>
-        
-        <div class="events-section">
-          <h4 class="section-title">Within Week</h4>
-          <div class="events-list">
-            ${thisWeek.length > 0 ? 
-              thisWeek.map(event => this.createEventItemHTML(event)).join('') :
-              '<div class="empty-state">No sacred occasions this week</div>'
-            }
-          </div>
-        </div>
-        
-        <div class="events-section">
-          <h4 class="section-title">Within Month</h4>
-          <div class="events-list">
-            ${thisMonth.length > 0 ? 
-              thisMonth.map(event => this.createEventItemHTML(event)).join('') :
-              '<div class="empty-state">No additional occasions this month</div>'
-            }
-          </div>
-        </div>
-      </div>
-    `;
-
-    this.elements.upcomingEvents.innerHTML = eventsHTML;
-
-    // Add click events for upcoming events
-    this.elements.upcomingEvents.querySelectorAll('.event-item').forEach(item => {
-      item.addEventListener('click', () => {
-        const date = item.dataset.date;
-        const event = upcoming.find(e => e.date === date);
-        if (event) {
-          this.showEventDetails(event);
-        }
-      });
-    });
-
-    // Add filter functionality
-    this.elements.upcomingEvents.querySelectorAll('.filter-btn').forEach(btn => {
-      btn.addEventListener('click', () => {
-        const filter = btn.dataset.filter;
-        this.filterUpcomingEvents(filter);
-        
-        // Update active state
-        this.elements.upcomingEvents.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-      });
-    });
-  }
-
-  /**
-   * Create HTML for a single event item
-   */
-  createEventItemHTML(event) {
-    const eventDate = new Date(event.date);
-    const dayName = eventDate.toLocaleDateString('en-US', { weekday: 'short' });
-    const monthName = eventDate.toLocaleDateString('en-US', { month: 'short' });
-    
-    return `
-      <div class="event-item ${event.type}" data-date="${event.date}" data-type="${event.type}">
-        <div class="event-date">
-          <div class="countdown-badge">${event.daysUntil === 0 ? 'Today' : event.daysUntil === 1 ? 'Tomorrow' : `${event.daysUntil} days`}</div>
-          <div class="date-details">
-            <div class="event-day">${eventDate.getDate()}</div>
-            <div class="date-meta">${dayName}, ${monthName}</div>
-          </div>
-        </div>
-        <div class="event-info">
-          <div class="event-name">${event.name}</div>
-          <div class="event-roman">${event.roman}</div>
-          <div class="event-significance">${event.significance}</div>
-        </div>
-      </div>
-    `;
-  }
-
-  /**
-   * Filter upcoming events by type
-   */
-  filterUpcomingEvents(filter) {
-    const eventItems = this.elements.upcomingEvents.querySelectorAll('.event-item');
-    
-    eventItems.forEach(item => {
-      const itemType = item.dataset.type;
-      if (filter === 'all' || itemType === filter) {
-        item.style.display = 'flex';
-      } else {
-        item.style.display = 'none';
-      }
-    });
-  }
-
-  /**
-   * Show event details in modal
-   */
-  showEventDetails(event) {
-    const content = this.createEventDetailContent(event);
-    this.modalManager.showModal(`${event.name} (${event.roman})`, content);
-  }
-
-  /**
-   * Create event detail content
-   */
-  createEventDetailContent(event) {
-    return `
-      <div class="event-details">
-        <div class="event-header">
-          <div class="event-date">${new Date(event.date).toLocaleDateString('en-US', {
-            weekday: 'long', month: 'long', day: 'numeric', year: 'numeric'
-          })}</div>
-          <div class="days-until">${event.daysUntil} days from today</div>
-        </div>
-        
-        <div class="event-significance">
-          <h3>Significance</h3>
-          <p>${event.significance}</p>
-        </div>
-        
-        ${event.whatToDo && Array.isArray(event.whatToDo) ? `
-          <div class="event-actions">
-            <h3>How to Observe</h3>
-            <ul>
-              ${event.whatToDo.map(action => `<li>${action}</li>`).join('')}
-            </ul>
-          </div>
-        ` : ''}
-        
-
-      </div>
-    `;
   }
 
   /**
@@ -1238,7 +773,7 @@ class HinduCalendarUI {
         this.renderCalendar();
         break;
       case 'upcoming':
-        this.renderUpcomingEvents();
+        this.upcomingEventsHandler.renderUpcomingEvents();
         break;
       case 'months':
         this.renderMonthsView();
@@ -1266,7 +801,9 @@ class HinduCalendarUI {
    */
   renderThisMonthView() {
     const calendarData = this.engine.generateCalendarData();
-    this.renderOccasionsList(calendarData, 'thisMonthOccasionsList');
+    if (this.calendarRenderer) {
+      this.calendarRenderer.renderOccasionsList(calendarData, 'thisMonthOccasionsList');
+    }
   }
 
   /**
@@ -1319,17 +856,8 @@ class HinduCalendarUI {
   }
 
   updateTodayHighlight() {
-    // Remove existing today highlights
-    document.querySelectorAll('.day.today').forEach(day => {
-      day.classList.remove('today');
-    });
- 
-    // Add today highlight
-    const now = new Date();
-    const today = `${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}-${String(now.getDate()).padStart(2,'0')}`;
-    const todayElement = document.querySelector(`.day[data-date="${today}"]`);
-    if (todayElement) {
-      todayElement.classList.add('today');
+    if (this.calendarRenderer) {
+      this.calendarRenderer.updateTodayHighlight();
     }
   }
 
@@ -1351,24 +879,8 @@ class HinduCalendarUI {
    * Responsive and accessibility features
    */
   handleResize() {
-    // Adjust layout for mobile
-    const isMobile = window.innerWidth < 768;
-    document.body.classList.toggle('mobile-layout', isMobile);
-    
-    // Update calendar grid for mobile
-    if (this.elements.calendarGrid) {
-      const wasMobile = this.elements.calendarGrid.classList.contains('mobile-grid');
-      if (isMobile && !wasMobile) {
-        // Switching to mobile - re-render grid
-        this.renderCalendar();
-      } else if (!isMobile && wasMobile) {
-        // Switching to desktop - re-render grid
-        this.renderCalendar();
-      } else if (isMobile) {
-        this.elements.calendarGrid.classList.add('mobile-grid');
-      } else {
-        this.elements.calendarGrid.classList.remove('mobile-grid');
-      }
+    if (this.calendarRenderer) {
+      this.calendarRenderer.handleResize();
     }
   }
 

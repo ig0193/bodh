@@ -49,7 +49,7 @@ class HinduCalendarApp {
       console.log('Hindu Calendar: DOM ready, checking data availability...');
       
       // Check if required data is loaded
-      const maxAttempts = 50; // 5 seconds timeout
+      const maxAttempts = 10; // 1 second timeout (since scripts load synchronously now)
       let attempts = 0;
       
       while (!this.dataLoaded && attempts < maxAttempts) {
@@ -95,15 +95,21 @@ class HinduCalendarApp {
     const requiredGlobals = [
       'HINDU_MONTHS_2024_2025',
       'FESTIVALS_2024',
+      'FESTIVALS_2025',
       'EKADASHI_2024',
+      'EKADASHI_2025',
+      'getEkadashiData',
+      'getNextEkadashi',
       'HinduCalendarEngine',
       'HinduCalendarUI'
     ];
     
     const missingModules = requiredGlobals.filter(name => typeof window[name] === 'undefined');
+    const availableModules = requiredGlobals.filter(name => typeof window[name] !== 'undefined');
     
     if (missingModules.length > 0) {
-      console.log(`Hindu Calendar: Waiting for modules: ${missingModules.join(', ')}`);
+      console.log(`Hindu Calendar: Available modules: ${availableModules.join(', ')}`);
+      console.log(`Hindu Calendar: Missing modules: ${missingModules.join(', ')}`);
       return false;
     }
     
