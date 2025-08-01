@@ -101,27 +101,50 @@ const FESTIVALS_2025 = {
     deity: "Lord Krishna"
   },
 
-  "2025-03-14": {
-    name: "होली",
-    english: "Holi",
-    roman: "Holi",
-    type: "major",
-    category: "Spring Festival",
-    significance: "Festival of colors, victory of good over evil, celebration of divine love",
-    mythology: "Celebration of divine love between Radha and Krishna",
-    whatToDo: [
-      "Play with organic colors and water",
-      "Dance and sing traditional folk songs",
-      "Prepare and share festive foods like gujiya",
-      "Visit family and friends",
-      "Forgive past grievances and embrace unity"
-    ],
-    foods: ["Gujiya", "Thandai", "Dahi bhalla", "Malpua"],
-    colors: ["All colors", "Especially red, yellow, green"],
-    duration: "1 day",
-    mantra: "ॐ कृष्णाय नमः",
-    deity: "Lord Krishna"
-  },
+  "2025-03-14": [
+    {
+      name: "होली",
+      english: "Holi",
+      roman: "Holi",
+      type: "major",
+      category: "Spring Festival",
+      significance: "Festival of colors, victory of good over evil, celebration of divine love",
+      mythology: "Celebration of divine love between Radha and Krishna",
+      whatToDo: [
+        "Play with organic colors and water",
+        "Dance and sing traditional folk songs",
+        "Prepare and share festive foods like gujiya",
+        "Visit family and friends",
+        "Forgive past grievances and embrace unity"
+      ],
+      foods: ["Gujiya", "Thandai", "Dahi bhalla", "Malpua"],
+      colors: ["All colors", "Especially red, yellow, green"],
+      duration: "1 day",
+      mantra: "ॐ कृष्णाय नमः",
+      deity: "Lord Krishna"
+    },
+    {
+      name: "धूलि वंदन",
+      english: "Dhuli Vandan",
+      roman: "Dhuli Vandan",
+      type: "auspicious",
+      category: "Spring Festival",
+      significance: "Second day of Holi celebrations, known as Dhuleti in some regions",
+      mythology: "Continuation of Holi festivities with color play and social bonding",
+      whatToDo: [
+        "Continue playing with colors in morning",
+        "Visit friends and neighbors",
+        "Apply colors with love and respect",
+        "Share sweets and festive foods",
+        "Enjoy community celebrations"
+      ],
+      foods: ["Gujiya", "Festive sweets", "Thandai"],
+      colors: ["Bright colors", "Yellow", "Red"],
+      duration: "Half day",
+      mantra: "ॐ कृष्णाय नमः",
+      deity: "Lord Krishna"
+    }
+  ],
 
   "2025-03-30": {
     name: "उगादि/गुड़ी पाडवा",
@@ -304,27 +327,50 @@ const FESTIVALS_2025 = {
   },
 
   // August 2025
-  "2025-08-09": {
-    name: "रक्षा बंधन",
-    english: "Raksha Bandhan",
-    roman: "Rakshaa Bandhan",
-    type: "major",
-    category: "Family Festival",
-    significance: "Sacred bond between brothers and sisters, promise of protection and love",
-    mythology: "Goddess Lakshmi tied rakhi to King Bali, various stories of divine protection",
-    whatToDo: [
-      "Sisters tie rakhi on brothers' wrists",
-      "Brothers give gifts and promise protection",
-      "Family gatherings and feasts",
-      "Share sweets and celebrate togetherness",
-      "Remember distant siblings with video calls"
-    ],
-    foods: ["Mithai", "Festive meals", "Traditional sweets"],
-    colors: ["Red", "Yellow"],
-    duration: "1 day",
-    mantra: "यस्य द्विजबन्धुत्वे",
-    deity: "Family bonds"
-  },
+  "2025-08-09": [
+    {
+      name: "रक्षा बंधन",
+      english: "Raksha Bandhan",
+      roman: "Rakshaa Bandhan",
+      type: "major",
+      category: "Family Festival",
+      significance: "Sacred bond between brothers and sisters, promise of protection and love",
+      mythology: "Goddess Lakshmi tied rakhi to King Bali, various stories of divine protection",
+      whatToDo: [
+        "Sisters tie rakhi on brothers' wrists",
+        "Brothers give gifts and promise protection",
+        "Family gatherings and feasts",
+        "Share sweets and celebrate togetherness",
+        "Remember distant siblings with video calls"
+      ],
+      foods: ["Mithai", "Festive meals", "Traditional sweets"],
+      colors: ["Red", "Yellow"],
+      duration: "1 day",
+      mantra: "यस्य द्विजबन्धुत्वे",
+      deity: "Family bonds"
+    },
+    {
+      name: "नारियली पूर्णिमा",
+      english: "Nariyali Purnima",
+      roman: "Nariyali Purnima",
+      type: "auspicious",
+      category: "Coastal Festival",
+      significance: "Offering coconuts to the sea, prayers for safe sea voyages",
+      mythology: "Coastal communities offer prayers to Varuna (sea god) for protection",
+      whatToDo: [
+        "Offer coconuts to the sea or river",
+        "Pray for safety of fishermen and sailors",
+        "Celebrate with coastal communities",
+        "Prepare coconut-based dishes",
+        "Thank the ocean for its bounty"
+      ],
+      foods: ["Coconut sweets", "Fish curry", "Coastal delicacies"],
+      colors: ["White", "Blue"],
+      duration: "1 day",
+      mantra: "ॐ वरुणाय नमः",
+      deity: "Lord Varuna"
+    }
+  ],
 
   "2025-08-16": {
     name: "कृष्ण जन्माष्टमी",
@@ -491,10 +537,32 @@ const FESTIVALS_2025 = {
 /**
  * Get festival data for a specific date in 2025
  * @param {string} dateString - Date in YYYY-MM-DD format
- * @returns {Object|null} Festival data or null if not found
+ * @returns {Object|Array|null} Festival data (single object or array) or null if not found
  */
 function getFestival2025(dateString) {
   return FESTIVALS_2025[dateString] || null;
+}
+
+/**
+ * Get all festivals for a specific date in 2025 as an array
+ * @param {string} dateString - Date in YYYY-MM-DD format
+ * @returns {Array} Array of festival objects (empty if none found)
+ */
+function getFestivals2025(dateString) {
+  const data = FESTIVALS_2025[dateString];
+  if (!data) return [];
+  return Array.isArray(data) ? data : [data];
+}
+
+/**
+ * Get primary (first) festival for a specific date in 2025
+ * @param {string} dateString - Date in YYYY-MM-DD format
+ * @returns {Object|null} Primary festival data or null if not found
+ */
+function getPrimaryFestival2025(dateString) {
+  const data = FESTIVALS_2025[dateString];
+  if (!data) return null;
+  return Array.isArray(data) ? data[0] : data;
 }
 
 /**
@@ -507,11 +575,23 @@ function getFestivalsForMonth2025(month) {
   for (const [date, festivalData] of Object.entries(FESTIVALS_2025)) {
     const festivalDate = new Date(date);
     if (festivalDate.getMonth() + 1 === month) {
-      festivals.push({
-        date: date,
-        day: festivalDate.getDate(),
-        ...festivalData
-      });
+      if (Array.isArray(festivalData)) {
+        // Multiple festivals on same date
+        festivalData.forEach(festival => {
+          festivals.push({
+            date: date,
+            day: festivalDate.getDate(),
+            ...festival
+          });
+        });
+      } else {
+        // Single festival on this date
+        festivals.push({
+          date: date,
+          day: festivalDate.getDate(),
+          ...festivalData
+        });
+      }
     }
   }
   
@@ -537,11 +617,24 @@ function getUpcomingFestivals2025(fromDate = new Date(), daysAhead = 30) {
     const festivalDate = new Date(date);
     if (festivalDate >= fromDate && festivalDate <= endDate) {
       const daysUntil = Math.ceil((festivalDate - fromDate) / (1000 * 60 * 60 * 1000));
-      upcoming.push({
-        date: date,
-        daysUntil: daysUntil,
-        ...festivalData
-      });
+      
+      if (Array.isArray(festivalData)) {
+        // Multiple festivals on same date
+        festivalData.forEach(festival => {
+          upcoming.push({
+            date: date,
+            daysUntil: daysUntil,
+            ...festival
+          });
+        });
+      } else {
+        // Single festival on this date
+        upcoming.push({
+          date: date,
+          daysUntil: daysUntil,
+          ...festivalData
+        });
+      }
     }
   }
   
@@ -552,6 +645,8 @@ function getUpcomingFestivals2025(fromDate = new Date(), daysAhead = 30) {
 // Make sure these are available globally for the main application
 window.FESTIVALS_2025 = FESTIVALS_2025;
 window.getFestival2025 = getFestival2025;
+window.getFestivals2025 = getFestivals2025;
+window.getPrimaryFestival2025 = getPrimaryFestival2025;
 window.getFestivalsForMonth2025 = getFestivalsForMonth2025;
 window.getUpcomingFestivals2025 = getUpcomingFestivals2025;
 
@@ -560,6 +655,8 @@ if (typeof module !== 'undefined' && module.exports) {
   module.exports = {
     FESTIVALS_2025,
     getFestival2025,
+    getFestivals2025,
+    getPrimaryFestival2025,
     getFestivalsForMonth2025,
     getUpcomingFestivals2025
   };

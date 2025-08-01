@@ -6,7 +6,7 @@
 /**
  * Get festival data for any supported year
  * @param {string} dateString - Date in YYYY-MM-DD format
- * @returns {Object|null} Festival data or null if not found
+ * @returns {Object|Array|null} Festival data (single object or array) or null if not found
  */
 function getFestivalData(dateString) {
   const year = dateString.substring(0, 4);
@@ -16,6 +16,28 @@ function getFestivalData(dateString) {
     return window.FESTIVALS_2025[dateString] || null;
   }
   return null;
+}
+
+/**
+ * Get all festivals for a specific date as an array
+ * @param {string} dateString - Date in YYYY-MM-DD format
+ * @returns {Array} Array of festival objects (empty if none found)
+ */
+function getFestivalsData(dateString) {
+  const data = getFestivalData(dateString);
+  if (!data) return [];
+  return Array.isArray(data) ? data : [data];
+}
+
+/**
+ * Get primary (first) festival for a specific date
+ * @param {string} dateString - Date in YYYY-MM-DD format
+ * @returns {Object|null} Primary festival data or null if not found
+ */
+function getPrimaryFestivalData(dateString) {
+  const data = getFestivalData(dateString);
+  if (!data) return null;
+  return Array.isArray(data) ? data[0] : data;
 }
 
 /**
@@ -37,11 +59,23 @@ function getFestivalsForMonth(month, year) {
   for (const [date, festivalData] of Object.entries(festivalsData)) {
     const festivalDate = new Date(date);
     if (festivalDate.getMonth() + 1 === month) {
-      festivals.push({
-        date: date,
-        day: festivalDate.getDate(),
-        ...festivalData
-      });
+      if (Array.isArray(festivalData)) {
+        // Multiple festivals on same date
+        festivalData.forEach(festival => {
+          festivals.push({
+            date: date,
+            day: festivalDate.getDate(),
+            ...festival
+          });
+        });
+      } else {
+        // Single festival on this date
+        festivals.push({
+          date: date,
+          day: festivalDate.getDate(),
+          ...festivalData
+        });
+      }
     }
   }
   
@@ -75,11 +109,24 @@ function getUpcomingFestivals(fromDate = new Date(), daysAhead = 30) {
       const festivalDate = new Date(date);
       if (festivalDate >= fromDate && festivalDate <= endDate) {
         const daysUntil = Math.ceil((festivalDate - fromDate) / (1000 * 60 * 60 * 24));
-        upcoming.push({
-          date: date,
-          daysUntil: daysUntil,
-          ...festivalData
-        });
+        
+        if (Array.isArray(festivalData)) {
+          // Multiple festivals on same date
+          festivalData.forEach(festival => {
+            upcoming.push({
+              date: date,
+              daysUntil: daysUntil,
+              ...festival
+            });
+          });
+        } else {
+          // Single festival on this date
+          upcoming.push({
+            date: date,
+            daysUntil: daysUntil,
+            ...festivalData
+          });
+        }
       }
     }
   }
@@ -90,6 +137,8 @@ function getUpcomingFestivals(fromDate = new Date(), daysAhead = 30) {
 // ===== GLOBAL EXPOSURE =====
 // Make unified functions available globally
 window.getFestivalData = getFestivalData;
+window.getFestivalsData = getFestivalsData;
+window.getPrimaryFestivalData = getPrimaryFestivalData;
 window.getFestivalsForMonth = getFestivalsForMonth;
 window.getUpcomingFestivals = getUpcomingFestivals;
 
@@ -105,6 +154,8 @@ window.getUpcomingFestivals2024 = (fromDate, daysAhead) => {
 if (typeof module !== 'undefined' && module.exports) {
   module.exports = {
     getFestivalData,
+    getFestivalsData,
+    getPrimaryFestivalData,
     getFestivalsForMonth,
     getUpcomingFestivals
   };

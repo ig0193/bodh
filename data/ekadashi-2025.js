@@ -247,6 +247,7 @@ const EKADASHI_2025 = {
     mantra: "ॐ नमो भगवते वासुदेवाय"
   },
 
+
   "2025-08-05": {
     name: "श्रावण पुत्रदा एकादशी",
     english: "Shravana Putrada Ekadashi",
@@ -263,6 +264,7 @@ const EKADASHI_2025 = {
     deity: "Lord Vishnu",
     mantra: "ॐ नमो भगवते वासुदेवाय"
   },
+
 
   "2025-08-19": {
     name: "अजा एकादशी",

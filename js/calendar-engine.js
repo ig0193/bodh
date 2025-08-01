@@ -189,20 +189,22 @@ class HinduCalendarEngine {
     const dateString = `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
     
     // Get occasions for this date
-    const festival = this.getFestivalForDate(dateString);
+    const festival = this.getFestivalForDate(dateString); // Primary festival for legacy support
+    const allFestivals = this.getFestivalsForDate(dateString); // All festivals for this date
     const ekadashi = this.getEkadashiForDate(dateString);
     const hinduMonth = this.getHinduMonthForDate(date);
 
     // Collect all events for this date
     const events = [];
     
-    if (festival) {
+    // Add all festivals for this date
+    allFestivals.forEach(fest => {
       events.push({
-        ...festival,
+        ...fest,
         type: 'festival',
         priority: 1
       });
-    }
+    });
     
     if (ekadashi) {
       events.push({
@@ -253,7 +255,27 @@ class HinduCalendarEngine {
   getFestivalForDate(dateString) {
     const year = parseInt(dateString.substring(0, 4));
     const festivalsData = this.festivals[year] || this.festivals[2025];
-    return festivalsData[dateString] || null;
+    const festivalData = festivalsData[dateString];
+    
+    if (!festivalData) return null;
+    
+    // Handle both single festival and array of festivals
+    // Return first festival for backwards compatibility
+    return Array.isArray(festivalData) ? festivalData[0] : festivalData;
+  }
+
+  /**
+   * Get all festivals for a specific date with year support
+   */
+  getFestivalsForDate(dateString) {
+    const year = parseInt(dateString.substring(0, 4));
+    const festivalsData = this.festivals[year] || this.festivals[2025];
+    const festivalData = festivalsData[dateString];
+    
+    if (!festivalData) return [];
+    
+    // Return array of festivals
+    return Array.isArray(festivalData) ? festivalData : [festivalData];
   }
 
   /**
