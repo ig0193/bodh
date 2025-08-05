@@ -14,6 +14,7 @@ class HinduCalendarUI {
     this.modalManager = null;
     this.calendarRenderer = null;
     this.upcomingEventsHandler = null;
+    this.festivalsManager = null;
     
     this.init();
   }
@@ -27,6 +28,7 @@ class HinduCalendarUI {
     this.initializeModalManager();
     this.initializeCalendarRenderer();
     this.initializeUpcomingEventsHandler();
+    this.initializeFestivalsManager();
     this.setupEventListeners();
     this.setupSidebarToggle();
     this.render();
@@ -119,6 +121,13 @@ class HinduCalendarUI {
    */
   initializeUpcomingEventsHandler() {
     this.upcomingEventsHandler = new UpcomingEventsHandler(this.elements, this);
+  }
+
+  /**
+   * Initialize festivals manager
+   */
+  initializeFestivalsManager() {
+    this.festivalsManager = new FestivalsManager(this);
   }
 
   /**
@@ -784,9 +793,6 @@ class HinduCalendarUI {
       case 'festivals':
         this.renderFestivalsView();
         break;
-      case 'search':
-        this.renderSearchView();
-        break;
       case 'about':
         // About view is static HTML
         break;
@@ -810,29 +816,11 @@ class HinduCalendarUI {
    * Render Festivals view
    */
   renderFestivalsView() {
-    const festivalsContainer = document.querySelector('.festivals-content');
-    if (!festivalsContainer) return;
-    
-    // Placeholder for festivals view
-    festivalsContainer.innerHTML = `
-      <div class="festivals-loading">
-        <p>Festivals view coming soon...</p>
-      </div>
-    `;
+    if (this.festivalsManager) {
+      this.festivalsManager.init();
+    }
   }
 
-  /**
-   * Render Search view
-   */
-  renderSearchView() {
-    const searchResults = document.getElementById('searchResults');
-    if (!searchResults) return;
-    
-    // Placeholder for search functionality
-    searchResults.innerHTML = `
-      <p class="search-placeholder">Search functionality coming soon...</p>
-    `;
-  }
 
   /**
    * Modal functions (delegated to modal manager)
@@ -890,6 +878,42 @@ class HinduCalendarUI {
   initResponsive() {
     window.addEventListener('resize', () => this.handleResize());
     this.handleResize(); // Initial check
+  }
+
+  /**
+   * Cleanup method for proper resource management
+   */
+  destroy() {
+    // Cleanup festivals manager
+    if (this.festivalsManager && typeof this.festivalsManager.destroy === 'function') {
+      this.festivalsManager.destroy();
+    }
+
+    // Cleanup other handlers
+    if (this.upcomingEventsHandler && typeof this.upcomingEventsHandler.destroy === 'function') {
+      this.upcomingEventsHandler.destroy();
+    }
+    
+    if (this.calendarRenderer && typeof this.calendarRenderer.destroy === 'function') {
+      this.calendarRenderer.destroy();
+    }
+    
+    if (this.modalManager && typeof this.modalManager.destroy === 'function') {
+      this.modalManager.destroy();
+    }
+    
+    if (this.mobileMenuHandler && typeof this.mobileMenuHandler.destroy === 'function') {
+      this.mobileMenuHandler.destroy();
+    }
+
+    // Clear references
+    this.engine = null;
+    this.elements = {};
+    this.mobileMenuHandler = null;
+    this.modalManager = null;
+    this.calendarRenderer = null;
+    this.upcomingEventsHandler = null;
+    this.festivalsManager = null;
   }
 
 }

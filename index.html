@@ -165,10 +165,6 @@
                         <i class="fas fa-list"></i>
                         <span>Festivals</span>
                     </a>
-                    <a href="#" class="mobile-menu-item" data-view="search">
-                        <i class="fas fa-search"></i>
-                        <span>Search</span>
-                    </a>
                     <a href="#" class="mobile-menu-item" data-view="about">
                         <i class="fas fa-info-circle"></i>
                         <span>About</span>
@@ -456,37 +452,77 @@
             <section id="festivalsView" class="view" aria-label="Festivals View">
                 <div class="festivals-container">
                     <div class="festivals-header">
-                        <h2>Festivals & Ekadashi</h2>
-                        <p class="festivals-subtitle">Complete list of sacred occasions for the year</p>
+                        <h2>Festivals & Ekadashi 2025</h2>
                     </div>
-                    <div class="festivals-content">
+                    
+                    <!-- Search Box -->
+                    <div class="festivals-search">
+                        <div class="search-box">
+                            <input type="text" id="festivalsSearchInput" placeholder="Search festivals, dates, or keywords..." />
+                            <button id="clearSearchBtn" aria-label="Clear search" style="display: none;">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- Filter Controls -->
+                    <div class="festivals-filters">
+                        <div class="filters-title">
+                            <i class="fas fa-filter"></i>
+                            <span>Filter Events</span>
+                        </div>
+                        <div class="filters-controls">
+                            <div class="filter-group">
+                                <label for="monthFilter">Month:</label>
+                                <select id="monthFilter">
+                                    <option value="">All Months</option>
+                                    <option value="1">January</option>
+                                    <option value="2">February</option>
+                                    <option value="3">March</option>
+                                    <option value="4">April</option>
+                                    <option value="5">May</option>
+                                    <option value="6">June</option>
+                                    <option value="7">July</option>
+                                    <option value="8">August</option>
+                                    <option value="9">September</option>
+                                    <option value="10">October</option>
+                                    <option value="11">November</option>
+                                    <option value="12">December</option>
+                                </select>
+                            </div>
+                            <div class="filter-group">
+                                <label for="typeFilter">Type:</label>
+                                <select id="typeFilter">
+                                    <option value="">All Types</option>
+                                    <option value="major">Major Festivals</option>
+                                    <option value="auspicious">Auspicious Days</option>
+                                    <option value="ekadashi">Ekadashi</option>
+                                </select>
+                            </div>
+                            <div class="filter-group reset-group">
+                                <button id="resetFiltersBtn" class="reset-filters-btn" aria-label="Reset filters">
+                                    <i class="fas fa-undo"></i>
+                                    <span>Reset</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Results Summary -->
+                    <div class="festivals-summary" id="festivalsSummary">
+                        <span class="results-count">Loading festivals...</span>
+                    </div>
+                    
+                    <!-- Festivals Content -->
+                    <div class="festivals-content" id="festivalsContent">
                         <div class="festivals-loading">
+                            <div class="loading-spinner"></div>
                             <p>Loading festivals...</p>
                         </div>
                     </div>
                 </div>
             </section>
 
-            <!-- Search View -->
-            <section id="searchView" class="view" aria-label="Search View">
-                <div class="search-container">
-                    <div class="search-header">
-                        <h2>Search</h2>
-                        <p class="search-subtitle">Find festivals, Ekadashi, and cultural information</p>
-                    </div>
-                    <div class="search-content">
-                        <div class="search-box">
-                            <input type="text" id="searchInput" placeholder="Search for festivals, Ekadashi, or months..." />
-                            <button id="searchBtn">
-                                <i class="fas fa-search"></i>
-                            </button>
-                        </div>
-                        <div class="search-results" id="searchResults">
-                            <p class="search-placeholder">Enter a search term to find cultural information...</p>
-                        </div>
-                    </div>
-                </div>
-            </section>
 
             <!-- Donate View -->
             <section id="donateView" class="view" aria-label="Donate View">
@@ -545,6 +581,7 @@
     <script src="js/modal-manager.js"></script>
     <script src="js/calendar-renderer.js"></script>
     <script src="js/upcoming-events-handler.js"></script>
+    <script src="js/festivals-manager.js"></script>
     <script src="js/ui-manager.js"></script>
     
     <!-- Main Application -->
