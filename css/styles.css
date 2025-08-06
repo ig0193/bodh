@@ -4565,6 +4565,7 @@ body {
 /* ===== RESPONSIVE DESIGN ===== */
 @media (max-width: 768px) {
   .festivals-container {
+    margin: var(--spacing-md);
     padding: var(--spacing-sm);
   }
 
