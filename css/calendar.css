@@ -51,7 +51,6 @@
 .single-hindu-month { margin-bottom: var(--spacing-xs); }
 
 .month-name { font-weight: 600; font-size: var(--font-size-sm); }
-.month-significance { font-size: 0.75rem; opacity: 0.8; }
 
 /* ===== CALENDAR GRID (BASIC) ===== */
 .calendar-grid {
