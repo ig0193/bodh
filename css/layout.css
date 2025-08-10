@@ -1,0 +1,391 @@
+/**
+ * Hindu Calendar - Layout Styles
+ * Header, Navigation, and Main Content Structure
+ */
+
+/* ===== HEADER STYLES (COMPACT APPLE-INSPIRED) ===== */
+.header {
+  background: var(--white);
+  color: var(--dark-text);
+  padding: var(--spacing-sm) var(--spacing-lg);
+  border-bottom: 1px solid var(--gray-200);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+
+.header-content {
+  display: flex;
+  align-items: center;
+  max-width: 1400px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+  gap: var(--spacing-md);
+  justify-content: space-between;
+  min-height: 60px;
+}
+
+/* Mobile menu toggle positioning */
+.mobile-menu-toggle {
+  display: none;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  color: var(--primary-blue);
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 4px;
+  transition: var(--transition);
+  order: 1; /* Position on the left */
+}
+
+.mobile-menu-toggle:hover {
+  background: var(--gray-100);
+}
+
+/* App identity positioning */
+.app-identity {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  flex-shrink: 0;
+  order: 2; /* Center position */
+  flex: 1;
+  justify-content: center;
+}
+
+/* Date info positioning */
+.date-info {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  order: 3; /* Right position */
+}
+
+/* Quick actions positioning */
+.quick-actions {
+  order: 4; /* Far right position */
+}
+
+.app-identity i {
+  font-size: 1.5rem;
+  color: var(--primary-blue);
+}
+
+.app-title h1 {
+  font-family: var(--font-secondary);
+  font-size: var(--font-size-lg);
+  font-weight: 600;
+  margin: 0;
+  letter-spacing: 0.3px;
+  color: var(--dark-text);
+}
+
+.app-subtitle {
+  font-family: var(--font-primary);
+  font-size: 0.75rem;
+  font-weight: 400;
+  margin: 2px 0 0 0;
+  color: var(--gray-600);
+  font-style: italic;
+  letter-spacing: 0.2px;
+}
+
+/* ===== MOBILE MENU ===== */
+.mobile-menu-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+  opacity: 0;
+  visibility: hidden;
+  transition: var(--transition);
+}
+
+.mobile-menu-overlay.show {
+  opacity: 1;
+  visibility: visible;
+}
+
+.mobile-menu-content {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 280px;
+  height: 100%;
+  background: var(--white);
+  transform: translateX(-100%);
+  transition: transform 0.3s ease;
+  box-shadow: 2px 0 8px rgba(0, 0, 0, 0.1);
+}
+
+.mobile-menu-overlay.show .mobile-menu-content {
+  transform: translateX(0);
+}
+
+.mobile-menu-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--spacing-lg);
+  border-bottom: 1px solid var(--gray-200);
+  background: var(--primary-blue);
+  color: var(--white);
+}
+
+.mobile-app-identity {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  flex: 1;
+}
+
+.mobile-app-identity i {
+  font-size: 1.5rem;
+  color: var(--white);
+}
+
+.mobile-app-title h2 {
+  margin: 0;
+  font-size: var(--font-size-lg);
+  font-weight: 600;
+  color: var(--white);
+}
+
+.mobile-app-subtitle {
+  margin: 2px 0 0 0;
+  font-size: 0.75rem;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.8);
+  font-style: italic;
+  letter-spacing: 0.2px;
+}
+
+.mobile-menu-close {
+  background: none;
+  border: none;
+  color: var(--white);
+  font-size: 1.5rem;
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 4px;
+  transition: var(--transition);
+}
+
+.mobile-menu-close:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.mobile-menu-nav {
+  padding: var(--spacing-md) 0;
+}
+
+.mobile-menu-item {
+  display: flex;
+  align-items: center;
+  padding: var(--spacing-md) var(--spacing-lg);
+  color: var(--dark-text);
+  text-decoration: none;
+  transition: var(--transition);
+  border-bottom: 1px solid var(--gray-100);
+}
+
+.mobile-menu-item:hover,
+.mobile-menu-item.active {
+  background: var(--gray-50);
+  color: var(--primary-blue);
+}
+
+.mobile-menu-item i {
+  width: 24px;
+  margin-right: var(--spacing-md);
+  font-size: 1.1rem;
+}
+
+.mobile-menu-item span {
+  font-weight: 500;
+}
+
+/* ===== NAVIGATION STYLES (COMPACT) ===== */
+.nav-bar {
+  background: var(--white);
+  padding: var(--spacing-xs) var(--spacing-lg);
+  box-shadow: var(--shadow-sm);
+  border-bottom: 1px solid var(--gray-200);
+  display: flex;
+  justify-content: center;
+  gap: var(--spacing-sm); /* Reduced gap */
+  border-bottom: 2px solid var(--secondary-blue);
+}
+
+.nav-btn {
+  background: transparent;
+  border: none;
+  padding: var(--spacing-sm) var(--spacing-md); /* Reduced padding */
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  transition: var(--transition);
+  font-family: var(--font-primary);
+  font-size: var(--font-size-sm); /* Reduced font size */
+  font-weight: 500;
+  color: var(--light-text);
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+}
+
+.nav-btn:hover {
+  background: var(--gray-100);
+  color: var(--dark-text);
+  transform: translateY(-1px);
+}
+
+.nav-btn.active {
+  background: var(--primary-blue);
+  color: var(--white);
+  box-shadow: var(--shadow-sm);
+}
+
+.nav-btn i {
+  font-size: var(--font-size-sm); /* Smaller icons */
+}
+
+/* ===== MAIN CONTENT (MORE SPACE) ===== */
+.main-content {
+  flex: 1;
+  padding: var(--spacing-sm) var(--spacing-md); /* Reduced top padding */
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.view {
+  display: none;
+}
+
+.view.active {
+  display: block;
+}
+
+/* ===== SIDEBAR + CALENDAR LAYOUT ===== */
+.calendar-layout {
+  display: flex;
+  gap: var(--spacing-lg);
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: var(--spacing-md);
+  min-height: calc(100vh - 140px);
+}
+
+/* ===== OCCASIONS SIDEBAR ===== */
+.occasions-sidebar {
+  flex: 0 0 280px;
+  background: var(--white);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow-md);
+  border: 1px solid var(--gray-200);
+  overflow: hidden;
+  height: fit-content;
+  position: sticky;
+  top: var(--spacing-lg);
+}
+
+/* ===== MAIN CALENDAR AREA ===== */
+.calendar-main {
+  flex: 1;
+  background: var(--white);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow-md);
+  border: 1px solid var(--gray-200);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ===== RESPONSIVE DESIGN ===== */
+@media (max-width: 1024px) {
+  .occasions-sidebar {
+    flex: 0 0 250px;
+  }
+}
+
+@media (max-width: 768px) {
+  /* Show mobile menu toggle */
+  .mobile-menu-toggle {
+    display: block;
+  }
+  
+  /* Hide desktop navigation */
+  .nav-bar {
+    display: none;
+  }
+  
+  /* Hide app identity in header on mobile */
+  .app-identity {
+    display: none;
+  }
+  
+  .header-content {
+    flex-direction: row;
+    gap: var(--spacing-sm);
+    text-align: center;
+    justify-content: space-between;
+    padding: var(--spacing-sm) var(--spacing-md);
+  }
+  
+  /* Mobile header layout */
+  .mobile-menu-toggle {
+    order: 1;
+    flex: 0 0 auto;
+  }
+  
+  .date-info {
+    order: 2;
+    flex: 1;
+    justify-content: center;
+  }
+  
+  .quick-actions {
+    order: 3;
+    flex: 0 0 auto;
+  }
+  
+  .calendar-layout {
+    flex-direction: column;
+    padding: var(--spacing-md);
+  }
+  
+  .occasions-sidebar {
+    flex: none;
+    order: 2;
+    position: relative;
+    top: 0;
+  }
+  
+  .calendar-main {
+    order: 1;
+  }
+  
+  /* Hide sidebar on mobile */
+  .occasions-sidebar {
+    display: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .header {
+    padding: var(--spacing-sm);
+  }
+  
+  .header-content {
+    gap: var(--spacing-sm);
+  }
+  
+  .main-content {
+    padding: var(--spacing-xs);
+  }
+} 

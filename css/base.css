@@ -1,0 +1,105 @@
+/**
+ * Hindu Calendar - Base Styles
+ * CSS Variables, Reset, and Base Typography
+ */
+
+/* ===== CSS VARIABLES (MUTED TERRACOTTA & CREAM THEME) ===== */
+:root {
+  /* Muted Terracotta Color Palette */
+  --primary-blue: #D2691E; /* Muted Terracotta */
+  --secondary-blue: #F5F5DC; /* Cream */
+  --sage-green: #BC8F8F; /* Dusty Rose */
+  --subtle-orange: #D2691E; /* Muted Terracotta */
+  --apple-red: #CD853F; /* Peru */
+  --apple-purple: #E6B3CC; /* Soft Pink */
+  --white: #ffffff;
+  --gray-50: #fafafa;
+  --gray-100: #f5f5f7;
+  --gray-200: #e5e5e7;
+  --gray-300: #d2d2d7;
+  --gray-400: #86868b;
+  --gray-600: #515154;
+  --gray-900: #1d1d1f;
+  --dark-text: #1d1d1f;
+  --light-text: #86868b;
+  
+  /* Hindu Cultural Colors */
+  --saffron: #D2691E; /* Muted Terracotta */
+  --sacred-red: #CD853F; /* Peru */
+  --spiritual-purple: #E6B3CC; /* Soft Pink */
+  --gold: #F5F5DC; /* Cream */
+  --sacred-yellow: #F5F5DC; /* Cream */
+  --sacred-green: #BC8F8F; /* Dusty Rose */
+  --sacred-blue: #E6B3CC; /* Soft Pink */
+  --sacred-pink: #F5F5DC; /* Cream */
+  
+  /* Layout */
+  --spacing-xs: 0.25rem;
+  --spacing-sm: 0.5rem;
+  --spacing-md: 1rem;
+  --spacing-lg: 1.5rem;
+  --spacing-xl: 2rem;
+  
+  /* Typography */
+  --font-primary: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+  --font-secondary: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+  --font-size-sm: 0.875rem;
+  --font-size-md: 1rem;
+  --font-size-lg: 1.125rem;
+  --font-size-xl: 1.25rem;
+  --font-size-2xl: 1.5rem;
+  --font-size-xxl: 1.875rem;
+  
+  /* Effects */
+  --border-radius: 12px;
+  --border-radius-sm: 8px;
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.04);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
+  --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.12);
+  --transition: all 0.2s ease;
+}
+
+/* ===== RESET & BASE STYLES ===== */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-primary);
+  font-size: var(--font-size-md);
+  line-height: 1.47;
+  color: var(--dark-text);
+  background: var(--gray-50);
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ===== ACCESSIBILITY ===== */
+.calendar-day:focus,
+.nav-btn:focus,
+.calendar-controls button:focus {
+  outline: 2px solid var(--primary-blue);
+  outline-offset: 2px;
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  :root {
+    --saffron: #cc7700;
+    --deep-saffron: #994400;
+    --dark-text: #000000;
+    --light-text: #333333;
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+} 

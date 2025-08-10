@@ -3,364 +3,17 @@
  * Modern aesthetics with traditional Hindu values
  */
 
-/* ===== CSS VARIABLES (APPLE-INSPIRED) ===== */
-:root {
-  /* Muted Terracotta Color Palette */
-  --primary-blue: #D2691E; /* Muted Terracotta */
-  --secondary-blue: #F5F5DC; /* Cream */
-  --sage-green: #BC8F8F; /* Dusty Rose */
-  --subtle-orange: #D2691E; /* Muted Terracotta */
-  --apple-red: #CD853F; /* Peru */
-  --apple-purple: #E6B3CC; /* Soft Pink */
-  --white: #ffffff;
-  --gray-50: #fafafa;
-  --gray-100: #f5f5f7;
-  --gray-200: #e5e5e7;
-  --gray-300: #d2d2d7;
-  --gray-400: #86868b;
-  --gray-600: #515154;
-  --gray-900: #1d1d1f;
-  --dark-text: #1d1d1f;
-  --light-text: #86868b;
-  
-  /* Hindu Cultural Colors */
-  --saffron: #D2691E; /* Muted Terracotta */
-  --sacred-red: #CD853F; /* Peru */
-  --spiritual-purple: #E6B3CC; /* Soft Pink */
-  --gold: #F5F5DC; /* Cream */
-  --sacred-yellow: #F5F5DC; /* Cream */
-  --sacred-green: #BC8F8F; /* Dusty Rose */
-  --sacred-blue: #E6B3CC; /* Soft Pink */
-  --sacred-pink: #F5F5DC; /* Cream */
-  
-  /* Layout */
-  --spacing-xs: 0.25rem;
-  --spacing-sm: 0.5rem;
-  --spacing-md: 1rem;
-  --spacing-lg: 1.5rem;
-  --spacing-xl: 2rem;
-  
-  /* Typography */
-  --font-primary: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
-  --font-secondary: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
-  --font-size-sm: 0.875rem;
-  --font-size-md: 1rem;
-  --font-size-lg: 1.125rem;
-  --font-size-xl: 1.25rem;
-  --font-size-2xl: 1.5rem;
-  --font-size-xxl: 1.875rem;
-  
-  /* Effects */
-  --border-radius: 12px;
-  --border-radius-sm: 8px;
-  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.04);
-  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
-  --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.12);
-  --transition: all 0.2s ease;
-}
+/* ===== BASE STYLES ===== */
+/* Imported from css/base.css */
 
-/* ===== RESET & BASE STYLES ===== */
-* {
-  box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
+/* ===== LAYOUT STYLES ===== */
+/* Imported from css/layout.css */
 
-body {
-  font-family: var(--font-primary);
-  font-size: var(--font-size-md);
-  line-height: 1.47;
-  color: var(--dark-text);
-  background: var(--gray-50);
-    min-height: 100vh;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
+/* ===== CALENDAR HEADER (COMPACT) ===== */
+/* Moved to css/layout.css */
 
-/* ===== HEADER STYLES (COMPACT APPLE-INSPIRED) ===== */
-.header {
-  background: var(--white);
-  color: var(--dark-text);
-  padding: var(--spacing-sm) var(--spacing-lg);
-  border-bottom: 1px solid var(--gray-200);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-}
-
-.header-content {
-  display: flex;
-  align-items: center;
-  max-width: 1400px;
-  margin: 0 auto;
-    position: relative;
-  z-index: 1;
-  gap: var(--spacing-md);
-  justify-content: space-between;
-  min-height: 60px;
-}
-
-/* Mobile menu toggle positioning */
-.mobile-menu-toggle {
-  display: none;
-  background: none;
-  border: none;
-  font-size: 1.5rem;
-  color: var(--primary-blue);
-  cursor: pointer;
-  padding: 8px;
-  border-radius: 4px;
-  transition: var(--transition);
-  order: 1; /* Position on the left */
-}
-
-.mobile-menu-toggle:hover {
-  background: var(--gray-100);
-}
-
-/* App identity positioning */
-.app-identity {
-  display: flex;
-  align-items: center;
-  gap: var(--spacing-sm);
-  flex-shrink: 0;
-  order: 2; /* Center position */
-  flex: 1;
-  justify-content: center;
-}
-
-/* Date info positioning */
-.date-info {
-  flex: 1;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  order: 3; /* Right position */
-}
-
-/* Quick actions positioning */
-.quick-actions {
-  order: 4; /* Far right position */
-}
-
-.app-identity i {
-  font-size: 1.5rem;
-  color: var(--primary-blue);
-}
-
-.app-title h1 {
-  font-family: var(--font-secondary);
-  font-size: var(--font-size-lg);
-  font-weight: 600;
-  margin: 0;
-  letter-spacing: 0.3px;
-  color: var(--dark-text);
-}
-
-.app-subtitle {
-  font-family: var(--font-primary);
-  font-size: 0.75rem;
-  font-weight: 400;
-  margin: 2px 0 0 0;
-  color: var(--gray-600);
-  font-style: italic;
-  letter-spacing: 0.2px;
-}
-
-/* ===== MOBILE MENU ===== */
-.mobile-menu-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.5);
-  z-index: 1000;
-  opacity: 0;
-  visibility: hidden;
-  transition: var(--transition);
-}
-
-.mobile-menu-overlay.show {
-  opacity: 1;
-  visibility: visible;
-}
-
-.mobile-menu-content {
-    position: absolute;
-    top: 0;
-    left: 0;
-  width: 280px;
-  height: 100%;
-  background: var(--white);
-  transform: translateX(-100%);
-  transition: transform 0.3s ease;
-  box-shadow: 2px 0 8px rgba(0, 0, 0, 0.1);
-}
-
-.mobile-menu-overlay.show .mobile-menu-content {
-  transform: translateX(0);
-}
-
-.mobile-menu-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  padding: var(--spacing-lg);
-  border-bottom: 1px solid var(--gray-200);
-  background: var(--primary-blue);
-  color: var(--white);
-}
-
-.mobile-app-identity {
-    display: flex;
-    align-items: center;
-  gap: var(--spacing-sm);
-  flex: 1;
-}
-
-.mobile-app-identity i {
-  font-size: 1.5rem;
-  color: var(--white);
-}
-
-.mobile-app-title h2 {
-  margin: 0;
-  font-size: var(--font-size-lg);
-  font-weight: 600;
-  color: var(--white);
-}
-
-.mobile-app-subtitle {
-  margin: 2px 0 0 0;
-  font-size: 0.75rem;
-  font-weight: 400;
-  color: rgba(255, 255, 255, 0.8);
-  font-style: italic;
-  letter-spacing: 0.2px;
-}
-
-.mobile-menu-close {
-  background: none;
-  border: none;
-  color: var(--white);
-  font-size: 1.5rem;
-  cursor: pointer;
-  padding: 4px;
-  border-radius: 4px;
-  transition: var(--transition);
-}
-
-.mobile-menu-close:hover {
-  background: rgba(255, 255, 255, 0.1);
-}
-
-.mobile-menu-nav {
-  padding: var(--spacing-md) 0;
-}
-
-.mobile-menu-item {
-  display: flex;
-  align-items: center;
-  padding: var(--spacing-md) var(--spacing-lg);
-  color: var(--dark-text);
-  text-decoration: none;
-  transition: var(--transition);
-  border-bottom: 1px solid var(--gray-100);
-}
-
-.mobile-menu-item:hover,
-.mobile-menu-item.active {
-  background: var(--gray-50);
-  color: var(--primary-blue);
-}
-
-.mobile-menu-item i {
-  width: 24px;
-  margin-right: var(--spacing-md);
-  font-size: 1.1rem;
-}
-
-.mobile-menu-item span {
-  font-weight: 500;
-}
-
-/* ===== MODERN DATE INFO ===== */
-.date-display {
-  font-size: var(--font-size-md);
-  font-weight: 500;
-  color: var(--dark-text);
-  text-align: center;
-  line-height: 1.3;
-}
-
-.date-display.interactive {
-  cursor: pointer;
-  padding: var(--spacing-sm) var(--spacing-md);
-  border-radius: var(--border-radius);
-  transition: var(--transition);
-  position: relative;
-  background: var(--white);
-  box-shadow: 0 0 12px rgba(0, 122, 255, 0.2);
-    font-weight: 600;
-  display: inline-flex;
-  align-items: center;
-}
-
-.date-display.interactive::before {
-  content: '●';
-  color: var(--primary-blue);
-  font-size: 0.6rem;
-  margin-right: var(--spacing-xs);
-  animation: pulse 2s ease-in-out infinite;
-}
-
-.date-display.interactive:hover {
-  background: var(--white);
-  color: var(--primary-blue);
-  transform: translateY(-2px);
-  box-shadow: 0 0 20px rgba(0, 122, 255, 0.4);
-}
-
-.date-display.interactive:hover::before {
-  color: var(--primary-blue);
-  animation: none;
-}
-
-@keyframes pulse {
-  0%, 100% { opacity: 0.6; }
-  50% { opacity: 1; }
-}
-
-/* ===== QUICK ACTIONS ===== */
-.quick-actions {
-  display: flex;
-  align-items: center;
-  gap: var(--spacing-sm);
-}
-
-.today-btn {
-  display: flex;
-  align-items: center;
-  gap: var(--spacing-xs);
-  background: var(--primary-blue);
-  color: var(--white);
-  border: none;
-  padding: var(--spacing-xs) var(--spacing-sm);
-  border-radius: var(--border-radius-sm);
-  font-size: var(--font-size-sm);
-  font-weight: 500;
-  cursor: pointer;
-  transition: var(--transition);
-}
-
-.today-btn:hover {
-  background: var(--secondary-blue);
-  transform: translateY(-1px);
-}
-
-.today-btn i {
-  font-size: 0.875rem;
-}
+/* ===== DATE DISPLAY & QUICK ACTIONS ===== */
+/* Imported from css/components/date-display.css */
 
 
 
@@ -1084,13 +737,7 @@ body {
       display: none;
     }
     
-    .header-content {
-      flex-direction: row;
-      gap: var(--spacing-sm);
-      text-align: center;
-      justify-content: space-between;
-      padding: var(--spacing-sm) var(--spacing-md);
-    }
+    /* .header-content mobile layout moved to css/layout.css */
     
     /* Mobile header layout */
     .mobile-menu-toggle {
@@ -1296,13 +943,7 @@ body {
     }
 
 @media (max-width: 480px) {
-  .header {
-    padding: var(--spacing-sm);
-    }
-    
-  .header-content {
-    gap: var(--spacing-sm);
-    }
+  /* .header and .header-content responsive rules moved to css/layout.css */
     
     .logo i {
     font-size: 1.2rem;
@@ -1544,10 +1185,10 @@ body {
 
 /* Header layout for multi-event modals */
 .modal-header.multi-event-header {
-  display: flex;
-  flex-direction: column;
+    display: flex;
+    flex-direction: column;
   align-items: center;
-  text-align: center;
+    text-align: center;
 }
 
 .modal-header.multi-event-header .modal-close {
@@ -1566,7 +1207,7 @@ body {
 .modal-title {
   font-family: var(--font-secondary);
   font-size: var(--font-size-xl);
-  font-weight: 600;
+    font-weight: 600;
   color: var(--dark-text);
   text-align: center; /* Center text within the title element */
   line-height: 1.2;
@@ -1657,7 +1298,7 @@ body {
 /* Significance text styling */
 .significance-section p {
   color: var(--gray-700);
-  font-size: 0.9rem;
+    font-size: 0.9rem;
   line-height: 1.6;
   margin: 0.5rem 0;
 }
@@ -1832,7 +1473,7 @@ body {
   color: var(--white);
   padding: 0.25rem 0.75rem;
   border-radius: 20px;
-  font-size: 0.8rem;
+    font-size: 0.8rem;
   font-weight: 500;
 }
 
@@ -1906,8 +1547,8 @@ body {
 
 /* ===== EVENTS CONTAINER POSITIONING ===== */
 .events-container {
-  display: flex;
-  flex-direction: column;
+    display: flex;
+    flex-direction: column;
   gap: 0.5px;
   width: 100%;
   margin-top: auto; /* Push events to bottom of day cell */
@@ -2209,32 +1850,7 @@ body {
     100% { transform: rotate(360deg); }
 }
 
-/* ===== ACCESSIBILITY ===== */
-.calendar-day:focus,
-.nav-btn:focus,
-.calendar-controls button:focus {
-  outline: 2px solid var(--holy-blue);
-  outline-offset: 2px;
-}
-
-/* High contrast mode support */
-@media (prefers-contrast: high) {
-  :root {
-    --saffron: #cc7700;
-    --deep-saffron: #994400;
-    --dark-text: #000000;
-    --light-text: #333333;
-  }
-}
-
-/* Reduced motion support */
-@media (prefers-reduced-motion: reduce) {
-  * {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-  }
-} 
+ 
 
 /* ===== MONTHS VIEW STYLES ===== */
 .months-container {
@@ -3498,22 +3114,7 @@ body {
   font-style: italic;
 }
 
-@media (max-width: 768px) {
-  .date-display.interactive {
-    font-size: var(--font-size-sm);
-    padding: var(--spacing-xs) var(--spacing-sm);
-    box-shadow: 0 0 8px rgba(0, 122, 255, 0.15);
-  }
-  
-  .today-btn {
-    padding: var(--spacing-xs) var(--spacing-sm);
-    font-size: var(--font-size-sm);
-  }
-  
-  .today-btn span {
-    display: none; /* Hide "Today" text on mobile, keep icon only */
-  }
-}
+
 
 /* Mobile Calendar Grid */
 @media (max-width: 768px) {
@@ -3838,16 +3439,16 @@ body {
         padding: 1px;
         height: calc(100vh - 80px); /* Much smaller allowance */
         max-height: calc(100vh - 80px);
-        overflow: hidden;
+    overflow: hidden;
         display: flex;
         flex-direction: column;
         box-sizing: border-box;
-    }
-    
+}
+
     /* Extremely compact calendar grid */
     .calendar-grid {
         flex: 1;
-        height: 100%;
+    height: 100%;
         gap: 0px; /* No gaps */
         padding: 0;
         display: grid;
@@ -4341,7 +3942,7 @@ body {
   color: var(--white);
   font-size: 8px;
   padding: 1px 4px;
-  border-radius: 8px;
+    border-radius: 8px;
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.5px;
@@ -4369,7 +3970,7 @@ body {
 .festival-english {
   font-size: var(--font-size-sm);
   color: var(--primary-blue);
-  font-style: italic;
+    font-style: italic;
   margin: 0;
   line-height: 1.2;
 }
@@ -4459,7 +4060,7 @@ body {
   padding: var(--spacing-sm) var(--spacing-md);
   border-radius: var(--border-radius-sm);
   border-left: 3px solid var(--primary-blue);
-  position: relative;
+    position: relative;
 }
 
 .detail-section li::before {
@@ -4558,8 +4159,8 @@ body {
   height: 40px;
   border: 4px solid var(--gray-200);
   border-top: 4px solid var(--primary-blue);
-  border-radius: 50%;
-  animation: spin 1s linear infinite;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
 }
 
 /* ===== RESPONSIVE DESIGN ===== */
@@ -4767,4 +4368,4 @@ body {
     font-size: 10px;
   }
 
-}
+} 

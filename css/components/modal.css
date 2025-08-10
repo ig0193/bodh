@@ -1,0 +1,232 @@
+/**
+ * Hindu Calendar - Modal Styles
+ * Clean modal design for day details and other popups
+ */
+
+/* ===== CLEAN MODAL STYLES ===== */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
+}
+
+.modal-content {
+  background: var(--white);
+  margin: 5% auto;
+  padding: 0;
+  border-radius: 12px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+  width: 90%;
+  max-width: 600px;
+  max-height: 80vh;
+  overflow: hidden;
+  animation: modalSlideIn 0.3s ease-out;
+}
+
+@keyframes modalSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.modal-header {
+  position: relative; /* Context for absolute positioning */
+  display: flex;
+  justify-content: center; /* Center the title block */
+  align-items: center;
+  padding: var(--spacing-lg);
+  border-bottom: 1px solid var(--gray-200);
+}
+
+/* Header layout for multi-event modals */
+.modal-header.multi-event-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.modal-header.multi-event-header .modal-close {
+  position: absolute;
+  top: var(--spacing-lg);
+  right: var(--spacing-lg);
+}
+
+/* Default header layout for single events */
+.modal-header:not(.multi-event-header) {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.modal-title {
+  font-family: var(--font-secondary);
+  font-size: var(--font-size-xl);
+  font-weight: 600;
+  color: var(--dark-text);
+  text-align: center; /* Center text within the title element */
+  line-height: 1.2;
+  /* Give space on the right to avoid overlapping with the button */
+  padding: 0 40px; /* Adjust as needed */
+  margin: 0;
+}
+
+.modal-close {
+  position: absolute; /* Position relative to the header */
+  top: 50%;
+  right: var(--spacing-lg);
+  transform: translateY(-50%);
+
+  background: var(--gray-100);
+  border: none;
+  color: var(--gray-600);
+  font-size: 1rem;
+  cursor: pointer;
+  padding: 0;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: all 0.2s ease;
+  flex-shrink: 0; /* Prevents the button from being squished */
+}
+
+.modal-close:hover {
+  background: var(--gray-200);
+  color: var(--gray-900);
+}
+
+.modal-body {
+  padding: var(--spacing-lg);
+  max-height: calc(80vh - 80px);
+  overflow-y: auto;
+  position: relative; /* Container for absolutely positioned footer */
+}
+
+/* ===== MULTI-EVENT MODAL STYLES ===== */
+.multi-event-modal {
+  position: relative;
+  overflow: hidden;
+}
+
+/* Header Dots Navigation */
+.modal-header-dots {
+  display: flex;
+  justify-content: center;
+  margin-top: 0.75rem;
+  width: 100%;
+}
+
+/* Event Dots Navigation */
+.event-dots {
+  display: flex;
+  justify-content: center;
+  gap: 0.4rem;
+  padding: 0;
+}
+
+.event-dots .dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--gray-300);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.event-dots .dot.active {
+  background: var(--saffron);
+  transform: scale(1.2);
+}
+
+.event-dots .dot:hover {
+  background: var(--gray-400);
+  transform: scale(1.1);
+}
+
+/* Swipe Container */
+.swipe-container {
+  position: relative;
+  overflow: hidden;
+  touch-action: pan-y;
+  border-radius: 8px;
+}
+
+.swipe-wrapper {
+  display: flex;
+  transition: transform 0.3s ease;
+  will-change: transform;
+}
+
+.swipe-slide {
+  flex: 0 0 100%;
+  width: 100%;
+}
+
+/* ===== RESPONSIVE DESIGN ===== */
+@media (max-width: 768px) {
+  .modal-content {
+    margin: 5% auto;
+    width: 95%;
+    max-height: 85vh;
+  }
+
+  .modal-header {
+    padding: var(--spacing-md);
+  }
+
+  .modal-title {
+    font-size: var(--font-size-lg);
+  }
+
+  .modal-body {
+    padding: var(--spacing-md);
+  }
+  
+  .modal-header-dots {
+    margin-top: 0.75rem;
+  }
+  
+  .event-dots {
+    gap: 0.5rem;
+  }
+  
+  .event-dots .dot {
+    width: 8px;
+    height: 8px;
+  }
+}
+
+@media (max-width: 480px) {
+  .modal-content {
+    margin: 5% auto;
+    max-height: 90vh; /* increase modal height on mobile */
+  }
+  
+  .modal-body {
+    padding: var(--spacing-sm);
+    max-height: calc(90vh - 100px); /* adjust for mobile */
+  }
+    
+  .modal-header {
+    padding: var(--spacing-sm);
+  }
+  
+  .modal-title {
+    font-size: var(--font-size-md);
+    padding: 0 30px;
+  }
+} 
