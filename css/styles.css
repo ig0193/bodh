@@ -3,21 +3,6 @@
  * Modern aesthetics with traditional Hindu values
  */
 
-/* ===== BASE STYLES ===== */
-/* Imported from css/base.css */
-
-/* ===== LAYOUT STYLES ===== */
-/* Imported from css/layout.css */
-
-/* ===== CALENDAR HEADER (COMPACT) ===== */
-/* Moved to css/layout.css */
-
-/* ===== DATE DISPLAY & QUICK ACTIONS ===== */
-/* Imported from css/components/date-display.css */
-
-
-
-
 
 /* ===== NAVIGATION STYLES (COMPACT) ===== */
 .nav-bar {
@@ -80,21 +65,8 @@
     display: block;
 }
 
-/* ===== CALENDAR (MOVED) ===== */
-/* Moved to css/calendar.css */
-.calendar-header-section {
-  margin-bottom: var(--spacing-sm); /* Reduced */
-}
 
-/* moved: .calendar-controls → css/calendar.css */
 
-/* moved: .calendar-controls button → css/calendar.css */
-
-/* moved: .calendar-controls button:hover → css/calendar.css */
-
-/* moved: .month-year → css/calendar.css */
-/* moved: .month-year h2 → css/calendar.css */
-/* moved: .month-year h2 → css/calendar.css */
 
 
 
@@ -117,87 +89,6 @@
   to { text-shadow: 0 0 10px currentColor, 0 0 15px currentColor; }
 }
 
-/* ===== CALENDAR (MOVED) ===== */
-/* Moved to css/calendar.css */
-.calendar-grid {
-    display: grid;
-    grid-template-columns: repeat(7, 1fr);
-    gap: 1px; /* Very small gap for mobile */
-    background: var(--white);
-    padding: 4px; /* Minimal padding */
-    border-radius: var(--border-radius);
-    box-shadow: var(--shadow-md);
-    margin-bottom: var(--spacing-md);
-    width: 100%;
-    max-width: 100%;
-    overflow-x: hidden;
-}
-
-.calendar-header {
-  background: var(--saffron);
-  color: var(--white);
-  padding: var(--spacing-sm); /* Reduced */
-    text-align: center;
-    font-weight: 600;
-  font-size: var(--font-size-sm); /* Reduced */
-  border-radius: var(--border-radius);
-}
-
-.calendar-day {
-  background: var(--white);
-  border: 1px solid #e0e0e0;
-  border-radius: 3px;
-  padding: 2px; /* Very small padding */
-  min-height: 42px; /* Much smaller for mobile fit */
-    display: flex;
-    flex-direction: column;
-    position: relative;
-  transition: var(--transition);
-  cursor: pointer;
-}
-
-.calendar-day:hover {
-  background: var(--cream);
-  transform: translateY(-1px);
-  box-shadow: var(--shadow-sm);
-}
-
-.calendar-day.other-month {
-  opacity: 0.3;
-  background: #f9f9f9;
-}
-
-.calendar-day.today {
-  background: linear-gradient(135deg, var(--holy-blue), #6c5ce7);
-  color: var(--white);
-    font-weight: bold;
-  box-shadow: var(--shadow-lg);
-  transform: scale(1.02);
-}
-
-.calendar-day.weekend {
-  background: #fff5f5;
-}
-
-.calendar-day.has-festival {
-  border-left: 3px solid var(--sacred-red); /* Thinner border */
-}
-
-.calendar-day.has-ekadashi {
-  border-left: 3px solid var(--spiritual-purple); /* Thinner border */
-}
-
-.calendar-day.festival-major {
-  background: linear-gradient(135deg, #fff, #ffe6cc);
-  border: 2px solid var(--saffron);
-}
-
-.day-number {
-  font-size: var(--font-size-lg);
-    font-weight: 600;
-  color: var(--dark-text);
-  margin-bottom: auto;
-}
 
 .calendar-day.today .day-number {
   color: var(--white);
@@ -508,12 +399,7 @@
 
 /* ===== CALENDAR (MOVED) ===== */
 /* Moved to css/calendar.css */
-.calendar-days-header {
-  display: grid;
-  grid-template-columns: repeat(7, 1fr);
-  background: #f8f9fa;
-  border-bottom: 1px solid #e8e8e8;
-}
+
 
 .day-name {
   padding: var(--spacing-sm);
@@ -525,156 +411,10 @@
   letter-spacing: 0.5px;
 }
 
-/* ===== CALENDAR (MOVED) ===== */
-/* Moved to css/calendar.css */
-.calendar-scroll-container {
-  width: 100%;
-  overflow-x: auto;
-  overflow-y: hidden;
-  -webkit-overflow-scrolling: touch;
-  scrollbar-width: thin;
-  scrollbar-color: var(--gray-300) transparent;
-}
-
-.calendar-scroll-container > * {
-  min-width: 700px; /* Ensure all 7 columns are visible */
-}
-
-.calendar-scroll-container::-webkit-scrollbar {
-  height: 6px;
-}
-
-.calendar-scroll-container::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-.calendar-scroll-container::-webkit-scrollbar-thumb {
-  background: var(--gray-300);
-  border-radius: 3px;
-}
-
-.calendar-scroll-container::-webkit-scrollbar-thumb:hover {
-  background: var(--gray-400);
-}
 
 /* ===== CALENDAR (MOVED) ===== */
 /* Moved to css/calendar.css */
-.calendar-unified-grid {
-  display: grid;
-  grid-template-columns: repeat(7, 1fr);
-  grid-template-rows: 50px repeat(6, 80px); /* Fixed heights for consistency */
-  background: var(--white);
-  min-width: 700px; /* Minimum width to ensure all 7 columns are visible */
-  width: 100%;
-  border: 1px solid var(--gray-200);
-  gap: 0px; /* No gaps - clean grid */
-  box-sizing: border-box;
-}
 
-/* Day header cells */
-.calendar-unified-grid .day-header {
-  background: #f8f9fa;
-  padding: 8px;
-  text-align: center;
-  font-weight: 600;
-  color: var(--light-text);
-  font-size: 12px;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-    display: flex;
-    align-items: center;
-  justify-content: center;
-  height: 50px; /* Fixed height */
-  margin: 0;
-  box-sizing: border-box;
-  border-right: 1px solid var(--gray-200);
-  /* Remove bottom border to prevent intersection with date grid */
-}
-
-/* Remove right border from last header cell */
-.calendar-unified-grid .day-header:nth-child(7) {
-  border-right: none;
-}
-
-/* Remove right border from last cell in each row */
-.calendar-unified-grid .day:nth-child(7n) {
-  border-right: none;
-}
-
-/* Remove bottom border from last row */
-.calendar-unified-grid .day:nth-child(n+43):nth-child(-n+49) {
-    border-bottom: none;
-}
-
-.calendar-unified-grid .day {
-  display: flex;
-  flex-direction: column;
-  padding: 8px;
-  position: relative;
-  cursor: pointer;
-  transition: var(--transition);
-  background: var(--white);
-  height: 80px; /* Fixed height */
-  margin: 0;
-  box-sizing: border-box;
-  border-right: 1px solid var(--gray-200);
-  border-bottom: 1px solid var(--gray-200);
-  border-top: 1px solid var(--gray-200); /* Add top border to create clean separation */
-  overflow: hidden; /* Clip overflow text */
-}
-
-.calendar-unified-grid .day:hover {
-  background: #f8f9fa;
-}
-
-.calendar-unified-grid .day.other-month {
-  background: #fafafa;
-  color: #ccc;
-  opacity: 0.5;
-}
-
-.calendar-unified-grid .day.today {
-  background: var(--primary-blue);
-  color: var(--white);
-    font-weight: 600;
-}
-
-.calendar-unified-grid .day.has-occasion {
-  background: var(--gray-50);
-  border-left: 3px solid var(--primary-blue);
-}
-
-.calendar-unified-grid .day.festival-day {
-  border-left-color: var(--sage-green);
-}
-
-.calendar-unified-grid .day.ekadashi-day {
-  border-left-color: var(--apple-purple);
-}
-
-.calendar-unified-grid .day-number {
-  font-size: 16px;
-  font-weight: 600;
-  margin-bottom: 4px;
-  line-height: 1;
-}
-
-.calendar-unified-grid .occasion-indicator {
-  font-size: 10px;
-  background: var(--primary-blue);
-  color: var(--white);
-  padding: 2px 4px;
-  border-radius: 4px;
-  text-align: center;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  max-width: 100%;
-  line-height: 1.2;
-  font-weight: 500;
-  box-sizing: border-box;
-  margin-top: auto;
-}
 
 /* ===== RESPONSIVE DESIGN (UPDATED FOR SIDEBAR) ===== */
 @media (max-width: 1024px) {
@@ -818,12 +558,8 @@
     padding: 1px 3px;
   }
 
-  /* Modal responsive styles */
-.modal-content {
-    margin: 5% auto;
-    width: 95%;
-    max-height: 85vh;
-  }
+  /* moved: .modal-content (mobile) → css/components/modal.css */
+
 
   .modal-header {
     padding: var(--spacing-md);
@@ -1093,119 +829,6 @@
 
 /* Keep existing modal, upcoming events, and other styles... */
 
-/* ===== CLEAN MODAL STYLES ===== */
-.modal {
-  display: none;
-  position: fixed;
-  z-index: 1000;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.5);
-  backdrop-filter: blur(4px);
-}
-
-.modal-content {
-  background: var(--white);
-  margin: 5% auto;
-  padding: 0;
-  border-radius: 12px;
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
-  width: 90%;
-  max-width: 600px;
-  max-height: 80vh;
-  overflow: hidden;
-    animation: modalSlideIn 0.3s ease-out;
-}
-
-@keyframes modalSlideIn {
-    from {
-        opacity: 0;
-    transform: translateY(-20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-.modal-header {
-  position: relative; /* Context for absolute positioning */
-  display: flex;
-  justify-content: center; /* Center the title block */
-  align-items: center;
-  padding: var(--spacing-lg);
-  border-bottom: 1px solid var(--gray-200);
-}
-
-/* Header layout for multi-event modals */
-.modal-header.multi-event-header {
-    display: flex;
-    flex-direction: column;
-  align-items: center;
-    text-align: center;
-}
-
-.modal-header.multi-event-header .modal-close {
-  position: absolute;
-  top: var(--spacing-lg);
-  right: var(--spacing-lg);
-}
-
-/* Default header layout for single events */
-.modal-header:not(.multi-event-header) {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.modal-title {
-  font-family: var(--font-secondary);
-  font-size: var(--font-size-xl);
-    font-weight: 600;
-  color: var(--dark-text);
-  text-align: center; /* Center text within the title element */
-  line-height: 1.2;
-  /* Give space on the right to avoid overlapping with the button */
-  padding: 0 40px; /* Adjust as needed */
-  margin: 0;
-}
-
-.modal-close {
-  position: absolute; /* Position relative to the header */
-  top: 50%;
-  right: var(--spacing-lg);
-  transform: translateY(-50%);
-
-  background: var(--gray-100);
-  border: none;
-  color: var(--gray-600);
-  font-size: 1rem;
-  cursor: pointer;
-  padding: 0;
-  width: 30px;
-  height: 30px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 50%;
-  transition: all 0.2s ease;
-  flex-shrink: 0; /* Prevents the button from being squished */
-}
-
-.modal-close:hover {
-  background: var(--gray-200);
-  color: var(--gray-900);
-}
-
-.modal-body {
-  padding: var(--spacing-lg);
-  max-height: calc(80vh - 80px);
-  overflow-y: auto;
-  position: relative; /* Container for absolutely positioned footer */
-}
-
 /* ===== REDESIGNED DAY DETAILS MODAL ===== */
 .day-details {
   font-family: var(--font-primary);
@@ -1348,65 +971,11 @@
   color: var(--gray-600);
     }
 
-/* ===== MULTI-EVENT MODAL STYLES ===== */
-.multi-event-modal {
-  position: relative;
-  overflow: hidden;
-}
 
-/* Header Dots Navigation */
-.modal-header-dots {
-  display: flex;
-  justify-content: center;
-  margin-top: 0.75rem;
-  width: 100%;
-}
 
-/* Event Dots Navigation */
-.event-dots {
-  display: flex;
-  justify-content: center;
-  gap: 0.4rem;
-  padding: 0;
-}
 
-.event-dots .dot {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: var(--gray-300);
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
 
-.event-dots .dot.active {
-  background: var(--saffron);
-  transform: scale(1.2);
-}
 
-.event-dots .dot:hover {
-  background: var(--gray-400);
-  transform: scale(1.1);
-}
-
-/* Swipe Container */
-.swipe-container {
-  position: relative;
-  overflow: hidden;
-  touch-action: pan-y;
-  border-radius: 8px;
-}
-
-.swipe-wrapper {
-  display: flex;
-  transition: transform 0.3s ease;
-  will-change: transform;
-}
-
-.swipe-slide {
-  flex: 0 0 100%;
-  width: 100%;
-}
 
 
 /* Single Event Content */
@@ -2410,15 +1979,7 @@
 #thisMonthView .occasion-date { font-size:0.9rem; }
 
 /* ===== DAY DETAILS MODAL – COMPACT REFINEMENT ===== */
-.modal-content {
-  max-width: 480px;
-}
 
-.modal-body {
-  padding: 1rem;
-  max-height: calc(75vh - 70px);
-  overflow-y: auto;
-}
 
 .day-details .date-header {
   margin-bottom: 1rem;
@@ -2545,78 +2106,7 @@
   color: var(--gray-700);
 }
 
-@media (max-width: 480px) {
-  .modal-content {
-    margin: 5% auto;
-    max-height: 90vh; /* increase modal height on mobile */
-  }
-  
-  .modal-body {
-    padding: var(--spacing-sm);
-    max-height: calc(90vh - 100px); /* adjust for mobile */
-  }
-    
-  .date-header {
-    padding: 0.6rem;
-    margin-bottom: 0.75rem;
-  }
-  
-  .gregorian-date {
-    font-size: 1.2rem;
-  }
-  
-  .hindu-date {
-    font-size: 0.85rem;
-  }
-  
-  .significance-section h3,
-  .festival-section h3,
-  .ekadashi-section h3 {
-    font-size: 1.1rem;
-  }
-  
-  .festival-info,
-  .ekadashi-info {
-    padding: 1rem;
-  }
-  
-  .what-to-do ul,
-  .recommendations-section ul,
-  .modern-practice ul,
-  .usual-practices ul {
-    padding: 0.5rem 0.6rem;
-  }
-  
-  .what-to-do li,
-  .recommendations-section li,
-  .modern-practice li,
-  .usual-practices li {
-    padding: 0.15rem 0;
-    font-size: 0.8rem;
-    margin-bottom: 0.05rem;
-  }
-  
-  .festival-category,
-  .ekadashi-type,
-  .festival-deity,
-  .ekadashi-month,
-  .festival-mythology,
-  .ekadashi-benefits {
-    padding: 0.6rem;
-    font-size: 0.8rem;
-    gap: 0.4rem 0.75rem;
-  }
-  
-  .what-to-do h4,
-  .modern-practice h4,
-  .festival-foods h4,
-  .fasting-rules h4,
-  .usual-practices h4,
-  .traditional-foods h4 {
-    font-size: 0.9rem;
-    margin-top: 0.75rem;
-  }
-}
+
 
 /* ===== MOBILE CALENDAR FIT OPTIMIZATION ===== */
 @media (max-width: 768px) {
