@@ -1,0 +1,133 @@
+/**
+ * Hindu Calendar - Months View Styles
+ * Tabs, educational grid, interactive current month, months grid/cards, responsive rules,
+ * and Month Details modal styles.
+ */
+
+/* ===== MONTHS VIEW STYLES ===== */
+.months-container { max-width: 1400px; margin: 0 auto; padding: var(--spacing-lg); }
+.months-header { text-align: center; margin-bottom: var(--spacing-xl); }
+.months-header h2 { font-size: var(--font-size-2xl); color: var(--dark-text); margin: 0 0 var(--spacing-sm) 0; font-weight: 700; letter-spacing: -0.02em; }
+.months-description { font-size: var(--font-size-lg); color: var(--light-text); margin: 0; font-weight: 400; }
+
+/* ===== TAB NAVIGATION ===== */
+.months-tabs { display: flex; justify-content: center; gap: var(--spacing-sm); margin-bottom: var(--spacing-xl); border-bottom: 1px solid var(--gray-200); padding-bottom: var(--spacing-md); }
+.tab-btn { display: flex; align-items: center; gap: var(--spacing-sm); padding: var(--spacing-md) var(--spacing-lg); background: var(--white); border: 1px solid var(--gray-200); border-radius: var(--border-radius); color: var(--light-text); font-weight: 500; cursor: pointer; transition: var(--transition); font-size: var(--font-size-md); }
+.tab-btn:hover { background: var(--gray-50); border-color: var(--gray-300); color: var(--dark-text); }
+.tab-btn.active { background: var(--primary-blue); border-color: var(--primary-blue); color: var(--white); }
+.tab-btn i { font-size: var(--font-size-md); }
+
+/* ===== TAB CONTENT ===== */
+.tab-content { position: relative; }
+.tab-panel { display: none; animation: fadeIn 0.3s ease; }
+.tab-panel.active { display: block; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+/* ===== EDUCATIONAL GRID ===== */
+.educational-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: var(--spacing-lg); }
+.edu-card { background: var(--white); border: 1px solid var(--gray-200); border-radius: var(--border-radius); box-shadow: var(--shadow-sm); overflow: hidden; transition: var(--transition); }
+.edu-card:hover { box-shadow: var(--shadow-md); transform: translateY(-2px); }
+.edu-card-header { display: flex; align-items: center; gap: var(--spacing-md); padding: var(--spacing-lg); background: var(--gray-50); border-bottom: 1px solid var(--gray-200); }
+.edu-card-header i { font-size: var(--font-size-xl); color: var(--primary-blue); width: 24px; text-align: center; }
+.edu-card-header h3 { font-size: var(--font-size-lg); color: var(--dark-text); margin: 0; font-weight: 600; }
+.edu-card-content { padding: var(--spacing-lg); }
+.edu-card-content h4 { font-size: var(--font-size-md); color: var(--dark-text); margin: 0 0 var(--spacing-md) 0; font-weight: 600; }
+.edu-card-content p { color: var(--gray-600); margin: 0 0 var(--spacing-md) 0; line-height: 1.6; }
+.edu-card-content ul { list-style: none; padding: 0; margin: 0; }
+.edu-card-content li { color: var(--gray-600); margin-bottom: var(--spacing-sm); padding-left: var(--spacing-md); position: relative; line-height: 1.5; }
+.edu-card-content li::before { content: "•"; color: var(--primary-blue); font-weight: bold; position: absolute; left: 0; }
+.edu-card-content strong { color: var(--dark-text); font-weight: 600; }
+
+/* ===== INTERACTIVE TAB ===== */
+.current-month-highlight { margin-bottom: var(--spacing-xl); }
+.current-month-card { background: linear-gradient(135deg, var(--primary-blue) 0%, #CD853F 50%, #DEB887 100%); color: var(--white); border-radius: var(--border-radius); padding: var(--spacing-xl); box-shadow: var(--shadow-lg); }
+.current-month-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--spacing-lg); }
+.current-month-header h3 { font-size: var(--font-size-lg); margin: 0; font-weight: 600; opacity: 0.9; }
+.current-month-name { font-size: var(--font-size-xl); font-weight: 700; text-align: right; }
+.current-month-details { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: var(--spacing-md); }
+.current-month-detail { background: rgba(255,255,255,0.1); padding: var(--spacing-md); border-radius: var(--border-radius-sm); backdrop-filter: blur(10px); }
+.current-month-detail strong { color: rgba(255,255,255,0.9); font-weight: 600; }
+
+.months-encyclopedia h3 { font-size: var(--font-size-xl); color: var(--dark-text); margin: 0 0 var(--spacing-lg) 0; font-weight: 600; }
+.months-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: var(--spacing-md); max-width: 1200px; margin: 0 auto; }
+.loading-months { text-align: center; padding: var(--spacing-xl); color: var(--light-text); font-style: italic; }
+
+.month-card { background: var(--white); border-radius: var(--border-radius); box-shadow: var(--shadow-sm); overflow: hidden; transition: var(--transition); border: 1px solid var(--gray-200); max-width: 380px; margin: 0 auto; }
+.month-card * { text-shadow: none !important; -webkit-text-stroke: none !important; }
+.month-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); border-color: var(--gray-300); }
+.month-card.holiest { border: 2px solid var(--apple-purple); background: linear-gradient(135deg, #fff 0%, #f8f0ff 100%); }
+.month-card.festival-month { border: 2px solid var(--apple-red); background: linear-gradient(135deg, #fff 0%, #fff0f0 100%); }
+.month-card.current-month { border: 2px solid var(--primary-blue); background: linear-gradient(135deg, #fff 0%, #f0f0ff 100%); box-shadow: 0 4px 16px rgba(0,122,255,0.12); }
+.month-header { padding: var(--spacing-sm) var(--spacing-md); background: var(--gray-100); color: var(--dark-text); text-align: center; border-bottom: 1px solid var(--gray-200); }
+.month-header.holiest { background: linear-gradient(135deg, var(--apple-purple) 0%, #DDA0DD 100%); color: var(--white); }
+.month-header.festival-month { background: linear-gradient(135deg, var(--apple-red) 0%, #CD853F 100%); color: var(--white); }
+.month-header.current-month { background: linear-gradient(135deg, var(--primary-blue) 0%, #CD853F 100%); color: var(--white); }
+.month-name-hindi { font-size: var(--font-size-lg); font-weight: 600; margin-bottom: var(--spacing-xs); color: inherit; text-shadow: none; -webkit-text-stroke: none; }
+.month-name-roman { font-size: var(--font-size-sm); opacity: 0.8; font-weight: 500; color: inherit; text-shadow: none; -webkit-text-stroke: none; }
+.month-body { padding: var(--spacing-sm) var(--spacing-md); }
+.month-significance { font-size: var(--font-size-sm); color: var(--gray-600); margin-bottom: var(--spacing-sm); line-height: 1.5; text-align: center; font-weight: 500; text-shadow: none; -webkit-text-stroke: none; }
+.month-details { display: grid; gap: var(--spacing-sm); }
+.month-detail-item { display: flex; align-items: flex-start; gap: var(--spacing-sm); }
+.month-detail-icon { font-size: var(--font-size-md); width: 20px; text-align: center; flex-shrink: 0; margin-top: 1px; }
+.month-detail-content { flex: 1; }
+.month-detail-label { font-weight: 600; color: var(--dark-text); font-size: var(--font-size-sm); margin-bottom: 2px; text-shadow: none; -webkit-text-stroke: none; }
+.month-detail-value { color: var(--light-text); font-size: var(--font-size-sm); line-height: 1.4; text-shadow: none; -webkit-text-stroke: none; }
+.month-festivals { margin-top: var(--spacing-sm); padding-top: var(--spacing-sm); border-top: 1px solid var(--gray-200); }
+.month-festivals h4 { color: var(--primary-blue); font-size: var(--font-size-sm); margin-bottom: var(--spacing-xs); display: flex; align-items: center; gap: var(--spacing-xs); text-shadow: none; -webkit-text-stroke: none; }
+.festivals-list { display: flex; flex-wrap: wrap; gap: var(--spacing-xs); }
+.festival-tag { background: var(--gray-100); color: var(--dark-text); padding: 2px 6px; border-radius: var(--border-radius-sm); font-size: 0.7rem; border: 1px solid var(--gray-300); font-weight: 500; text-shadow: none; -webkit-text-stroke: none; }
+.month-special-badge { position: absolute; top: -5px; right: -5px; background: var(--gold); color: var(--dark-text); font-size: 0.7rem; padding: 2px 8px; border-radius: 10px; font-weight: 600; box-shadow: 0 2px 4px rgba(0,0,0,0.2); text-shadow: none; -webkit-text-stroke: none; }
+.month-card.holiest .month-special-badge { background: var(--spiritual-purple); color: var(--white); }
+.month-special-badge.current { background: var(--primary-blue); color: var(--white); }
+
+/* ===== MONTHS INFO SECTION ===== */
+.months-info { display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: var(--spacing-lg); margin-top: var(--spacing-xl); }
+.info-card { background: var(--white); border-radius: var(--border-radius); padding: var(--spacing-lg); box-shadow: var(--shadow-md); border-left: 4px solid var(--saffron); }
+.info-card h3 { color: var(--dark-text); font-size: var(--font-size-lg); margin-bottom: var(--spacing-md); display: flex; align-items: center; gap: var(--spacing-sm); }
+.info-card ul { list-style: none; padding: 0; }
+.info-card li { padding: var(--spacing-sm) 0; border-bottom: 1px solid #f0f0f0; line-height: 1.6; }
+.info-card li:last-child { border-bottom: none; }
+.info-card strong { color: var(--saffron); }
+.special-months { display: flex; flex-direction: column; gap: var(--spacing-md); }
+.special-month { display: flex; flex-direction: column; gap: var(--spacing-xs); padding: var(--spacing-md); background: var(--cream); border-radius: var(--border-radius); border-left: 4px solid var(--sacred-red); }
+.special-month .month-name { font-weight: 600; color: var(--dark-text); font-size: var(--font-size-md); }
+.special-month .month-desc { color: var(--light-text); font-size: var(--font-size-sm); }
+
+/* ===== RESPONSIVE FOR MONTHS VIEW ===== */
+@media (max-width: 768px) {
+  .months-container { padding: var(--spacing-md); }
+  .months-tabs { flex-direction: column; gap: var(--spacing-sm); }
+  .tab-btn { justify-content: center; }
+  .educational-grid { grid-template-columns: 1fr; }
+  .months-grid { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: var(--spacing-sm); }
+  .current-month-details { grid-template-columns: 1fr; }
+  .months-info { grid-template-columns: 1fr; gap: var(--spacing-md); }
+  .info-card { padding: var(--spacing-md); }
+}
+@media (max-width: 480px) {
+  .months-header h2 { font-size: var(--font-size-xl); }
+  .months-description { font-size: var(--font-size-md); }
+  .month-name-hindi { font-size: var(--font-size-lg); }
+  .month-name-roman { font-size: var(--font-size-sm); }
+}
+
+/* ===== MONTH DETAILS MODAL STYLES ===== */
+.month-details-modal { font-family: var(--font-primary); }
+.month-modal-header { text-align: center; margin-bottom: var(--spacing-lg); padding-bottom: var(--spacing-md); border-bottom: 2px solid var(--cream); }
+.month-name-large { font-size: var(--font-size-2xl); font-weight: 600; color: var(--dark-text); margin-bottom: var(--spacing-sm); font-family: var(--font-secondary); }
+.month-modal-body { display: flex; flex-direction: column; gap: var(--spacing-lg); }
+.month-significance-section h3, .month-festivals-section h3, .month-practices-section h3 { color: var(--saffron); font-family: var(--font-secondary); font-size: var(--font-size-lg); margin-bottom: var(--spacing-md); border-left: 4px solid var(--saffron); padding-left: var(--spacing-md); }
+.month-significance-section p { font-size: var(--font-size-md); line-height: 1.6; color: var(--dark-text); }
+.month-info-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: var(--spacing-md); }
+.month-info-item { background: var(--cream); padding: var(--spacing-md); border-radius: var(--border-radius); border-left: 3px solid var(--saffron); }
+.month-info-item strong { color: var(--dark-text); display: block; margin-bottom: var(--spacing-xs); }
+.month-festivals-section ul, .month-practices-section ul { list-style: none; padding: 0; display: grid; gap: var(--spacing-sm); }
+.month-festivals-section li, .month-practices-section li { background: var(--cream); padding: var(--spacing-sm) var(--spacing-md); border-radius: var(--border-radius); border-left: 3px solid var(--sacred-red); position: relative; }
+.month-practices-section li { border-left-color: var(--spiritual-purple); }
+.month-festivals-section li::before { content: "🎉"; margin-right: var(--spacing-xs); }
+.month-practices-section li::before { content: "🙏"; margin-right: var(--spacing-xs); }
+.month-special-note { background: linear-gradient(135deg, #fff 0%, #f8f4ff 100%); border: 2px solid var(--spiritual-purple); border-radius: var(--border-radius); padding: var(--spacing-lg); text-align: center; }
+.month-special-note.festival { background: linear-gradient(135deg, #fff 0%, #fff5f5 100%); border-color: var(--sacred-red); }
+.month-special-note h4 { color: var(--spiritual-purple); font-size: var(--font-size-lg); margin-bottom: var(--spacing-sm); font-family: var(--font-secondary); }
+.month-special-note.festival h4 { color: var(--sacred-red); }
+.month-special-note p { color: var(--dark-text); line-height: 1.6; margin: 0; } 
