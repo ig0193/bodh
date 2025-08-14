@@ -38,8 +38,7 @@ class TemplesManager {
         this.templeModalCounter = document.getElementById('templeModalCounter');
         this.templeCurrentImage = document.getElementById('templeCurrentImage');
         this.templeImageDots = document.getElementById('templeImageDots');
-        this.templePrevBtn = document.getElementById('templePrevBtn');
-        this.templeNextBtn = document.getElementById('templeNextBtn');
+
         
         // Modal info elements
         this.templeModalLocation = document.getElementById('templeModalLocation');
@@ -95,19 +94,6 @@ class TemplesManager {
         if (this.templeModalBackdrop) {
             this.templeModalBackdrop.addEventListener('click', () => {
                 this.closeTempleModal();
-            });
-        }
-
-        // Modal navigation
-        if (this.templePrevBtn) {
-            this.templePrevBtn.addEventListener('click', () => {
-                this.navigateImage('prev');
-            });
-        }
-
-        if (this.templeNextBtn) {
-            this.templeNextBtn.addEventListener('click', () => {
-                this.navigateImage('next');
             });
         }
 
@@ -572,10 +558,6 @@ class TemplesManager {
         this.templeModalSignificance.textContent = temple.significance;
         this.templeModalDeity.textContent = temple.deityName;
         this.templeModalDescription.innerHTML = temple.description;
-        
-        // Update navigation buttons
-        this.templePrevBtn.style.display = this.currentImageIndex === 0 ? 'none' : 'flex';
-        this.templeNextBtn.style.display = this.currentImageIndex === temple.images.length - 1 ? 'none' : 'flex';
     }
 
     navigateImage(direction) {

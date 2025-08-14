@@ -158,7 +158,7 @@
 
 .filter-group label {
   font-family: var(--font-primary);
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 600;
   color: var(--dark-text);
   white-space: nowrap;
@@ -176,7 +176,7 @@
   border-radius: var(--border-radius);
   background: var(--white);
   font-family: var(--font-primary);
-  font-size: 11px;
+  font-size: 12px;
   color: var(--dark-text);
   cursor: pointer;
   width: 100%;
@@ -198,7 +198,7 @@
 }
 
 .filter-group select option {
-  font-size: 11px;
+  font-size: 12px;
   padding: var(--spacing-xs);
   overflow: hidden;
   text-overflow: ellipsis;
@@ -217,7 +217,7 @@
   border-radius: var(--border-radius);
   color: var(--white);
   font-family: var(--font-primary);
-  font-size: 10px;
+  font-size: 11px;
   font-weight: 500;
   cursor: pointer;
   transition: var(--transition);
@@ -258,7 +258,7 @@
   .filter-group label {
     min-width: 35px;
     width: 35px;
-    font-size: 10px;
+    font-size: 11px;
   }
   
   .filter-group select {
@@ -266,18 +266,18 @@
     min-width: 0;
     max-width: none;
     height: 28px;
-    font-size: 10px;
+    font-size: 11px;
   }
   
   .filter-group select option {
-    font-size: 10px;
+    font-size: 11px;
   }
   
   .reset-filters-btn {
     height: 28px;
     min-width: 45px;
     width: 45px;
-    font-size: 9px;
+    font-size: 10px;
   }
 }
 
@@ -452,11 +452,12 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.8);
+  background: rgba(0, 0, 0, 0.9);
   z-index: 2000;
   opacity: 0;
   visibility: hidden;
   transition: var(--transition);
+  backdrop-filter: blur(4px);
 }
 
 .temple-modal-backdrop.show {
@@ -468,19 +469,20 @@
   position: fixed;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%) scale(0.9);
-  width: 90%;
-  max-width: 600px;
-  max-height: 90vh;
+  transform: translate(-50%, -50%) scale(0.95);
+  width: 92%;
+  max-width: 700px;
+  max-height: 92vh;
   background: var(--white);
   border-radius: var(--border-radius-lg);
   z-index: 2001;
   opacity: 0;
   visibility: hidden;
-  transition: var(--transition);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   overflow: hidden;
   display: flex;
   flex-direction: column;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
 }
 
 .temple-modal.show {
@@ -492,86 +494,78 @@
 .temple-modal-header {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  padding: var(--spacing-md);
+  padding: var(--spacing-lg) var(--spacing-md);
   border-bottom: 1px solid var(--gray-200);
-  background: var(--gray-50);
+  background: var(--white);
+  position: relative;
 }
 
 .temple-modal-header h3 {
   margin: 0;
   font-family: var(--font-secondary);
-  font-size: var(--font-size-lg);
+  font-size: var(--font-size-xl);
   font-weight: 600;
   color: var(--dark-text);
   flex: 1;
 }
 
 .temple-modal-counter {
-  font-size: var(--font-size-sm);
-  color: var(--gray-600);
-  margin: 0 var(--spacing-md);
+  display: none;
 }
 
 .temple-modal-close {
-  background: none;
+  position: absolute;
+  top: var(--spacing-md);
+  right: var(--spacing-md);
+  background: rgba(0, 0, 0, 0.5);
   border: none;
-  color: var(--gray-600);
-  font-size: var(--font-size-lg);
+  color: var(--white);
+  font-size: var(--font-size-sm);
   cursor: pointer;
   padding: var(--spacing-xs);
-  border-radius: var(--border-radius);
+  border-radius: 50%;
   transition: var(--transition);
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 20;
 }
 
 .temple-modal-close:hover {
-  color: var(--dark-text);
-  background: var(--gray-100);
+  background: rgba(0, 0, 0, 0.7);
 }
 
 .temple-modal-content {
   flex: 1;
   overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--gray-300) transparent;
+}
+
+.temple-modal-content::-webkit-scrollbar {
+  width: 6px;
+}
+
+.temple-modal-content::-webkit-scrollbar-thumb {
+  background: var(--gray-300);
+  border-radius: 3px;
 }
 
 .temple-image-container {
   position: relative;
   width: 100%;
-  height: 300px;
-  background: var(--gray-100);
+  height: 350px;
+  background: linear-gradient(135deg, var(--gray-50) 0%, var(--gray-100) 100%);
   display: flex;
   align-items: center;
   justify-content: center;
+  overflow: hidden;
 }
 
 .temple-nav-btn {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  background: rgba(0, 0, 0, 0.5);
-  border: none;
-  color: var(--white);
-  width: 44px;
-  height: 44px;
-  border-radius: 50%;
-  cursor: pointer;
-  transition: var(--transition);
-  z-index: 10;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.temple-nav-btn:hover {
-  background: rgba(0, 0, 0, 0.7);
-}
-
-.temple-nav-btn.temple-prev {
-  left: var(--spacing-md);
-}
-
-.temple-nav-btn.temple-next {
-  right: var(--spacing-md);
+  display: none;
 }
 
 .temple-main-image {
@@ -586,21 +580,24 @@
 .temple-main-image img {
   max-width: 100%;
   max-height: 100%;
-  object-fit: contain;
+  object-fit: cover;
+  border-radius: var(--border-radius);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
 }
 
 .temple-image-dots {
   position: absolute;
-  bottom: var(--spacing-md);
+  bottom: var(--spacing-sm);
   left: 50%;
   transform: translateX(-50%);
   display: flex;
-  gap: var(--spacing-xs);
+  gap: 4px;
+  z-index: 10;
 }
 
 .temple-image-dot {
-  width: 8px;
-  height: 8px;
+  width: 6px;
+  height: 6px;
   border-radius: 50%;
   background: rgba(255, 255, 255, 0.5);
   cursor: pointer;
@@ -613,6 +610,7 @@
 
 .temple-info {
   padding: var(--spacing-md);
+  background: var(--white);
 }
 
 .temple-info > div {
@@ -656,17 +654,29 @@
   }
   
   .temple-modal {
-    width: 95%;
-    max-height: 95vh;
+    width: 96%;
+    max-height: 96vh;
+    border-radius: var(--border-radius);
+  }
+  
+  .temple-modal-header {
+    padding: var(--spacing-md);
+  }
+  
+  .temple-modal-header h3 {
+    font-size: var(--font-size-lg);
   }
   
   .temple-image-container {
-    height: 250px;
+    height: 280px;
   }
   
-  .temple-nav-btn {
-    width: 40px;
-    height: 40px;
+  .temple-image-dots {
+    bottom: var(--spacing-sm);
+  }
+  
+  .temple-info {
+    padding: var(--spacing-sm);
   }
 }
 
