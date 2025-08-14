@@ -49,6 +49,7 @@
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="css/components/date-display.css">
     <link rel="stylesheet" href="css/components/modal.css">
+    <link rel="stylesheet" href="css/temples.css">
     
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -128,6 +129,10 @@
                 <i class="fas fa-star" aria-hidden="true"></i>
                 <span>Upcoming</span>
             </button>
+            <button class="nav-btn" data-view="temples" aria-label="Temples View">
+                <i class="fas fa-temple-hindu" aria-hidden="true"></i>
+                <span>Temples</span>
+            </button>
             <button class="nav-btn" data-view="months" aria-label="Hindu Months View">
                 <i class="fas fa-moon" aria-hidden="true"></i>
                 <span>Months</span>
@@ -161,6 +166,10 @@
                     <a href="#" class="mobile-menu-item" data-view="upcoming">
                         <i class="fas fa-star"></i>
                         <span>Upcoming</span>
+                    </a>
+                    <a href="#" class="mobile-menu-item" data-view="temples">
+                        <i class="fas fa-landmark"></i>
+                        <span>Temples</span>
                     </a>
                     <a href="#" class="mobile-menu-item" data-view="this-month">
                         <i class="fas fa-calendar-week"></i>
@@ -559,6 +568,66 @@
                     </div>
                 </div>
             </section>
+
+            <!-- Temples View -->
+            <section id="templesView" class="view" aria-label="Temples View">
+                <div class="temples-container">
+                    <!-- Temples Header -->
+                    <div class="temples-header">
+                        <h2>Temples</h2>
+                        <p class="temples-subtitle">Discover ancient temples and their divine significance</p>
+                    </div>
+                    
+                    <!-- Deity Filter Tabs -->
+                    <div class="deity-tabs-container">
+                        <div class="deity-tabs" id="deityTabs">
+                            <button class="deity-tab active" data-deity="all">
+                                <span>All Temples</span>
+                            </button>
+                            <button class="deity-tab" data-deity="shiva">
+                                <span>Shiva</span>
+                            </button>
+                            <button class="deity-tab" data-deity="vishnu">
+                                <span>Vishnu</span>
+                            </button>
+                            <button class="deity-tab" data-deity="devi">
+                                <span>Devi</span>
+                            </button>
+                            <button class="deity-tab" data-deity="ganesha">
+                                <span>Ganesha</span>
+                            </button>
+                            <button class="deity-tab" data-deity="krishna">
+                                <span>Krishna</span>
+                            </button>
+                            <button class="deity-tab" data-deity="hanuman">
+                                <span>Hanuman</span>
+                            </button>
+                            <button class="deity-tab" data-deity="more">
+                                <span>More...</span>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- Search Box -->
+                    <div class="temples-search">
+                        <div class="search-box">
+                            <i class="fas fa-search"></i>
+                            <input type="text" id="templesSearchInput" placeholder="Search temples, deities, or locations..." />
+                            <button id="clearTemplesSearchBtn" aria-label="Clear search" style="display: none;">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- Temples Grid -->
+                    <div class="temples-grid" id="templesGrid">
+                        <div class="temples-loading">
+                            <div class="loading-spinner"></div>
+                            <p>Loading temples...</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
             
         </main>
         
@@ -579,6 +648,7 @@
     <script src="data/ekadashi-2025.js"></script>
     <script src="data/ekadashi-2024.js"></script>
     <script src="data/ekadashi-unified.js"></script>
+    <script src="data/temples.js"></script>
     
     <!-- Core Engine Files - Load synchronously for proper dependency order -->
     <script src="js/calendar-engine.js"></script>
@@ -587,6 +657,7 @@
     <script src="js/calendar-renderer.js"></script>
     <script src="js/upcoming-events-handler.js"></script>
     <script src="js/festivals-manager.js"></script>
+    <script src="js/temples-manager.js"></script>
     <script src="js/ui-manager.js"></script>
     
     <!-- Main Application -->
@@ -629,6 +700,51 @@
                 <h5>Today's Inspiration</h5>
                 <p class="significance-text" id="popupSignificance">Loading...</p>
                 <p class="inspiration-text" id="popupInspiration">Loading...</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Temple Gallery Modal -->
+    <div class="temple-modal-backdrop" id="templeModalBackdrop"></div>
+    <div class="temple-modal" id="templeModal" tabindex="-1" role="dialog" aria-labelledby="templeModalTitle">
+        <div class="temple-modal-header">
+            <h3 id="templeModalTitle">Temple Name</h3>
+            <div class="temple-modal-counter" id="templeModalCounter">1 of 5</div>
+            <button class="temple-modal-close" id="templeModalClose" aria-label="Close temple gallery">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="temple-modal-content">
+            <div class="temple-image-container">
+                <button class="temple-nav-btn temple-prev" id="templePrevBtn" aria-label="Previous image">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <div class="temple-main-image" id="templeMainImage">
+                    <img src="" alt="" id="templeCurrentImage" />
+                    <div class="temple-image-dots" id="templeImageDots">
+                        <!-- Dots will be generated here -->
+                    </div>
+                </div>
+                <button class="temple-nav-btn temple-next" id="templeNextBtn" aria-label="Next image">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
+            <div class="temple-info">
+                <div class="temple-location">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span id="templeModalLocation">Location</span>
+                </div>
+                <div class="temple-significance">
+                    <i class="fas fa-om"></i>
+                    <span id="templeModalSignificance">Significance</span>
+                </div>
+                <div class="temple-deity">
+                    <i class="fas fa-temple-hindu"></i>
+                    <span id="templeModalDeity">Deity</span>
+                </div>
+                <div class="temple-description" id="templeModalDescription">
+                    <!-- Detailed description will be populated here -->
+                </div>
             </div>
         </div>
     </div>

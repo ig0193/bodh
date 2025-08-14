@@ -784,6 +784,9 @@ class HinduCalendarUI {
       case 'upcoming':
         this.upcomingEventsHandler.renderUpcomingEvents();
         break;
+      case 'temples':
+        this.renderTemplesView();
+        break;
       case 'months':
         this.renderMonthsView();
         break;
@@ -818,6 +821,15 @@ class HinduCalendarUI {
   renderFestivalsView() {
     if (this.festivalsManager) {
       this.festivalsManager.init();
+    }
+  }
+
+  /**
+   * Render Temples view
+   */
+  renderTemplesView() {
+    if (window.templesManager) {
+      window.templesManager.loadTemples();
     }
   }
 
