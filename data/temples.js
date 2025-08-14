@@ -12,6 +12,7 @@ const TEMPLES_DATA = [
         deityName: 'Lord Shiva',
         location: 'Kedarnath, Uttarakhand',
         significance: 'One of 12 Jyotirlingas',
+        type: 'jyotirlinga',
         description: 'Ancient temple dedicated to Lord Shiva, located in the Garhwal Himalayas at an altitude of 3,583 meters. It is one of the most sacred pilgrimage sites for Hindus and is part of the Char Dham Yatra. The temple is believed to have been built by the Pandavas and later reconstructed by Adi Shankaracharya.',
         images: [
             {
@@ -131,6 +132,40 @@ const TEMPLES_DATA = [
             }
         ],
         primaryImage: 'https://via.placeholder.com/600x400/34495E/FFFFFF?text=Siddhivinayak'
+    },
+    {
+        id: 'saraswati-temple',
+        name: 'Saraswati Temple',
+        deity: 'saraswati',
+        deityName: 'Goddess Saraswati',
+        location: 'Varanasi, Uttar Pradesh',
+        significance: 'Temple of knowledge and wisdom',
+        description: 'Dedicated to Goddess Saraswati, the deity of knowledge, music, and arts. This temple is a center for learning and education.',
+        images: [
+            {
+                url: 'https://via.placeholder.com/600x400/9B59B6/FFFFFF?text=Saraswati+Temple',
+                alt: 'Saraswati Temple',
+                caption: 'Temple of knowledge'
+            }
+        ],
+        primaryImage: 'https://via.placeholder.com/600x400/9B59B6/FFFFFF?text=Saraswati+Temple'
+    },
+    {
+        id: 'lakshmi-temple',
+        name: 'Lakshmi Temple',
+        deity: 'lakshmi',
+        deityName: 'Goddess Lakshmi',
+        location: 'Kolhapur, Maharashtra',
+        significance: 'Temple of wealth and prosperity',
+        description: 'One of the most important temples dedicated to Goddess Lakshmi, the deity of wealth, prosperity, and fortune.',
+        images: [
+            {
+                url: 'https://via.placeholder.com/600x400/F1C40F/FFFFFF?text=Lakshmi+Temple',
+                alt: 'Lakshmi Temple',
+                caption: 'Temple of prosperity'
+            }
+        ],
+        primaryImage: 'https://via.placeholder.com/600x400/F1C40F/FFFFFF?text=Lakshmi+Temple'
     }
 ];
 

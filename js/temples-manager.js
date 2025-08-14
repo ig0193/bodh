@@ -8,7 +8,10 @@ class TemplesManager {
         this.temples = [];
         this.filteredTemples = [];
         this.currentDeityFilter = 'all';
-        this.currentSearchQuery = '';
+        this.currentAdvancedFilters = {
+            deity: '',
+            location: ''
+        };
         this.currentTempleIndex = 0;
         this.currentImageIndex = 0;
         
@@ -21,8 +24,11 @@ class TemplesManager {
         // Main containers
         this.templesGrid = document.getElementById('templesGrid');
         this.deityTabs = document.getElementById('deityTabs');
-        this.searchInput = document.getElementById('templesSearchInput');
-        this.clearSearchBtn = document.getElementById('clearTemplesSearchBtn');
+        
+        // Filter elements
+        this.deityFilter = document.getElementById('deityFilter');
+        this.locationFilter = document.getElementById('locationFilter');
+        this.resetFiltersBtn = document.getElementById('templesResetFiltersBtn');
         
         // Modal elements
         this.templeModal = document.getElementById('templeModal');
@@ -53,17 +59,30 @@ class TemplesManager {
             });
         }
 
-        // Search functionality
-        if (this.searchInput) {
-            this.searchInput.addEventListener('input', (e) => {
-                this.handleSearch(e.target.value);
+        // Filter functionality
+        if (this.deityFilter) {
+            this.deityFilter.addEventListener('change', (e) => {
+                console.log('Deity filter changed:', e.target.value);
+                this.handleAdvancedFilter('deity', e.target.value);
             });
         }
 
-        if (this.clearSearchBtn) {
-            this.clearSearchBtn.addEventListener('click', () => {
-                this.clearSearch();
+        if (this.locationFilter) {
+            this.locationFilter.addEventListener('change', (e) => {
+                console.log('Location filter changed:', e.target.value);
+                this.handleAdvancedFilter('location', e.target.value);
             });
+        }
+
+
+
+        if (this.resetFiltersBtn) {
+            this.resetFiltersBtn.addEventListener('click', () => {
+                console.log('Reset button clicked');
+                this.resetAllFilters();
+            });
+        } else {
+            console.error('Reset button not found');
         }
 
         // Modal events
@@ -219,9 +238,11 @@ class TemplesManager {
             // Show loading state
             this.showLoadingState();
             
-            // TODO: Replace with actual API call or data loading
-            // For now, using sample data structure
+            // Load temple data
             this.temples = this.getSampleTemples();
+            
+            // Populate filter dropdowns with available values
+            this.populateFilterDropdowns();
             
             // Apply current filters
             this.applyFilters();
@@ -235,114 +256,214 @@ class TemplesManager {
         }
     }
 
-    getSampleTemples() {
-        // Use actual temples data if available, otherwise return sample data
-        if (window.TEMPLES_DATA) {
-            return window.TEMPLES_DATA;
+    populateFilterDropdowns(selectedDeity = '', selectedLocation = '') {
+        // Get filtered temples based on current selections
+        let availableTemples = this.temples;
+        
+        // If location is selected, filter temples by location first
+        if (selectedLocation) {
+            availableTemples = availableTemples.filter(t => t.location === selectedLocation);
         }
         
-        // Fallback sample data
-        return [
-            {
-                id: 'kedarnath-temple',
-                name: 'Kedarnath Temple',
-                deity: 'shiva',
-                deityName: 'Lord Shiva',
-                location: 'Kedarnath, Uttarakhand',
-                significance: 'One of 12 Jyotirlingas',
-                description: 'Ancient temple dedicated to Lord Shiva, located in the Garhwal Himalayas. It is one of the most sacred pilgrimage sites for Hindus.',
-                images: [
-                    {
-                        url: 'https://via.placeholder.com/600x400/4A90E2/FFFFFF?text=Kedarnath+Temple',
-                        alt: 'Kedarnath Temple exterior',
-                        caption: 'Main temple entrance'
-                    }
-                ],
-                primaryImage: 'https://via.placeholder.com/600x400/4A90E2/FFFFFF?text=Kedarnath+Temple'
-            },
-            {
-                id: 'vaishno-devi',
-                name: 'Vaishno Devi',
-                deity: 'devi',
-                deityName: 'Goddess Vaishno Devi',
-                location: 'Jammu & Kashmir',
-                significance: 'Sacred cave shrine of Goddess Vaishno Devi',
-                description: 'One of the most revered shrines of Goddess Vaishno Devi, located in the Trikuta Mountains.',
-                images: [
-                    {
-                        url: 'https://via.placeholder.com/600x400/E74C3C/FFFFFF?text=Vaishno+Devi',
-                        alt: 'Vaishno Devi shrine',
-                        caption: 'Sacred cave entrance'
-                    }
-                ],
-                primaryImage: 'https://via.placeholder.com/600x400/E74C3C/FFFFFF?text=Vaishno+Devi'
+        // If deity is selected (from quick filter or dropdown), filter temples by deity
+        if (selectedDeity) {
+            availableTemples = availableTemples.filter(t => t.deity === selectedDeity);
+        }
+
+        // Get unique values from available temples
+        const availableDeities = [...new Set(availableTemples.map(t => t.deity))].sort();
+        const availableLocations = [...new Set(availableTemples.map(t => t.location))].sort();
+        
+        // Get all deities and locations for comparison
+        const allDeities = [...new Set(this.temples.map(t => t.deity))].sort();
+        const allLocations = [...new Set(this.temples.map(t => t.location))].sort();
+
+        // Populate deity filter
+        if (this.deityFilter) {
+            this.deityFilter.innerHTML = '<option value="">All Deities</option>';
+            allDeities.forEach(deity => {
+                const temple = this.temples.find(t => t.deity === deity);
+                const option = document.createElement('option');
+                option.value = deity;
+                option.textContent = temple ? temple.deityName : deity;
+                
+                // Set selected if this matches current advanced filter
+                if (this.currentAdvancedFilters.deity === deity) {
+                    option.selected = true;
+                }
+                
+                // Disable if not available with current location filter
+                if (selectedLocation && !availableDeities.includes(deity)) {
+                    option.disabled = true;
+                    option.style.color = '#ccc';
+                }
+                
+                this.deityFilter.appendChild(option);
+            });
+        }
+
+        // Populate location filter
+        if (this.locationFilter) {
+            this.locationFilter.innerHTML = '<option value="">All Locations</option>';
+            allLocations.forEach(location => {
+                const option = document.createElement('option');
+                option.value = location;
+                option.textContent = location;
+                
+                // Set selected if this matches current advanced filter
+                if (this.currentAdvancedFilters.location === location) {
+                    option.selected = true;
+                }
+                
+                // Disable if not available with current deity filter
+                if (selectedDeity && !availableLocations.includes(location)) {
+                    option.disabled = true;
+                    option.style.color = '#ccc';
+                }
+                
+                this.locationFilter.appendChild(option);
+            });
+        }
+
+        // Update quick filter tabs
+        this.updateQuickFilterTabs(availableDeities, selectedLocation);
+    }
+
+    updateQuickFilterTabs(availableDeities, selectedLocation) {
+        if (!this.deityTabs) return;
+        
+        const tabs = this.deityTabs.querySelectorAll('.deity-tab');
+        tabs.forEach(tab => {
+            const deity = tab.dataset.deity;
+            
+            if (deity === 'all') {
+                // Always keep "All Temples" enabled
+                tab.disabled = false;
+                tab.classList.remove('disabled');
+                return;
             }
-        ];
+            
+            // Check if this deity has temples in the selected location
+            if (selectedLocation && !availableDeities.includes(deity)) {
+                tab.disabled = true;
+                tab.classList.add('disabled');
+                tab.style.opacity = '0.5';
+                tab.style.cursor = 'not-allowed';
+            } else {
+                tab.disabled = false;
+                tab.classList.remove('disabled');
+                tab.style.opacity = '1';
+                tab.style.cursor = 'pointer';
+            }
+        });
+    }
+
+    getSampleTemples() {
+        return window.TEMPLES_DATA;
     }
 
     handleDeityFilter(deity) {
+        // Skip if the tab is disabled
+        const activeTab = this.deityTabs.querySelector(`[data-deity="${deity}"]`);
+        if (activeTab && activeTab.disabled) {
+            return;
+        }
+
         // Update active tab
         const tabs = this.deityTabs.querySelectorAll('.deity-tab');
         tabs.forEach(tab => tab.classList.remove('active'));
         
-        const activeTab = this.deityTabs.querySelector(`[data-deity="${deity}"]`);
         if (activeTab) {
             activeTab.classList.add('active');
         }
 
         this.currentDeityFilter = deity;
-        this.applyFilters();
-        this.renderTemples();
-    }
-
-    handleSearch(query) {
-        this.currentSearchQuery = query.toLowerCase().trim();
         
-        // Show/hide clear button
-        if (this.clearSearchBtn) {
-            this.clearSearchBtn.style.display = this.currentSearchQuery ? 'block' : 'none';
-        }
+        // Get current deity for filtering (use quick filter if not "all", otherwise use dropdown)
+        const currentDeity = deity !== 'all' ? deity : this.currentAdvancedFilters.deity;
+        
+        // Update dropdowns based on current selections
+        this.populateFilterDropdowns(currentDeity, this.currentAdvancedFilters.location);
         
         this.applyFilters();
         this.renderTemples();
     }
 
-    clearSearch() {
-        if (this.searchInput) {
-            this.searchInput.value = '';
-        }
-        this.currentSearchQuery = '';
+    handleAdvancedFilter(filterType, value) {
+        this.currentAdvancedFilters[filterType] = value;
         
-        if (this.clearSearchBtn) {
-            this.clearSearchBtn.style.display = 'none';
-        }
+        // Get current deity for filtering (use quick filter if not "all", otherwise use dropdown)
+        const currentDeity = this.currentDeityFilter !== 'all' ? this.currentDeityFilter : this.currentAdvancedFilters.deity;
+        
+        // Update dropdowns based on current selections
+        this.populateFilterDropdowns(currentDeity, this.currentAdvancedFilters.location);
         
         this.applyFilters();
         this.renderTemples();
+    }
+
+    resetAllFilters() {
+        // Reset deity tabs
+        const tabs = this.deityTabs.querySelectorAll('.deity-tab');
+        tabs.forEach(tab => {
+            tab.classList.remove('active');
+            tab.disabled = false;
+            tab.classList.remove('disabled');
+            tab.style.opacity = '1';
+            tab.style.cursor = 'pointer';
+        });
+        
+        const allTab = this.deityTabs.querySelector('[data-deity="all"]');
+        if (allTab) {
+            allTab.classList.add('active');
+        }
+
+        // Reset advanced filters
+        this.currentDeityFilter = 'all';
+        this.currentAdvancedFilters = {
+            deity: '',
+            location: ''
+        };
+
+        // Reset select elements
+        if (this.deityFilter) this.deityFilter.value = '';
+        if (this.locationFilter) this.locationFilter.value = '';
+
+        // Repopulate dropdowns with all options enabled
+        this.populateFilterDropdowns('', '');
+
+        this.applyFilters();
+        this.renderTemples();
+        
+        console.log('All filters reset');
     }
 
     applyFilters() {
         this.filteredTemples = this.temples.filter(temple => {
-            // Deity filter
+            // Deity tab filter
             if (this.currentDeityFilter !== 'all' && temple.deity !== this.currentDeityFilter) {
                 return false;
             }
             
-            // Search filter
-            if (this.currentSearchQuery) {
-                const searchableText = [
-                    temple.name,
-                    temple.deityName,
-                    temple.location,
-                    temple.significance
-                ].join(' ').toLowerCase();
-                
-                if (!searchableText.includes(this.currentSearchQuery)) {
-                    return false;
-                }
+            // Advanced deity filter
+            if (this.currentAdvancedFilters.deity && temple.deity !== this.currentAdvancedFilters.deity) {
+                return false;
             }
             
+            // Location filter - exact match
+            if (this.currentAdvancedFilters.location && temple.location !== this.currentAdvancedFilters.location) {
+                return false;
+            }
+            
+
+            
             return true;
+        });
+        
+        console.log('Filters applied:', {
+            deityTab: this.currentDeityFilter,
+            advancedFilters: this.currentAdvancedFilters,
+            filteredCount: this.filteredTemples.length
         });
     }
 
@@ -378,8 +499,6 @@ class TemplesManager {
             imageSliderHTML = temple.images.map(image => 
                 `<img src="${image.url}" alt="${image.alt}" class="temple-image" />`
             ).join('');
-        } else {
-            imageSliderHTML = `<img src="${temple.primaryImage}" alt="${temple.name}" class="temple-image" />`;
         }
         
         return `

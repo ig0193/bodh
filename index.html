@@ -602,20 +602,52 @@
                             <button class="deity-tab" data-deity="hanuman">
                                 <span>Hanuman</span>
                             </button>
-                            <button class="deity-tab" data-deity="more">
-                                <span>More...</span>
-                            </button>
                         </div>
                     </div>
                     
-                    <!-- Search Box -->
-                    <div class="temples-search">
-                        <div class="search-box">
-                            <i class="fas fa-search"></i>
-                            <input type="text" id="templesSearchInput" placeholder="Search temples, deities, or locations..." />
-                            <button id="clearTemplesSearchBtn" aria-label="Clear search" style="display: none;">
-                                <i class="fas fa-times"></i>
-                            </button>
+                    <!-- Filter Bar -->
+                    <div class="temples-filters">
+                        <div class="filter-bar">
+                            <div class="filter-group">
+                                <label for="deityFilter">Deity:</label>
+                                <select id="deityFilter">
+                                    <option value="">All Deities</option>
+                                    <option value="shiva">Lord Shiva</option>
+                                    <option value="vishnu">Lord Vishnu</option>
+                                    <option value="devi">Goddess Devi</option>
+                                    <option value="ganesha">Lord Ganesha</option>
+                                    <option value="krishna">Lord Krishna</option>
+                                    <option value="hanuman">Lord Hanuman</option>
+                                    <option value="saraswati">Goddess Saraswati</option>
+                                    <option value="lakshmi">Goddess Lakshmi</option>
+                                    <option value="durga">Goddess Durga</option>
+                                    <option value="kali">Goddess Kali</option>
+                                    <option value="ram">Lord Ram</option>
+                                </select>
+                            </div>
+                            <div class="filter-group">
+                                <label for="locationFilter">Location:</label>
+                                <select id="locationFilter">
+                                    <option value="">All Locations</option>
+                                    <option value="north">North India</option>
+                                    <option value="south">South India</option>
+                                    <option value="east">East India</option>
+                                    <option value="west">West India</option>
+                                    <option value="central">Central India</option>
+                                    <option value="uttarakhand">Uttarakhand</option>
+                                    <option value="tamil-nadu">Tamil Nadu</option>
+                                    <option value="gujarat">Gujarat</option>
+                                    <option value="maharashtra">Maharashtra</option>
+                                    <option value="jammu-kashmir">Jammu & Kashmir</option>
+                                </select>
+                            </div>
+
+                            <div class="filter-group">
+                                <button id="templesResetFiltersBtn" class="reset-filters-btn">
+                                    <i class="fas fa-undo"></i>
+                                    <span>Reset</span>
+                                </button>
+                            </div>
                         </div>
                     </div>
                     
