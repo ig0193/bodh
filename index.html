@@ -50,6 +50,7 @@
     <link rel="stylesheet" href="css/components/date-display.css">
     <link rel="stylesheet" href="css/components/modal.css">
     <link rel="stylesheet" href="css/temples.css">
+    <link rel="stylesheet" href="css/bytes.css">
     
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -133,6 +134,10 @@
                 <i class="fas fa-temple-hindu" aria-hidden="true"></i>
                 <span>Temples</span>
             </button>
+            <button class="nav-btn" data-view="bytes" aria-label="Bytes View">
+                <i class="fas fa-bolt" aria-hidden="true"></i>
+                <span>Bytes</span>
+            </button>
             <button class="nav-btn" data-view="months" aria-label="Hindu Months View">
                 <i class="fas fa-moon" aria-hidden="true"></i>
                 <span>Months</span>
@@ -170,6 +175,10 @@
                     <a href="#" class="mobile-menu-item" data-view="temples">
                         <i class="fas fa-landmark"></i>
                         <span>Temples</span>
+                    </a>
+                    <a href="#" class="mobile-menu-item" data-view="bytes">
+                        <i class="fas fa-bolt"></i>
+                        <span>Bytes</span>
                     </a>
                     <a href="#" class="mobile-menu-item" data-view="this-month">
                         <i class="fas fa-calendar-week"></i>
@@ -660,6 +669,25 @@
                     </div>
                 </div>
             </section>
+
+            <!-- Bytes View -->
+            <section id="bytesView" class="view" aria-label="Bytes View">
+                <div class="bytes-container">
+                    <!-- Bytes Header -->
+                    <div class="bytes-header">
+                        <h2>📚 Bytes</h2>
+                        <p class="bytes-subtitle">Bite-sized wisdom from ancient traditions</p>
+                    </div>
+                    
+                    <!-- Bytes Cards Container -->
+                    <div class="bytes-cards" id="bytesCards">
+                        <div class="bytes-loading">
+                            <div class="loading-spinner"></div>
+                            <p>Loading bytes...</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
             
         </main>
         
@@ -681,6 +709,7 @@
     <script src="data/ekadashi-2024.js"></script>
     <script src="data/ekadashi-unified.js"></script>
     <script src="data/temples.js"></script>
+    <script src="data/bytes.js"></script>
     
     <!-- Core Engine Files - Load synchronously for proper dependency order -->
     <script src="js/calendar-engine.js"></script>
@@ -690,6 +719,7 @@
     <script src="js/upcoming-events-handler.js"></script>
     <script src="js/festivals-manager.js"></script>
     <script src="js/temples-manager.js"></script>
+    <script src="js/bytes-manager.js"></script>
     <script src="js/ui-manager.js"></script>
     
     <!-- Main Application -->
