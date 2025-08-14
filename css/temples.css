@@ -181,13 +181,21 @@
   width: 100%;
   height: 200px;
   overflow: hidden;
+  touch-action: pan-y pinch-zoom;
+}
+
+.temple-image-slider {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.3s ease;
 }
 
 .temple-image {
-  width: 100%;
+  min-width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: var(--transition);
+  flex-shrink: 0;
 }
 
 .temple-card:hover .temple-image {
@@ -207,6 +215,16 @@
   display: flex;
   align-items: center;
   gap: var(--spacing-xs);
+}
+
+.temple-image-dots-indicator {
+  position: absolute;
+  bottom: var(--spacing-sm);
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: var(--spacing-xs);
+  z-index: 10;
 }
 
 .temple-image-dots {

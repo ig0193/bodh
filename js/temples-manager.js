@@ -126,6 +126,61 @@ class TemplesManager {
         }
     }
 
+    initializeCardSwipe(card) {
+        const imageSlider = card.querySelector('.temple-image-slider');
+        const dotsIndicator = card.querySelector('.temple-image-dots-indicator');
+        
+        if (!imageSlider || !dotsIndicator) return;
+        
+        const images = imageSlider.querySelectorAll('.temple-image');
+        if (images.length <= 1) return;
+        
+        let startX = 0;
+        let currentImageIndex = 0;
+        
+        const handleTouchStart = (e) => {
+            startX = e.touches[0].clientX;
+        };
+        
+        const handleTouchEnd = (e) => {
+            const endX = e.changedTouches[0].clientX;
+            const deltaX = endX - startX;
+            const minSwipeDistance = 50;
+            
+            if (Math.abs(deltaX) > minSwipeDistance) {
+                if (deltaX > 0 && currentImageIndex > 0) {
+                    // Swipe right - previous image
+                    currentImageIndex--;
+                } else if (deltaX < 0 && currentImageIndex < images.length - 1) {
+                    // Swipe left - next image
+                    currentImageIndex++;
+                }
+                
+                this.updateCardImageSlider(imageSlider, dotsIndicator, currentImageIndex, images.length);
+            }
+        };
+        
+        imageSlider.addEventListener('touchstart', handleTouchStart, { passive: true });
+        imageSlider.addEventListener('touchend', handleTouchEnd, { passive: true });
+        
+        // Prevent card click when swiping
+        imageSlider.addEventListener('touchmove', (e) => {
+            e.stopPropagation();
+        }, { passive: true });
+    }
+    
+    updateCardImageSlider(slider, dotsIndicator, currentIndex, totalImages) {
+        // Update slider position
+        slider.style.transform = `translateX(-${currentIndex * 100}%)`;
+        slider.dataset.currentImage = currentIndex;
+        
+        // Update dots
+        const dots = dotsIndicator.querySelectorAll('.temple-image-dot');
+        dots.forEach((dot, index) => {
+            dot.classList.toggle('active', index === currentIndex);
+        });
+    }
+
     handleSwipe(startX, startY, endX, endY) {
         const deltaX = endX - startX;
         const deltaY = endY - startY;
@@ -307,6 +362,9 @@ class TemplesManager {
             card.addEventListener('click', () => {
                 this.openTempleModal(index);
             });
+            
+            // Add swipe functionality for image slider
+            this.initializeCardSwipe(card);
         });
     }
 
@@ -314,14 +372,23 @@ class TemplesManager {
         const imageCount = temple.images ? temple.images.length : 1;
         const dotsHTML = this.createImageDots(imageCount, 0);
         
+        // Create image slider HTML
+        let imageSliderHTML = '';
+        if (temple.images && temple.images.length > 0) {
+            imageSliderHTML = temple.images.map(image => 
+                `<img src="${image.url}" alt="${image.alt}" class="temple-image" />`
+            ).join('');
+        } else {
+            imageSliderHTML = `<img src="${temple.primaryImage}" alt="${temple.name}" class="temple-image" />`;
+        }
+        
         return `
             <div class="temple-card" data-temple-id="${temple.id}">
                 <div class="temple-image-container">
-                    <img src="${temple.primaryImage}" alt="${temple.name}" class="temple-image" />
-                    <div class="temple-image-indicator">
-                        ${dotsHTML}
-                        <span>+${imageCount - 1} more</span>
+                    <div class="temple-image-slider" data-current-image="0">
+                        ${imageSliderHTML}
                     </div>
+                    ${imageCount > 1 ? `<div class="temple-image-dots-indicator">${dotsHTML}</div>` : ''}
                 </div>
                 <div class="temple-content">
                     <h3 class="temple-name">${temple.name}</h3>
