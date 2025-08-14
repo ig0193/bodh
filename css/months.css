@@ -131,3 +131,9 @@
 .month-special-note h4 { color: var(--spiritual-purple); font-size: var(--font-size-lg); margin-bottom: var(--spacing-sm); font-family: var(--font-secondary); }
 .month-special-note.festival h4 { color: var(--sacred-red); }
 .month-special-note p { color: var(--dark-text); line-height: 1.6; margin: 0; } 
+.months-info {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  gap: var(--spacing-lg);
+  margin-top: var(--spacing-xl);
+}

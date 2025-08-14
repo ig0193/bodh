@@ -25,7 +25,6 @@
 .reset-filters-btn i { font-size: 12px; }
 
 /* ===== SUMMARY AND CONTENT ===== */
-.festivals-summary { display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--spacing-sm); padding: var(--spacing-xs) var(--spacing-sm); background: var(--gray-50); border-radius: var(--border-radius-sm); border-left: 3px solid var(--primary-blue); }
 .results-count { font-weight: 500; color: var(--dark-text); font-size: var(--font-size-sm); }
 .current-year-badge { background: var(--primary-blue); color: var(--white); padding: 2px var(--spacing-xs); border-radius: 12px; font-size: 11px; font-weight: 600; }
 .festivals-content { display: flex; flex-direction: column; gap: var(--spacing-md); }

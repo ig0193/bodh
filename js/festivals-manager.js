@@ -113,14 +113,6 @@ class FestivalsManager {
       return;
     }
 
-    // Update summary
-    if (summaryContainer) {
-      summaryContainer.innerHTML = `
-        <span class="results-count">${this.allFestivals.length} festivals found for 2025</span>
-        ${isCurrentYear ? '<span class="current-year-badge">Current Year</span>' : ''}
-      `;
-    }
-
     // Store filtered festivals and render
     this.filteredFestivals = [...this.allFestivals];
     this.renderFestivalsList(this.filteredFestivals, festivalsContainer);

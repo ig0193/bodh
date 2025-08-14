@@ -1,0 +1,98 @@
+/* ===== ABOUT SECTION ===== */
+.about-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: var(--spacing-xl) var(--spacing-lg);
+  }
+  
+  .about-header {
+    text-align: center;
+    margin-bottom: var(--spacing-xl);
+  }
+  
+  .about-header h2 {
+    color: var(--dark-text);
+    font-size: var(--font-size-xxl);
+    font-weight: 700;
+    margin-bottom: var(--spacing-sm);
+    font-family: var(--font-secondary);
+  }
+  
+  .about-subtitle {
+    color: var(--gray-600);
+    font-size: var(--font-size-lg);
+    font-style: italic;
+    margin: 0;
+  }
+  
+  .about-content {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-xl);
+  }
+  
+  .about-section {
+    background: var(--white);
+    border-radius: var(--border-radius);
+    padding: var(--spacing-xl);
+    box-shadow: var(--shadow-sm);
+    border: 1px solid var(--gray-200);
+  }
+  
+  .about-section h3 {
+    color: var(--primary-blue);
+    font-size: var(--font-size-lg);
+    font-weight: 600;
+    margin-bottom: var(--spacing-md);
+    font-family: var(--font-secondary);
+  }
+  
+  .about-section p {
+    color: var(--dark-text);
+    line-height: 1.7;
+    margin-bottom: var(--spacing-md);
+    font-size: var(--font-size-md);
+  }
+  
+  .about-section p:last-child {
+    margin-bottom: 0;
+  }
+  
+  .about-section ul {
+    list-style: none;
+    padding: 0;
+    margin: var(--spacing-md) 0;
+  }
+  
+  .about-section li {
+    padding: var(--spacing-sm) 0;
+    border-bottom: 1px solid var(--gray-100);
+    color: var(--dark-text);
+    line-height: 1.6;
+    position: relative;
+    padding-left: var(--spacing-lg);
+  }
+  
+  .about-section li:last-child {
+    border-bottom: none;
+  }
+  
+  .about-section li::before {
+    content: "•";
+    color: var(--primary-blue);
+    font-weight: bold;
+    position: absolute;
+    left: 0;
+    top: var(--spacing-sm);
+  }
+  
+  .note {
+    background: var(--gray-50);
+    border-left: 4px solid var(--primary-blue);
+    padding: var(--spacing-md);
+    border-radius: var(--border-radius-sm);
+    font-size: var(--font-size-sm);
+    color: var(--gray-700);
+    margin-top: var(--spacing-md);
+  }
+  
