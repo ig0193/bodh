@@ -122,20 +122,32 @@ class BytesManager {
     addSwipeEvents() {
         let startY = 0;
         let startTime = 0;
+        let isScrolling = false;
 
         this.bytesCards.addEventListener('touchstart', (e) => {
             startY = e.touches[0].clientY;
             startTime = Date.now();
-        });
+            isScrolling = false;
+        }, { passive: true });
+
+        this.bytesCards.addEventListener('touchmove', (e) => {
+            isScrolling = true;
+        }, { passive: true });
 
         this.bytesCards.addEventListener('touchend', (e) => {
             const endY = e.changedTouches[0].clientY;
             const endTime = Date.now();
             const deltaY = startY - endY;
             const deltaTime = endTime - startTime;
+            const velocity = Math.abs(deltaY) / deltaTime;
 
-            // Only process fast swipes
-            if (deltaTime < 300 && Math.abs(deltaY) > 50) {
+            // Only process fast swipes (high velocity) that aren't natural scrolling
+            if (velocity > 0.5 && Math.abs(deltaY) > 100 && deltaTime < 400) {
+                e.preventDefault();
+                
+                // Stop any ongoing scroll momentum
+                this.bytesCards.style.scrollBehavior = 'auto';
+                
                 if (deltaY > 0) {
                     // Swipe up - next byte
                     this.navigateToByte('next');
@@ -143,8 +155,25 @@ class BytesManager {
                     // Swipe down - previous byte
                     this.navigateToByte('prev');
                 }
+                
+                // Restore smooth scrolling after a short delay
+                setTimeout(() => {
+                    this.bytesCards.style.scrollBehavior = 'smooth';
+                }, 100);
             }
-        });
+        }, { passive: false });
+
+        // Handle scroll snap completion
+        let scrollTimeout;
+        this.bytesCards.addEventListener('scroll', () => {
+            clearTimeout(scrollTimeout);
+            scrollTimeout = setTimeout(() => {
+                // Update current index based on scroll position
+                const scrollTop = this.bytesCards.scrollTop;
+                const cardHeight = window.innerHeight;
+                this.currentByteIndex = Math.round(scrollTop / cardHeight);
+            }, 150);
+        }, { passive: true });
     }
 
     handleByteAction(action, byteId, button) {

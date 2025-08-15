@@ -21,6 +21,8 @@
   scroll-behavior: smooth;
   scrollbar-width: none; /* Firefox */
   -ms-overflow-style: none; /* Internet Explorer 10+ */
+  overscroll-behavior-y: contain;
+  -webkit-overflow-scrolling: touch;
 }
 
 .bytes-cards::-webkit-scrollbar {
@@ -183,6 +185,9 @@
 .byte-card {
   scroll-snap-align: start;
   scroll-snap-stop: always;
+  position: relative;
+  -webkit-transform: translate3d(0, 0, 0); /* Hardware acceleration */
+  transform: translate3d(0, 0, 0);
 }
 
 /* ===== ACCESSIBILITY ===== */
