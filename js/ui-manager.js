@@ -911,11 +911,7 @@ class HinduCalendarUI {
     
     switch (viewName) {
       case 'bytes':
-        currentDateDisplay.innerHTML = `
-          <div style="text-align: center;">
-            <div style="font-size: 1.2em; font-weight: 600; margin-bottom: 4px;">Bytes</div>
-          </div>
-        `;
+        currentDateDisplay.style.display = "none";
         break;
       
       case 'temples':
