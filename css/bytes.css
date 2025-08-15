@@ -16,13 +16,14 @@
 /* ===== BYTES CARDS CONTAINER ===== */
 .bytes-cards {
   height: 100vh;
-  overflow-y: auto;
+  overflow-y: scroll;
   scroll-snap-type: y mandatory;
   scroll-behavior: smooth;
   scrollbar-width: none; /* Firefox */
   -ms-overflow-style: none; /* Internet Explorer 10+ */
   overscroll-behavior-y: contain;
   -webkit-overflow-scrolling: touch;
+  scroll-padding: 0;
 }
 
 .bytes-cards::-webkit-scrollbar {
@@ -188,6 +189,7 @@
   position: relative;
   -webkit-transform: translate3d(0, 0, 0); /* Hardware acceleration */
   transform: translate3d(0, 0, 0);
+  scroll-margin: 0;
 }
 
 /* ===== ACCESSIBILITY ===== */

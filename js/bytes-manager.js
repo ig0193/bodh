@@ -61,6 +61,9 @@ class BytesManager {
 
         // Add event listeners to action buttons
         this.bindCardEvents();
+        
+        // Set up intersection observer for new cards
+        this.observeCards();
     }
 
     createByteCard(byte, index) {
@@ -120,60 +123,63 @@ class BytesManager {
     }
 
     addSwipeEvents() {
-        let startY = 0;
-        let startTime = 0;
-        let isScrolling = false;
-
-        this.bytesCards.addEventListener('touchstart', (e) => {
-            startY = e.touches[0].clientY;
-            startTime = Date.now();
-            isScrolling = false;
-        }, { passive: true });
-
-        this.bytesCards.addEventListener('touchmove', (e) => {
-            isScrolling = true;
-        }, { passive: true });
-
-        this.bytesCards.addEventListener('touchend', (e) => {
-            const endY = e.changedTouches[0].clientY;
-            const endTime = Date.now();
-            const deltaY = startY - endY;
-            const deltaTime = endTime - startTime;
-            const velocity = Math.abs(deltaY) / deltaTime;
-
-            // Only process fast swipes (high velocity) that aren't natural scrolling
-            if (velocity > 0.5 && Math.abs(deltaY) > 100 && deltaTime < 400) {
-                e.preventDefault();
-                
-                // Stop any ongoing scroll momentum
-                this.bytesCards.style.scrollBehavior = 'auto';
-                
-                if (deltaY > 0) {
-                    // Swipe up - next byte
-                    this.navigateToByte('next');
-                } else {
-                    // Swipe down - previous byte
-                    this.navigateToByte('prev');
-                }
-                
-                // Restore smooth scrolling after a short delay
-                setTimeout(() => {
-                    this.bytesCards.style.scrollBehavior = 'smooth';
-                }, 100);
-            }
-        }, { passive: false });
-
-        // Handle scroll snap completion
+        // Use intersection observer for better scroll tracking
+        this.setupScrollObserver();
+        
+        // Simple scroll end detection
         let scrollTimeout;
         this.bytesCards.addEventListener('scroll', () => {
             clearTimeout(scrollTimeout);
             scrollTimeout = setTimeout(() => {
-                // Update current index based on scroll position
-                const scrollTop = this.bytesCards.scrollTop;
-                const cardHeight = window.innerHeight;
-                this.currentByteIndex = Math.round(scrollTop / cardHeight);
-            }, 150);
+                this.updateCurrentIndex();
+            }, 100);
         }, { passive: true });
+    }
+
+    setupScrollObserver() {
+        if (!('IntersectionObserver' in window)) {
+            return; // Fallback for older browsers
+        }
+
+        const options = {
+            root: this.bytesCards,
+            rootMargin: '0px',
+            threshold: 0.5 // Trigger when 50% of card is visible
+        };
+
+        this.scrollObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const cardIndex = parseInt(entry.target.dataset.byteIndex);
+                    if (!isNaN(cardIndex)) {
+                        this.currentByteIndex = cardIndex;
+                    }
+                }
+            });
+        }, options);
+
+        // Observe all cards when they're rendered
+        this.observeCards();
+    }
+
+    observeCards() {
+        if (!this.scrollObserver) return;
+        
+        const cards = this.bytesCards.querySelectorAll('.byte-card');
+        cards.forEach(card => {
+            this.scrollObserver.observe(card);
+        });
+    }
+
+    updateCurrentIndex() {
+        const scrollTop = this.bytesCards.scrollTop;
+        const cardHeight = window.innerHeight;
+        const newIndex = Math.round(scrollTop / cardHeight);
+        
+        // Ensure we're within bounds
+        if (newIndex >= 0 && newIndex < this.bytes.length) {
+            this.currentByteIndex = newIndex;
+        }
     }
 
     handleByteAction(action, byteId, button) {
@@ -364,6 +370,14 @@ class BytesManager {
                     <p style="font-size: var(--font-size-sm); color: var(--gray-500);">Please try again later</p>
                 </div>
             `;
+        }
+    }
+
+    destroy() {
+        // Clean up intersection observer
+        if (this.scrollObserver) {
+            this.scrollObserver.disconnect();
+            this.scrollObserver = null;
         }
     }
 }
