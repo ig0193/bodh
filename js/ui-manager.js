@@ -913,55 +913,29 @@ class HinduCalendarUI {
       case 'bytes':
         currentDateDisplay.innerHTML = `
           <div style="text-align: center;">
-            <div style="font-size: 1.2em; font-weight: 600; margin-bottom: 4px;">📚 Bytes</div>
-            <div style="font-size: 0.85em; color: var(--gray-600);">Bite-sized wisdom from ancient traditions</div>
+            <div style="font-size: 1.2em; font-weight: 600; margin-bottom: 4px;">Bytes</div>
           </div>
         `;
         break;
       
       case 'temples':
-        currentDateDisplay.innerHTML = `
-          <div style="text-align: center;">
-            <div style="font-size: 1.2em; font-weight: 600; margin-bottom: 4px;">🏛️ Temples</div>
-            <div style="font-size: 0.85em; color: var(--gray-600);">Discover ancient temples and their divine significance</div>
-          </div>
-        `;
+        currentDateDisplay.style.display = "none";
         break;
       
       case 'festivals':
-        currentDateDisplay.innerHTML = `
-          <div style="text-align: center;">
-            <div style="font-size: 1.2em; font-weight: 600; margin-bottom: 4px;">🎉 Festivals</div>
-            <div style="font-size: 0.85em; color: var(--gray-600);">Hindu festivals and auspicious occasions</div>
-          </div>
-        `;
+        currentDateDisplay.style.display = "none";
         break;
       
       case 'months':
-        currentDateDisplay.innerHTML = `
-          <div style="text-align: center;">
-            <div style="font-size: 1.2em; font-weight: 600; margin-bottom: 4px;">🌙 Hindu Months</div>
-            <div style="font-size: 0.85em; color: var(--gray-600);">Understanding the Hindu calendar system</div>
-          </div>
-        `;
+        currentDateDisplay.style.display = "none";
         break;
       
       case 'upcoming':
-        currentDateDisplay.innerHTML = `
-          <div style="text-align: center;">
-            <div style="font-size: 1.2em; font-weight: 600; margin-bottom: 4px;">⭐ Upcoming</div>
-            <div style="font-size: 0.85em; color: var(--gray-600);">Next festivals and auspicious days</div>
-          </div>
-        `;
+        currentDateDisplay.style.display = "none";
         break;
       
       case 'about':
-        currentDateDisplay.innerHTML = `
-          <div style="text-align: center;">
-            <div style="font-size: 1.2em; font-weight: 600; margin-bottom: 4px;">ℹ️ About</div>
-            <div style="font-size: 0.85em; color: var(--gray-600);">Learn about this application</div>
-          </div>
-        `;
+        currentDateDisplay.style.display = "none";
         break;
       
       default:
