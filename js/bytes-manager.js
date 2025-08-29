@@ -113,8 +113,6 @@ class BytesManager {
                 const button = e.target.closest('.byte-action');
                 const action = button.dataset.action;
                 const byteId = parseInt(button.dataset.byteId);
-                
-                this.handleByteAction(action, byteId, button);
             }
         });
 
@@ -180,109 +178,6 @@ class BytesManager {
         if (newIndex >= 0 && newIndex < this.bytes.length) {
             this.currentByteIndex = newIndex;
         }
-    }
-
-    handleByteAction(action, byteId, button) {
-        const byte = this.bytes.find(b => b.id === byteId);
-        if (!byte) return;
-
-        switch (action) {
-            case 'like':
-                this.toggleLike(byte, button);
-                break;
-            case 'share':
-                this.shareByte(byte);
-                break;
-            case 'save':
-                this.saveByte(byte, button);
-                break;
-        }
-    }
-
-    toggleLike(byte, button) {
-        // Toggle like status
-        byte.liked = !byte.liked;
-        byte.likes = (byte.likes || 0) + (byte.liked ? 1 : -1);
-
-        // Update button appearance
-        const icon = button.querySelector('i');
-        const count = button.querySelector('span');
-        
-        if (byte.liked) {
-            icon.classList.remove('far');
-            icon.classList.add('fas');
-            button.style.color = '#ef4444';
-        } else {
-            icon.classList.remove('fas');
-            icon.classList.add('far');
-            button.style.color = '';
-        }
-        
-        count.textContent = byte.likes;
-
-        // Add animation
-        button.style.transform = 'scale(1.2)';
-        setTimeout(() => {
-            button.style.transform = '';
-        }, 150);
-    }
-
-    async shareByte(byte) {
-        const shareData = {
-            title: byte.title,
-            text: byte.text,
-            url: window.location.href
-        };
-
-        try {
-            if (navigator.share) {
-                await navigator.share(shareData);
-            } else {
-                // Fallback: copy to clipboard
-                await navigator.clipboard.writeText(`${byte.title}\n\n${byte.text}\n\n${window.location.href}`);
-                this.showToast('Copied to clipboard!');
-            }
-        } catch (error) {
-            console.error('Error sharing byte:', error);
-            this.showToast('Unable to share');
-        }
-    }
-
-    saveByte(byte, button) {
-        // Toggle save status
-        byte.saved = !byte.saved;
-
-        // Update button appearance
-        const icon = button.querySelector('i');
-        
-        if (byte.saved) {
-            icon.classList.remove('far');
-            icon.classList.add('fas');
-            button.style.color = '#3b82f6';
-            this.showToast('Byte saved!');
-        } else {
-            icon.classList.remove('fas');
-            icon.classList.add('far');
-            button.style.color = '';
-            this.showToast('Byte unsaved');
-        }
-
-        // Save to localStorage
-        this.updateSavedBytes(byte);
-    }
-
-    updateSavedBytes(byte) {
-        let savedBytes = JSON.parse(localStorage.getItem('savedBytes') || '[]');
-        
-        if (byte.saved) {
-            if (!savedBytes.find(b => b.id === byte.id)) {
-                savedBytes.push(byte);
-            }
-        } else {
-            savedBytes = savedBytes.filter(b => b.id !== byte.id);
-        }
-        
-        localStorage.setItem('savedBytes', JSON.stringify(savedBytes));
     }
 
     navigateToByte(direction) {
