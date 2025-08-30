@@ -58,6 +58,12 @@ class TemplesManager {
             });
         }
 
+        // Lazy loading for images
+        this.setupLazyLoading();
+
+        // Image slider functionality
+        this.setupImageSliders();
+
         // Filter functionality
         if (this.deityFilter) {
             this.deityFilter.addEventListener('change', (e) => {
@@ -482,9 +488,21 @@ class TemplesManager {
         // Create image slider HTML
         let imageSliderHTML = '';
         if (temple.images && temple.images.length > 0) {
-            imageSliderHTML = temple.images.map(image => 
-                `<img src="${image.url}" alt="${image.alt}" class="temple-image" />`
+            imageSliderHTML = temple.images.map((image, index) => 
+                `<img src="${image.url}" alt="${image.alt}" class="temple-image" data-image-index="${index}" onload="this.classList.add('loaded');" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />`
             ).join('');
+        }
+        
+        // Add fallback for when images fail to load
+        if (temple.images && temple.images.length > 0) {
+            imageSliderHTML += `
+                <div class="temple-image-fallback" style="display: none;">
+                    <div class="fallback-content">
+                        <i class="fas fa-temple-hindu"></i>
+                        <span>${temple.name}</span>
+                    </div>
+                </div>
+            `;
         }
         
         return `
@@ -494,6 +512,7 @@ class TemplesManager {
                         ${imageSliderHTML}
                     </div>
                     ${imageCount > 1 ? `<div class="temple-image-dots-indicator">${dotsHTML}</div>` : ''}
+                    ${imageCount > 1 ? `<div class="temple-image-counter">1/${imageCount}</div>` : ''}
                 </div>
                 <div class="temple-content">
                     <h3 class="temple-name">${temple.name}</h3>
@@ -616,6 +635,95 @@ class TemplesManager {
                 </div>
             `;
         }
+    }
+
+    /**
+     * Setup lazy loading for images
+     */
+    setupLazyLoading() {
+        const imageObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const img = entry.target;
+                    img.src = img.dataset.src;
+                    img.classList.remove('lazy');
+                    observer.unobserve(img);
+                }
+            });
+        }, {
+            rootMargin: '50px 0px',
+            threshold: 0.1
+        });
+
+        // Observe all lazy images
+        document.addEventListener('DOMContentLoaded', () => {
+            const lazyImages = document.querySelectorAll('img.lazy');
+            lazyImages.forEach(img => imageObserver.observe(img));
+        });
+
+        // Re-observe after rendering temples
+        this.originalRenderTemples = this.renderTemples;
+        this.renderTemples = () => {
+            this.originalRenderTemples();
+            setTimeout(() => {
+                const lazyImages = document.querySelectorAll('img.lazy');
+                lazyImages.forEach(img => imageObserver.observe(img));
+            }, 100);
+        };
+    }
+
+    /**
+     * Setup image sliders for temple cards
+     */
+    setupImageSliders() {
+        // Add click event delegation for image sliders
+        document.addEventListener('click', (e) => {
+            const templeCard = e.target.closest('.temple-card');
+            if (templeCard) {
+                const templeId = templeCard.dataset.templeId;
+                const templeIndex = this.filteredTemples.findIndex(t => t.id === templeId);
+                if (templeIndex !== -1) {
+                    this.openTempleModal(templeIndex);
+                }
+            }
+        });
+
+        // Add touch/swipe functionality for image sliders
+        let startX = 0;
+        let currentX = 0;
+        let isDragging = false;
+
+        document.addEventListener('touchstart', (e) => {
+            const templeCard = e.target.closest('.temple-card');
+            if (templeCard) {
+                startX = e.touches[0].clientX;
+                isDragging = true;
+            }
+        }, { passive: true });
+
+        document.addEventListener('touchmove', (e) => {
+            if (isDragging) {
+                currentX = e.touches[0].clientX;
+                e.preventDefault();
+            }
+        }, { passive: false });
+
+        document.addEventListener('touchend', (e) => {
+            if (isDragging) {
+                const deltaX = currentX - startX;
+                const templeCard = e.target.closest('.temple-card');
+                
+                if (templeCard && Math.abs(deltaX) > 50) {
+                    const templeId = templeCard.dataset.templeId;
+                    const templeIndex = this.filteredTemples.findIndex(t => t.id === templeId);
+                    if (templeIndex !== -1) {
+                        this.openTempleModal(templeIndex);
+                    }
+                }
+                
+                isDragging = false;
+            }
+        }, { passive: true });
     }
 }
 
