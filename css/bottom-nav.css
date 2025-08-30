@@ -155,7 +155,7 @@
 /* ===== SAFE AREA SUPPORT ===== */
 @supports (padding-bottom: env(safe-area-inset-bottom)) {
   .bottom-nav {
-    padding-bottom: calc(12px + env(safe-area-inset-bottom));
+    padding-bottom: calc(1px + env(safe-area-inset-bottom));
   }
 }
 
