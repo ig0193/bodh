@@ -21,12 +21,12 @@ const TEMPLES_DATA = [
                 caption: 'Kedarnath diety'
             },
             {
-                url: 'images/temples/kedarnath1.png',
+                url: 'images/temples/kedarnath_ling.png',
                 alt: 'Kedarnath Temple interior',
                 caption: 'Sacred sanctum with Shiva lingam'
             },
             {
-                url: 'https://via.placeholder.com/600x400/F5A623/FFFFFF?text=Kedarnath+Aerial',
+                url: 'images/temples/kedarnath_aerial.png',
                 alt: 'Aerial view of Kedarnath',
                 caption: 'Aerial view showing temple location'
             }

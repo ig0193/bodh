@@ -134,6 +134,68 @@ class TemplesManager {
         }
     }
 
+
+
+    addCardClickHandler(card, index) {
+        let startX = 0;
+        let startY = 0;
+        let startTime = 0;
+        let hasMoved = false;
+
+        const handleStart = (e) => {
+            const touch = e.touches ? e.touches[0] : e;
+            startX = touch.clientX;
+            startY = touch.clientY;
+            startTime = Date.now();
+            hasMoved = false;
+        };
+
+        const handleMove = (e) => {
+            if (!e.touches) return;
+            const touch = e.touches[0];
+            const deltaX = Math.abs(touch.clientX - startX);
+            const deltaY = Math.abs(touch.clientY - startY);
+            
+            // If moved more than 10px, consider it a swipe/drag
+            if (deltaX > 10 || deltaY > 10) {
+                hasMoved = true;
+            }
+        };
+
+        const handleEnd = (e) => {
+            const endTime = Date.now();
+            const duration = endTime - startTime;
+            
+            // Only open modal if:
+            // 1. It was a quick tap (< 300ms)
+            // 2. No significant movement occurred
+            // 3. Not on the image slider area (to allow image swiping)
+            const target = e.target || e.changedTouches?.[0]?.target;
+            const isImageSlider = target?.closest('.temple-image-slider');
+            
+            if (!hasMoved && duration < 300 && !isImageSlider) {
+                this.openTempleModal(index);
+            }
+        };
+
+        // Add both touch and mouse events
+        card.addEventListener('touchstart', handleStart, { passive: true });
+        card.addEventListener('touchmove', handleMove, { passive: true });
+        card.addEventListener('touchend', handleEnd, { passive: true });
+        
+        card.addEventListener('mousedown', handleStart);
+        card.addEventListener('mousemove', handleMove);
+        card.addEventListener('mouseup', handleEnd);
+        
+        // Fallback click handler for areas outside image slider
+        card.addEventListener('click', (e) => {
+            const isImageSlider = e.target.closest('.temple-image-slider');
+            if (!isImageSlider) {
+                this.openTempleModal(index);
+            }
+        });
+    }
+
     initializeCardSwipe(card) {
         const imageSlider = card.querySelector('.temple-image-slider');
         const dotsIndicator = card.querySelector('.temple-image-dots-indicator');
@@ -145,12 +207,22 @@ class TemplesManager {
         
         let startX = 0;
         let currentImageIndex = 0;
+        let isSwipeInProgress = false;
         
         const handleTouchStart = (e) => {
             startX = e.touches[0].clientX;
+            isSwipeInProgress = false;
+        };
+        
+        const handleTouchMove = (e) => {
+            // Prevent card click when swiping on images
+            e.stopPropagation();
+            isSwipeInProgress = true;
         };
         
         const handleTouchEnd = (e) => {
+            if (!isSwipeInProgress) return;
+            
             const endX = e.changedTouches[0].clientX;
             const deltaX = endX - startX;
             const minSwipeDistance = 50;
@@ -169,12 +241,8 @@ class TemplesManager {
         };
         
         imageSlider.addEventListener('touchstart', handleTouchStart, { passive: true });
+        imageSlider.addEventListener('touchmove', handleTouchMove, { passive: false });
         imageSlider.addEventListener('touchend', handleTouchEnd, { passive: true });
-        
-        // Prevent card click when swiping
-        imageSlider.addEventListener('touchmove', (e) => {
-            e.stopPropagation();
-        }, { passive: true });
     }
     
     updateCardImageSlider(slider, dotsIndicator, currentIndex, totalImages) {
@@ -187,6 +255,12 @@ class TemplesManager {
         dots.forEach((dot, index) => {
             dot.classList.toggle('active', index === currentIndex);
         });
+        
+        // Update counter if it exists
+        const counter = slider.parentElement.querySelector('.temple-image-counter');
+        if (counter) {
+            counter.textContent = `${currentIndex + 1}/${totalImages}`;
+        }
     }
 
     handleSwipe(startX, startY, endX, endY) {
@@ -469,12 +543,11 @@ class TemplesManager {
 
         // Add click events to temple cards
         this.templesGrid.querySelectorAll('.temple-card').forEach((card, index) => {
-            card.addEventListener('click', () => {
-                this.openTempleModal(index);
-            });
-            
             // Add swipe functionality for image slider
             this.initializeCardSwipe(card);
+            
+            // Add click event with swipe detection
+            this.addCardClickHandler(card, index);
         });
     }
 
@@ -644,6 +717,7 @@ class TemplesManager {
         document.addEventListener('click', (e) => {
             const templeCard = e.target.closest('.temple-card');
             if (templeCard) {
+                // Only open modal on explicit click, not on swipe
                 const templeId = templeCard.dataset.templeId;
                 const templeIndex = this.filteredTemples.findIndex(t => t.id === templeId);
                 if (templeIndex !== -1) {
@@ -651,43 +725,6 @@ class TemplesManager {
                 }
             }
         });
-
-        // Add touch/swipe functionality for image sliders
-        let startX = 0;
-        let currentX = 0;
-        let isDragging = false;
-
-        document.addEventListener('touchstart', (e) => {
-            const templeCard = e.target.closest('.temple-card');
-            if (templeCard) {
-                startX = e.touches[0].clientX;
-                isDragging = true;
-            }
-        }, { passive: true });
-
-        document.addEventListener('touchmove', (e) => {
-            if (isDragging) {
-                currentX = e.touches[0].clientX;
-                e.preventDefault();
-            }
-        }, { passive: false });
-
-        document.addEventListener('touchend', (e) => {
-            if (isDragging) {
-                const deltaX = currentX - startX;
-                const templeCard = e.target.closest('.temple-card');
-                
-                if (templeCard && Math.abs(deltaX) > 50) {
-                    const templeId = templeCard.dataset.templeId;
-                    const templeIndex = this.filteredTemples.findIndex(t => t.id === templeId);
-                    if (templeIndex !== -1) {
-                        this.openTempleModal(templeIndex);
-                    }
-                }
-                
-                isDragging = false;
-            }
-        }, { passive: true });
     }
 }
 
