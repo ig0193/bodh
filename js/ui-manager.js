@@ -40,7 +40,6 @@ class HinduCalendarUI {
   cacheElements() {
     this.elements = {
       // New header elements
-      currentDateDisplay: document.getElementById('currentDateDisplay'),
       todayBtn: document.getElementById('todayBtn'),
 
       // Mobile menu elements
@@ -70,7 +69,7 @@ class HinduCalendarUI {
       nextButton: document.getElementById('nextMonth'),
       
       // Navigation
-      navButtons: document.querySelectorAll('.nav-btn'),
+      navButtons: document.querySelectorAll('.nav-btn, .bottom-nav-btn'),
       views: document.querySelectorAll('.view'),
       
       // Content areas
@@ -150,10 +149,7 @@ class HinduCalendarUI {
       this.elements.todayBtn.addEventListener('click', () => this.goToToday());
     }
 
-    // Interactive date display
-    if (this.elements.currentDateDisplay) {
-      this.elements.currentDateDisplay.addEventListener('click', () => this.toggleTodayPopup());
-    }
+
 
     // Calendar navigation
     if (this.elements.prevButton) {
@@ -233,10 +229,7 @@ class HinduCalendarUI {
     const hinduDate = hinduMonth ? `${hinduMonth.name}, विक्रम संवत् 2081` : '';
     const hindyDayName = this.getHindiDayName(dayName);
 
-    // Update the date display - simplified and clickable
-    if (this.elements.currentDateDisplay) {
-      this.elements.currentDateDisplay.textContent = `${englishDate} | ${dayName}`;
-    }
+
 
     // Update Today's Popup content with enhanced information
     if (this.elements.popupDateTitle) {
@@ -712,8 +705,8 @@ class HinduCalendarUI {
 
   goToToday() {
     this.engine.setToday();
-    // Switch to calendar view and re-render
-    this.showView('calendar');
+    // Switch to home view and re-render
+    this.showView('home');
     // Close mobile menu if open
     this.closeMobileMenu();
   }
@@ -744,7 +737,6 @@ class HinduCalendarUI {
     
     // Restore focus and scroll
     document.body.style.overflow = '';
-    this.elements.currentDateDisplay.focus();
   }
 
   /**
@@ -754,7 +746,7 @@ class HinduCalendarUI {
     // Hide all views
     this.elements.views.forEach(view => view.classList.remove('active'));
     
-    // Remove active class from all nav buttons (desktop and mobile)
+    // Remove active class from all nav buttons (desktop, mobile, and bottom nav)
     this.elements.navButtons.forEach(btn => btn.classList.remove('active'));
     this.elements.mobileMenuItems.forEach(item => item.classList.remove('active'));
     
@@ -767,8 +759,8 @@ class HinduCalendarUI {
       this.currentView = viewName;
     }
     
-    // Add active class to nav button (desktop)
-    document.querySelector(`[data-view="${viewName}"]`)?.classList.add('active');
+    // Add active class to nav buttons (desktop and bottom nav)
+    document.querySelectorAll(`[data-view="${viewName}"]`).forEach(btn => btn.classList.add('active'));
     
     // Add active class to mobile menu item
     const mobileMenuItem = document.querySelector(`.mobile-menu-item[data-view="${viewName}"]`);
@@ -776,11 +768,16 @@ class HinduCalendarUI {
       mobileMenuItem.classList.add('active');
     }
     
-    // Update header content based on view
-    this.updateHeaderForView(viewName);
+
     
     // Render view-specific content
     switch (viewName) {
+      case 'home':
+        // Home view is handled by HomeManager
+        if (window.homeManager) {
+          window.homeManager.forceRefresh();
+        }
+        break;
       case 'calendar':
         this.renderCalendar();
         break;
@@ -895,51 +892,7 @@ class HinduCalendarUI {
     this.handleResize(); // Initial check
   }
 
-  /**
-   * Update header content based on active view
-   */
-  updateHeaderForView(viewName) {
-    const dateInfo = document.querySelector('.date-info');
-    const currentDateDisplay = document.getElementById('currentDateDisplay');
-    
-    if (!dateInfo || !currentDateDisplay) return;
-    
-    // Store original content if not already stored
-    if (!this.originalHeaderContent) {
-      this.originalHeaderContent = currentDateDisplay.innerHTML;
-    }
-    
-    switch (viewName) {
-      case 'bytes':
-        currentDateDisplay.style.display = "none";
-        break;
-      
-      case 'temples':
-        currentDateDisplay.style.display = "none";
-        break;
-      
-      case 'festivals':
-        currentDateDisplay.style.display = "none";
-        break;
-      
-      case 'months':
-        currentDateDisplay.style.display = "none";
-        break;
-      
-      case 'upcoming':
-        currentDateDisplay.style.display = "none";
-        break;
-      
-      case 'about':
-        currentDateDisplay.style.display = "none";
-        break;
-      
-      default:
-        // Restore original date content for calendar view
-        currentDateDisplay.innerHTML = this.originalHeaderContent;
-        break;
-    }
-  }
+
 
   /**
    * Cleanup method for proper resource management

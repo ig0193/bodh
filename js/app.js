@@ -157,7 +157,7 @@ class HinduCalendarApp {
         case 'h':
         case 'Home':
           e.preventDefault();
-          this.ui.showView('calendar');
+          this.ui.showView('home');
           break;
           
         case 'u':
@@ -196,7 +196,7 @@ class HinduCalendarApp {
       const today = new Date();
       this.engine.navigateToMonth(today.getMonth(), today.getFullYear());
       this.ui.renderCalendar();
-      this.ui.showView('calendar');
+      this.ui.showView('home');
     }
   }
 
@@ -209,7 +209,7 @@ class HinduCalendarApp {
         <h3>Keyboard Shortcuts</h3>
         <div class="shortcuts-grid">
           <div class="shortcut-item">
-            <kbd>H</kbd> <span>Home (Calendar)</span>
+            <kbd>H</kbd> <span>Home</span>
           </div>
           <div class="shortcut-item">
             <kbd>U</kbd> <span>Upcoming Events</span>

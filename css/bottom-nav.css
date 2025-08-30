@@ -1,0 +1,180 @@
+/**
+ * Hindu Calendar - Bottom Navigation Styles
+ * Mobile-first bottom navigation bar
+ */
+
+/* ===== BOTTOM NAVIGATION ===== */
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: #ffffff;
+  border-top: 1px solid #e5e7eb;
+  box-shadow: 0 -1px 3px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  display: none; /* Hidden by default, shown on mobile */
+  padding: 8px 0 12px 0;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.bottom-nav.show {
+  display: flex;
+}
+
+.bottom-nav-btn {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 4px 8px;
+  background: transparent;
+  border: none;
+  color: #6b7280;
+  font-size: 10px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  min-height: 48px;
+  position: relative;
+  text-decoration: none;
+}
+
+.bottom-nav-btn i {
+  font-size: 18px;
+  margin-bottom: 2px;
+  transition: transform 0.2s ease;
+}
+
+.bottom-nav-btn span {
+  font-size: 10px;
+  line-height: 1.2;
+}
+
+.bottom-nav-btn:hover {
+  color: #f97316;
+  transform: translateY(-1px);
+}
+
+.bottom-nav-btn:hover i {
+  transform: scale(1.05);
+}
+
+.bottom-nav-btn.active {
+  color: #f97316;
+}
+
+.bottom-nav-btn.active::before {
+  content: '';
+  position: absolute;
+  top: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 24px;
+  height: 2px;
+  background: #f97316;
+  border-radius: 1px;
+}
+
+.bottom-nav-btn:active {
+  transform: translateY(0);
+  background: #fef3c7;
+}
+
+/* ===== DESKTOP NAVIGATION ===== */
+.desktop-nav {
+  display: flex; /* Show by default on desktop */
+}
+
+/* ===== RESPONSIVE DESIGN ===== */
+@media (max-width: 768px) {
+  .desktop-nav {
+    display: none; /* Hide desktop nav on mobile */
+  }
+  
+  .bottom-nav {
+    display: flex; /* Show bottom nav on mobile */
+  }
+  
+  /* Add bottom padding to main content to account for bottom nav */
+  .main-content {
+    padding-bottom: 70px;
+  }
+  
+  /* Ensure modals appear above bottom nav */
+  .modal,
+  .popup-backdrop,
+  .today-popup,
+  .temple-modal-backdrop,
+  .temple-modal {
+    z-index: 1001;
+  }
+}
+
+@media (min-width: 769px) {
+  .bottom-nav {
+    display: none; /* Hide bottom nav on desktop */
+  }
+  
+  .desktop-nav {
+    display: flex; /* Show desktop nav on desktop */
+  }
+  
+  /* Remove bottom padding on desktop */
+  .main-content {
+    padding-bottom: 0;
+  }
+}
+
+/* ===== ACCESSIBILITY ===== */
+.bottom-nav-btn:focus {
+  outline: 2px solid #f97316;
+  outline-offset: 2px;
+}
+
+.bottom-nav-btn:focus:not(:focus-visible) {
+  outline: none;
+}
+
+/* ===== ANIMATION ===== */
+@keyframes slideUp {
+  from {
+    transform: translateY(100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+.bottom-nav {
+  animation: slideUp 0.3s ease-out;
+}
+
+/* ===== SAFE AREA SUPPORT ===== */
+@supports (padding-bottom: env(safe-area-inset-bottom)) {
+  .bottom-nav {
+    padding-bottom: calc(12px + env(safe-area-inset-bottom));
+  }
+}
+
+/* ===== DARK MODE SUPPORT ===== */
+@media (prefers-color-scheme: dark) {
+  .bottom-nav {
+    background: var(--dark-bg, #ffffff);
+    border-top-color: var(--dark-border, #ffffff);
+  }
+  
+  .bottom-nav-btn {
+    color: var(--dark-text, #ccc);
+  }
+  
+  .bottom-nav-btn:hover {
+    color: var(--saffron);
+  }
+  
+  .bottom-nav-btn:active {
+    background: var(--dark-hover, #ffffff);
+  }
+}

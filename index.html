@@ -51,6 +51,8 @@
     <link rel="stylesheet" href="css/components/modal.css">
     <link rel="stylesheet" href="css/temples.css">
     <link rel="stylesheet" href="css/bytes.css">
+    <link rel="stylesheet" href="css/home.css">
+    <link rel="stylesheet" href="css/bottom-nav.css">
     
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -103,13 +105,6 @@
                     </div>
                 </div>
                 
-                <!-- Current Date Info -->
-                <div class="date-info">
-                    <div class="date-display interactive" id="currentDateDisplay" title="Click for today's inspiration">
-                        July 26, 2025 • श्रावण 6, विक्रम संवत् 2081 | Saturday • शनिवार
-                    </div>
-                </div>
-                
                 <!-- Quick Actions -->
                 <div class="quick-actions">
                     <button class="today-btn" id="todayBtn" title="Go to Today">
@@ -120,9 +115,13 @@
             </div>
         </header>
         
-        <!-- Navigation Bar -->
-        <nav class="nav-bar" role="navigation" aria-label="Main Navigation">
-            <button class="nav-btn active" data-view="calendar" aria-label="Calendar View">
+        <!-- Desktop Navigation Bar -->
+        <nav class="nav-bar desktop-nav" role="navigation" aria-label="Desktop Navigation">
+            <button class="nav-btn active" data-view="home" aria-label="Home View">
+                <i class="fas fa-home" aria-hidden="true"></i>
+                <span>Home</span>
+            </button>
+            <button class="nav-btn" data-view="calendar" aria-label="Calendar View">
                 <i class="fas fa-calendar-alt" aria-hidden="true"></i>
                 <span>Calendar</span>
             </button>
@@ -131,7 +130,7 @@
                 <span>Upcoming</span>
             </button>
             <button class="nav-btn" data-view="temples" aria-label="Temples View">
-                <i class="fas fa-temple-hindu" aria-hidden="true"></i>
+                <i class="fas fa-landmark" aria-hidden="true"></i>
                 <span>Temples</span>
             </button>
             <button class="nav-btn" data-view="bytes" aria-label="Bytes View">
@@ -145,6 +144,30 @@
             <button class="nav-btn" data-view="about" aria-label="About View">
                 <i class="fas fa-info-circle" aria-hidden="true"></i>
                 <span>About</span>
+            </button>
+        </nav>
+        
+        <!-- Mobile Bottom Navigation -->
+        <nav class="bottom-nav mobile-nav" role="navigation" aria-label="Mobile Bottom Navigation">
+            <button class="bottom-nav-btn active" data-view="home" aria-label="Home">
+                <i class="fas fa-home" aria-hidden="true"></i>
+                <span>Home</span>
+            </button>
+            <button class="bottom-nav-btn" data-view="calendar" aria-label="Calendar">
+                <i class="fas fa-calendar-alt" aria-hidden="true"></i>
+                <span>Calendar</span>
+            </button>
+            <button class="bottom-nav-btn" data-view="bytes" aria-label="Bytes">
+                <i class="fas fa-bolt" aria-hidden="true"></i>
+                <span>Bytes</span>
+            </button>
+            <button class="bottom-nav-btn" data-view="temples" aria-label="Temples">
+                <i class="fas fa-landmark" aria-hidden="true"></i>
+                <span>Temples</span>
+            </button>
+            <button class="bottom-nav-btn" data-view="festivals" aria-label="Festivals">
+                <i class="fas fa-calendar-day" aria-hidden="true"></i>
+                <span>Festivals</span>
             </button>
         </nav>
         
@@ -164,6 +187,10 @@
                     </button>
                 </div>
                 <nav class="mobile-menu-nav">
+                    <a href="#" class="mobile-menu-item" data-view="home">
+                        <i class="fas fa-home"></i>
+                        <span>Home</span>
+                    </a>
                     <a href="#" class="mobile-menu-item" data-view="calendar">
                         <i class="fas fa-calendar-alt"></i>
                         <span>Calendar</span>
@@ -207,8 +234,22 @@
         <!-- Main Content Area -->
         <main class="main-content" role="main">
             
+            <!-- Home View -->
+            <section id="homeView" class="view active" aria-label="Home View">
+                <div class="home-container">
+                    <div class="home-header">
+                        <h2>Welcome to बोध - Bodh</h2>
+                        <p class="home-subtitle">Awakening cultural consciousness</p>
+                    </div>
+                    
+                    <div class="home-cards-grid" id="homeCardsGrid">
+                        <!-- Navigation cards will be populated here -->
+                    </div>
+                </div>
+            </section>
+            
             <!-- Calendar View -->
-            <section id="calendarView" class="view active" aria-label="Calendar View">
+            <section id="calendarView" class="view" aria-label="Calendar View">
                 
                 <!-- Sidebar + Calendar Layout -->
                 <div class="calendar-layout">
@@ -715,6 +756,7 @@
     <script src="js/calendar-engine.js"></script>
     <script src="js/mobile-menu-handler.js"></script>
     <script src="js/modal-manager.js"></script>
+    <script src="js/home-manager.js"></script>
     <script src="js/calendar-renderer.js"></script>
     <script src="js/upcoming-events-handler.js"></script>
     <script src="js/festivals-manager.js"></script>
