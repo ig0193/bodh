@@ -5,6 +5,7 @@
 
 /* ===== HEADER STYLES (COMPACT APPLE-INSPIRED) ===== */
 .header {
+  display: none;
   background: var(--white);
   color: var(--dark-text);
   padding: var(--spacing-sm) var(--spacing-lg);
