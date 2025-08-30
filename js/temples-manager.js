@@ -58,9 +58,6 @@ class TemplesManager {
             });
         }
 
-        // Lazy loading for images
-        this.setupLazyLoading();
-
         // Image slider functionality
         this.setupImageSliders();
 
@@ -637,40 +634,7 @@ class TemplesManager {
         }
     }
 
-    /**
-     * Setup lazy loading for images
-     */
-    setupLazyLoading() {
-        const imageObserver = new IntersectionObserver((entries, observer) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    const img = entry.target;
-                    img.src = img.dataset.src;
-                    img.classList.remove('lazy');
-                    observer.unobserve(img);
-                }
-            });
-        }, {
-            rootMargin: '50px 0px',
-            threshold: 0.1
-        });
 
-        // Observe all lazy images
-        document.addEventListener('DOMContentLoaded', () => {
-            const lazyImages = document.querySelectorAll('img.lazy');
-            lazyImages.forEach(img => imageObserver.observe(img));
-        });
-
-        // Re-observe after rendering temples
-        this.originalRenderTemples = this.renderTemples;
-        this.renderTemples = () => {
-            this.originalRenderTemples();
-            setTimeout(() => {
-                const lazyImages = document.querySelectorAll('img.lazy');
-                lazyImages.forEach(img => imageObserver.observe(img));
-            }, 100);
-        };
-    }
 
     /**
      * Setup image sliders for temple cards
