@@ -40,6 +40,14 @@ class HomeManager {
             view: 'temples'
         },
         {
+            id: 'festivals',
+            title: 'Festivals',
+            description: 'Complete festival guide',
+            icon: 'fas fa-calendar-day',
+            iconClass: 'festivals',
+            view: 'festivals'
+        },
+        {
             id: 'months',
             title: 'Months',
             description: 'Hindu calendar system',
@@ -54,14 +62,6 @@ class HomeManager {
             icon: 'fas fa-info-circle',
             iconClass: 'about',
             view: 'about'
-        },
-        {
-            id: 'festivals',
-            title: 'Festivals',
-            description: 'Complete festival guide',
-            icon: 'fas fa-calendar-day',
-            iconClass: 'festivals',
-            view: 'festivals'
         },
         {
             id: 'donate',
