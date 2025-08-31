@@ -16,22 +16,22 @@ const TEMPLES_DATA = [
         description: 'Ancient temple dedicated to Lord Shiva, located in the Garhwal Himalayas at an altitude of 3,583 meters. It is one of the most sacred pilgrimage sites for Hindus and is part of the Char Dham Yatra. The temple is believed to have been built by the Pandavas and later reconstructed by Adi Shankaracharya.',
         images: [
             {
-                url: 'images/temples/kedarnath_aerial.jpg',
+                url: 'images/temples/kedarnath/kedarnath_aerial.jpg',
                 alt: 'Kedarnath front',
                 caption: 'Kedarnath front'
             },
             {
-                url: 'images/temples/kedarnath_ling.jpg',
+                url: 'images/temples/kedarnath/kedarnath_ling.jpg',
                 alt: 'Kedarnath Temple interior',
                 caption: 'Sacred sanctum with Shiva lingam'
             },
             {
-                url: 'images/temples/kedarnath.jpg',
+                url: 'images/temples/kedarnath/kedarnath.jpg',
                 alt: 'Aerial view of Kedarnath',
                 caption: 'Aerial view showing temple location'
             }
         ],
-        primaryImage: 'images/temples/kedarnath.jpg'
+        primaryImage: 'images/temples/kedarnath/kedarnath.jpg'
     },
     {
         id: 'vaishno-devi',
@@ -43,17 +43,17 @@ const TEMPLES_DATA = [
         description: 'One of the most revered shrines of Goddess Vaishno Devi, located in the Trikuta Mountains. The temple is situated in a cave and is accessible by a 13-kilometer trek from Katra. It is believed that the goddess grants the wishes of all her devotees who visit her with pure devotion.',
         images: [
             {
-                url: 'https://via.placeholder.com/600x400/E74C3C/FFFFFF?text=Vaishno+Devi+Cave',
-                alt: 'Vaishno Devi cave entrance',
-                caption: 'Sacred cave entrance'
+                url: 'images/temples/vaishnodevi/vaishno_devi_aerial.jpg',
+                alt: 'Vaishno Devi aerial',
+                caption: 'Vaishno Devi aerial'
             },
             {
-                url: 'https://via.placeholder.com/600x400/9B59B6/FFFFFF?text=Vaishno+Devi+Shrine',
+                url: 'images/temples/vaishnodevi/vaishno_devi_shrin.jpg',
                 alt: 'Vaishno Devi shrine interior',
                 caption: 'Inner sanctum of the cave'
             }
         ],
-        primaryImage: 'https://via.placeholder.com/600x400/E74C3C/FFFFFF?text=Vaishno+Devi+Cave'
+        primaryImage: 'images/temples/vaishnodevi/vaishno_devi_aerial.jpg'
     },
     {
         id: 'tirupati-balaji',
