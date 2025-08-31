@@ -16,9 +16,9 @@ const TEMPLES_DATA = [
         description: 'Ancient temple dedicated to Lord Shiva, located in the Garhwal Himalayas at an altitude of 3,583 meters. It is one of the most sacred pilgrimage sites for Hindus and is part of the Char Dham Yatra. The temple is believed to have been built by the Pandavas and later reconstructed by Adi Shankaracharya.',
         images: [
             {
-                url: 'images/temples/kedarnath.jpg',
-                alt: 'Kedarnath diety',
-                caption: 'Kedarnath diety'
+                url: 'images/temples/kedarnath_aerial.jpg',
+                alt: 'Kedarnath front',
+                caption: 'Kedarnath front'
             },
             {
                 url: 'images/temples/kedarnath_ling.jpg',
@@ -26,7 +26,7 @@ const TEMPLES_DATA = [
                 caption: 'Sacred sanctum with Shiva lingam'
             },
             {
-                url: 'images/temples/kedarnath_aerial.jpg',
+                url: 'images/temples/kedarnath.jpg',
                 alt: 'Aerial view of Kedarnath',
                 caption: 'Aerial view showing temple location'
             }
