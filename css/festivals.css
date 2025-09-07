@@ -164,10 +164,8 @@
   border-radius: var(--border-radius);
   overflow: hidden;
   box-shadow: var(--shadow-sm);
-  border: 1px solid var(--gray-200);
   background: var(--white);
   transition: var(--transition);
-  margin-bottom: var(--spacing-xs);
 }
 
 .festival-wrapper:hover {
