@@ -310,15 +310,25 @@ class FestivalsManager {
     const typeClass = festival.source === 'ekadashi' ? 'ekadashi' : festival.type || 'festival';
     const cardClass = `festival-card ${typeClass}`;
 
+    // Check if festival has an image
+    const hasImage = festival.image && festival.image.trim() !== '';
+
     return `
-      <div class="${cardClass}" data-festival='${JSON.stringify(festival)}'>
-        <div class="festival-date">
-          <div class="date-day">${date}</div>
-          <div class="date-weekday">${dayName}</div>
-        </div>
-        <div class="festival-info">
-          <h4 class="festival-name">${festival.name}</h4>
-          <p class="festival-english">${festival.english || festival.roman || ''}</p>
+      <div class="festival-wrapper ${hasImage ? 'with-image' : ''}">
+        ${hasImage ? `
+          <div class="festival-hero-image">
+            <img src="${festival.image}" alt="${festival.name}" onerror="this.style.display='none'">
+          </div>
+        ` : ''}
+        <div class="${cardClass}" data-festival='${JSON.stringify(festival)}'>
+          <div class="festival-date">
+            <div class="date-day">${date}</div>
+            <div class="date-weekday">${dayName}</div>
+          </div>
+          <div class="festival-info">
+            <h4 class="festival-name">${festival.name}</h4>
+            <p class="festival-english">${festival.english || festival.roman || ''}</p>
+          </div>
         </div>
       </div>
     `;
