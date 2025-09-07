@@ -153,14 +153,17 @@ class UpcomingEventsHandler {
    * Filter upcoming events by type
    */
   filterUpcomingEvents(filter) {
-    const eventItems = this.elements.upcomingEvents.querySelectorAll('.event-item');
+    const eventWrappers = this.elements.upcomingEvents.querySelectorAll('.event-wrapper');
     
-    eventItems.forEach(item => {
-      const itemType = item.dataset.type;
-      if (filter === 'all' || itemType === filter) {
-        item.style.display = 'flex';
-      } else {
-        item.style.display = 'none';
+    eventWrappers.forEach(wrapper => {
+      const eventItem = wrapper.querySelector('.event-item');
+      if (eventItem) {
+        const itemType = eventItem.dataset.type;
+        if (filter === 'all' || itemType === filter) {
+          wrapper.style.display = 'flex';
+        } else {
+          wrapper.style.display = 'none';
+        }
       }
     });
   }
