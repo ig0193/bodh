@@ -121,19 +121,29 @@ class UpcomingEventsHandler {
     const dayName = eventDate.toLocaleDateString('en-US', { weekday: 'short' });
     const monthName = eventDate.toLocaleDateString('en-US', { month: 'short' });
     
+    // Check if event has an image
+    const hasImage = event.image && event.image.trim() !== '';
+    
     return `
-      <div class="event-item ${event.type}" data-date="${event.date}" data-type="${event.type}">
-        <div class="event-date">
-          <div class="countdown-badge">${event.daysUntil === 0 ? 'Today' : event.daysUntil === 1 ? 'Tomorrow' : `${event.daysUntil} days`}</div>
-          <div class="date-details">
-            <div class="event-day">${eventDate.getDate()}</div>
-            <div class="date-meta">${dayName}, ${monthName}</div>
+      <div class="event-wrapper ${hasImage ? 'with-image' : ''}">
+        ${hasImage ? `
+          <div class="event-hero-image">
+            <img src="${event.image}" alt="${event.name}" onerror="this.style.display='none'">
           </div>
-        </div>
-        <div class="event-info">
-          <div class="event-name">${event.name}</div>
-          <div class="event-roman">${event.roman}</div>
-          <div class="event-significance">${event.significance}</div>
+        ` : ''}
+        <div class="event-item ${event.type}" data-date="${event.date}" data-type="${event.type}">
+          <div class="event-date">
+            <div class="countdown-badge">${event.daysUntil === 0 ? 'Today' : event.daysUntil === 1 ? 'Tomorrow' : `${event.daysUntil} days`}</div>
+            <div class="date-details">
+              <div class="event-day">${eventDate.getDate()}</div>
+              <div class="date-meta">${dayName}, ${monthName}</div>
+            </div>
+          </div>
+          <div class="event-info">
+            <div class="event-name">${event.name}</div>
+            <div class="event-roman">${event.roman}</div>
+            <div class="event-significance">${event.significance}</div>
+          </div>
         </div>
       </div>
     `;

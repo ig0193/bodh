@@ -254,4 +254,60 @@
     color: var(--light-text);
     line-height: 1.4;
   }
+
+/* ===== EVENT WRAPPER WITH IMAGES ===== */
+.event-wrapper {
+  display: flex;
+  flex-direction: column;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e5e7eb;
+  background: var(--white);
+  transition: all 0.3s ease;
+}
+
+.event-wrapper:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+}
+
+.event-wrapper.with-image .event-item {
+  border-radius: 0;
+  box-shadow: none;
+  border: none;
+}
+
+.event-hero-image {
+  width: 100%;
+  height: 200px;
+  position: relative;
+  overflow: hidden;
+  background: #f3f4f6;
+}
+
+.event-hero-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  transition: transform 0.3s ease;
+}
+
+.event-wrapper:hover .event-hero-image img {
+  transform: scale(1.05);
+}
+
+/* Responsive adjustments for event wrapper */
+@media (max-width: 768px) {
+  .event-hero-image {
+    height: 180px;
+  }
+}
+
+@media (max-width: 480px) {
+  .event-hero-image {
+    height: 160px;
+  }
+}
   

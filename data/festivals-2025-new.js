@@ -347,7 +347,8 @@ const FESTIVALS_2025 = {
       colors: ["Red", "Yellow"],
       duration: "1 day",
       mantra: "यस्य द्विजबन्धुत्वे",
-      deity: "Family bonds"
+      deity: "Family bonds",
+      image: "images/festivals/rakhi.jpg"
     },
     {
       name: "नारियली पूर्णिमा",
@@ -392,7 +393,8 @@ const FESTIVALS_2025 = {
     duration: "1 day",
     mantra: "ॐ कृष्णाय नमः",
     deity: "Lord Krishna",
-    birthTime: "Midnight"
+    birthTime: "Midnight",
+    image: "images/festivals/krishna.jpg"
   },
 
   "2025-08-27": {
@@ -414,7 +416,8 @@ const FESTIVALS_2025 = {
     colors: ["Red", "Yellow"],
     duration: "11 days",
     mantra: "ॐ गं गणपतये नमः",
-    deity: "Lord Ganesha"
+    deity: "Lord Ganesha",
+    image: "images/festivals/ganesh_chathurti.jpg"
   },
 
   // September 2025
@@ -437,7 +440,8 @@ const FESTIVALS_2025 = {
     colors: ["Nine different colors for nine days"],
     duration: "9 days",
     mantra: "ॐ दुर्गायै नमः",
-    deity: "Goddess Durga"
+    deity: "Goddess Durga",
+    image: "images/temples/vaishnodevi/vaishno_devi_shrin.jpg"
   },
 
   "2025-10-02": {
@@ -459,7 +463,8 @@ const FESTIVALS_2025 = {
     colors: ["Red", "Yellow"],
     duration: "1 day",
     mantra: "ॐ रामाय नमः",
-    deity: "Lord Rama"
+    deity: "Lord Rama",
+    image: "images/festivals/dusherra.jpg"
   },
 
   // October 2025
@@ -505,7 +510,8 @@ const FESTIVALS_2025 = {
     colors: ["Orange", "Blue"],
     duration: "1 day",
     mantra: "वाहे गुरु",
-    deity: "Guru Nanak Dev Ji"
+    deity: "Guru Nanak Dev Ji",
+    image: "images/festivals/gurunanak_jayanti.jpg"
   },
 
   // December 2025
@@ -528,7 +534,8 @@ const FESTIVALS_2025 = {
     colors: ["Yellow", "Blue"],
     duration: "1 day",
     mantra: "ॐ कृष्णाय नमः",
-    deity: "Lord Krishna"
+    deity: "Lord Krishna",
+    image: "images/festivals/gita_jayanti.jpg"
   }
 };
 
