@@ -59,7 +59,6 @@
     transition: all 0.2s ease;
     border: 1px solid var(--gray-200);
     background: var(--white);
-    margin-bottom: 0.75rem;
   }
   
   .event-item:hover {
