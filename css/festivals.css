@@ -51,7 +51,6 @@
   display: flex; 
   align-items: center; 
   padding: var(--spacing-md); 
-  border-radius: var(--border-radius);
   position: relative;
   min-height: 60px;
 }
