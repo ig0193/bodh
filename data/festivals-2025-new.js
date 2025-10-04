@@ -49,6 +49,7 @@ const FESTIVALS_2025 = {
       "Students seek blessings for knowledge and wisdom",
       "Fly kites to welcome spring"
     ],
+    image: "images/festivals/vasant_panchmi.jpg",
     additionalInfo: [
       { label: "Mantra", value: "ॐ सरस्वत्यै नमः", type: "mantra" },
       { label: "Deity", value: "Goddess Saraswati" },
@@ -124,6 +125,7 @@ const FESTIVALS_2025 = {
         "Visit family and friends",
         "Forgive past grievances and embrace unity"
       ],
+      image: "images/festivals/holi.jpg",
       additionalInfo: [
         { label: "Mantra", value: "ॐ कृष्णाय नमः", type: "mantra" },
         { label: "Deity", value: "Lord Krishna" },
