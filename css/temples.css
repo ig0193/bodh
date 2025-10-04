@@ -345,10 +345,6 @@
   display: block;
 }
 
-.temple-card:hover .temple-image {
-  transform: scale(1.05);
-}
-
 .temple-image-indicator {
   position: absolute;
   bottom: var(--spacing-sm);
