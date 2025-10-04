@@ -109,12 +109,17 @@ const TEMPLES_DATA = [
         description: 'The Somnath Temple is one of the most sacred temples dedicated to Lord Shiva and is considered the first among the twelve Jyotirlingas. The temple has been destroyed and rebuilt several times throughout history, symbolizing the resilience of Hindu faith.',
         images: [
             {
-                url: 'https://via.placeholder.com/600x400/1ABC9C/FFFFFF?text=Somnath+Temple',
+                url: 'images/temples/somnath/central.jpg',
                 alt: 'Somnath Temple',
                 caption: 'First Jyotirlinga temple'
-            }
+            },
+            {
+                url: 'images/temples/somnath/exterior.jpg',
+                alt: 'Somnath Temple',
+                caption: 'Exterior of Somnath Temple'
+            },
         ],
-        primaryImage: 'https://via.placeholder.com/600x400/1ABC9C/FFFFFF?text=Somnath+Temple'
+        primaryImage: 'images/temples/somnath/central.jpg'
     },
     {
         id: 'ganesh-temple-mumbai',
@@ -126,47 +131,18 @@ const TEMPLES_DATA = [
         description: 'The Siddhivinayak Temple is one of the most famous and richest temples in Mumbai. It is dedicated to Lord Ganesha and is visited by thousands of devotees daily. The temple is known for fulfilling the wishes of its devotees.',
         images: [
             {
-                url: 'https://via.placeholder.com/600x400/34495E/FFFFFF?text=Siddhivinayak',
+                url: 'images/temples/siddhivinayak/central.jpg',
                 alt: 'Siddhivinayak Temple',
                 caption: 'Famous Ganesha temple'
-            }
-        ],
-        primaryImage: 'https://via.placeholder.com/600x400/34495E/FFFFFF?text=Siddhivinayak'
-    },
-    {
-        id: 'saraswati-temple',
-        name: 'Saraswati Temple',
-        deity: 'saraswati',
-        deityName: 'Goddess Saraswati',
-        location: 'Varanasi, Uttar Pradesh',
-        significance: 'Temple of knowledge and wisdom',
-        description: 'Dedicated to Goddess Saraswati, the deity of knowledge, music, and arts. This temple is a center for learning and education.',
-        images: [
+            },
             {
-                url: 'https://via.placeholder.com/600x400/9B59B6/FFFFFF?text=Saraswati+Temple',
-                alt: 'Saraswati Temple',
-                caption: 'Temple of knowledge'
+                url: 'images/temples/siddhivinayak/interior.jpg',
+                alt: 'Siddhivinayak Temple',
+                caption: 'Interior of Siddhivinayak Temple'
             }
         ],
-        primaryImage: 'https://via.placeholder.com/600x400/9B59B6/FFFFFF?text=Saraswati+Temple'
+        primaryImage: 'images/temples/siddhivinayak/central.jpg'
     },
-    {
-        id: 'lakshmi-temple',
-        name: 'Lakshmi Temple',
-        deity: 'lakshmi',
-        deityName: 'Goddess Lakshmi',
-        location: 'Kolhapur, Maharashtra',
-        significance: 'Temple of wealth and prosperity',
-        description: 'One of the most important temples dedicated to Goddess Lakshmi, the deity of wealth, prosperity, and fortune.',
-        images: [
-            {
-                url: 'https://via.placeholder.com/600x400/F1C40F/FFFFFF?text=Lakshmi+Temple',
-                alt: 'Lakshmi Temple',
-                caption: 'Temple of prosperity'
-            }
-        ],
-        primaryImage: 'https://via.placeholder.com/600x400/F1C40F/FFFFFF?text=Lakshmi+Temple'
-    }
 ];
 
 // Export for use in other modules
