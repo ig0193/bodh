@@ -15,7 +15,6 @@ const FESTIVALS_2025 = {
     english: "Makar Sankranti",
     roman: "Makar Sankraanti",
     type: "major",
-    category: "Solar Festival",
     significance: "Sun enters Capricorn, marks end of winter and beginning of harvest season",
     mythology: "Marks the day when Bhishma Pitamah chose to leave his mortal body during Kurukshetra war",
     whatToDo: [
@@ -25,11 +24,14 @@ const FESTIVALS_2025 = {
       "Donate warm clothes and food to the needy",
       "Worship Sun God and offer water"
     ],
-    foods: ["Til-gud laddu", "Khichdi", "Jaggery sweets"],
-    colors: ["Yellow", "Orange"],
-    duration: "1 day",
-    mantra: "ॐ सूर्याय नमः",
-    deity: "Surya (Sun God)"
+    additionalInfo: [
+      { label: "Mantra", value: "ॐ सूर्याय नमः", type: "mantra" },
+      { label: "Deity", value: "Surya (Sun God)" },
+      { label: "Category", value: "Solar Festival" },
+      { label: "Duration", value: "1 day" },
+      { label: "Traditional Foods", value: ["Til-gud laddu", "Khichdi", "Jaggery sweets"], type: "tags" },
+      { label: "Colors", value: ["Yellow", "Orange"], type: "tags" }
+    ]
   },
 
   // February 2025
@@ -38,7 +40,6 @@ const FESTIVALS_2025 = {
     english: "Vasant Panchami",
     roman: "Vasant Panchami",
     type: "major",
-    category: "Knowledge Festival",
     significance: "Worship of Goddess Saraswati, beginning of spring season",
     mythology: "Day when Goddess Saraswati was born from Lord Brahma's mouth",
     whatToDo: [
@@ -48,11 +49,14 @@ const FESTIVALS_2025 = {
       "Students seek blessings for knowledge and wisdom",
       "Fly kites to welcome spring"
     ],
-    foods: ["Yellow rice", "Kesari halwa", "Yellow sweets"],
-    colors: ["Yellow"],
-    duration: "1 day",
-    mantra: "ॐ सरस्वत्यै नमः",
-    deity: "Goddess Saraswati"
+    additionalInfo: [
+      { label: "Mantra", value: "ॐ सरस्वत्यै नमः", type: "mantra" },
+      { label: "Deity", value: "Goddess Saraswati" },
+      { label: "Category", value: "Knowledge Festival" },
+      { label: "Duration", value: "1 day" },
+      { label: "Traditional Foods", value: ["Yellow rice", "Kesari halwa", "Yellow sweets"], type: "tags" },
+      { label: "Colors", value: ["Yellow"], type: "tags" }
+    ]
   },
 
   "2025-02-26": {
@@ -60,7 +64,6 @@ const FESTIVALS_2025 = {
     english: "Maha Shivratri",
     roman: "Mahaa Shivraatri",
     type: "major",
-    category: "Shiva Festival",
     significance: "Greatest night of Lord Shiva, celebration of cosmic dance of creation and destruction",
     mythology: "Night when Lord Shiva performed the Tandava dance and married Goddess Parvati",
     whatToDo: [
@@ -70,13 +73,16 @@ const FESTIVALS_2025 = {
       "Chant 'Om Namah Shivaya' throughout the night",
       "Listen to Shiva stories and bhajans"
     ],
-    foods: ["Fruits (for those who break fast)", "Thandai", "Milk"],
-    colors: ["White", "Blue"],
-    duration: "1 night",
-    mantra: "ॐ नमः शिवाय",
-    deity: "Lord Shiva",
     specialRituals: ["Rudra Abhishek", "Jagran (staying awake)", "Shiva Tandava recitation"],
-    image: "images/festivals/shiv.jpg"
+    image: "images/festivals/shiv.jpg",
+    additionalInfo: [
+      { label: "Mantra", value: "ॐ नमः शिवाय", type: "mantra" },
+      { label: "Deity", value: "Lord Shiva" },
+      { label: "Category", value: "Shiva Festival" },
+      { label: "Duration", value: "1 night" },
+      { label: "Traditional Foods", value: ["Fruits (for those who break fast)", "Thandai", "Milk"], type: "tags" },
+      { label: "Colors", value: ["White", "Blue"], type: "tags" }
+    ]
   },
 
   // March 2025
@@ -85,7 +91,6 @@ const FESTIVALS_2025 = {
     english: "Holika Dahan",
     roman: "Holika Dahan",
     type: "major",
-    category: "Spring Festival",
     significance: "Burning of evil forces, victory of good over evil",
     mythology: "Burning of demoness Holika who tried to kill Prahlad",
     whatToDo: [
@@ -95,11 +100,14 @@ const FESTIVALS_2025 = {
       "Sing Holi songs and celebrate",
       "Prepare for next day's color celebration"
     ],
-    foods: ["Gujiya", "Traditional sweets"],
-    colors: ["Yellow", "Orange"],
-    duration: "1 evening",
-    mantra: "ॐ कृष्णाय नमः",
-    deity: "Lord Krishna"
+    additionalInfo: [
+      { label: "Mantra", value: "ॐ कृष्णाय नमः", type: "mantra" },
+      { label: "Deity", value: "Lord Krishna" },
+      { label: "Category", value: "Spring Festival" },
+      { label: "Duration", value: "1 evening" },
+      { label: "Traditional Foods", value: ["Gujiya", "Traditional sweets"], type: "tags" },
+      { label: "Colors", value: ["Yellow", "Orange"], type: "tags" }
+    ]
   },
 
   "2025-03-14": [
@@ -108,7 +116,6 @@ const FESTIVALS_2025 = {
       english: "Holi",
       roman: "Holi",
       type: "major",
-      category: "Spring Festival",
       significance: "Festival of colors, victory of good over evil, celebration of divine love",
       mythology: "Celebration of divine love between Radha and Krishna",
       whatToDo: [
@@ -118,18 +125,20 @@ const FESTIVALS_2025 = {
         "Visit family and friends",
         "Forgive past grievances and embrace unity"
       ],
-      foods: ["Gujiya", "Thandai", "Dahi bhalla", "Malpua"],
-      colors: ["All colors", "Especially red, yellow, green"],
-      duration: "1 day",
-      mantra: "ॐ कृष्णाय नमः",
-      deity: "Lord Krishna"
+      additionalInfo: [
+        { label: "Mantra", value: "ॐ कृष्णाय नमः", type: "mantra" },
+        { label: "Deity", value: "Lord Krishna" },
+        { label: "Category", value: "Spring Festival" },
+        { label: "Duration", value: "1 day" },
+        { label: "Traditional Foods", value: ["Gujiya", "Thandai", "Dahi bhalla", "Malpua"], type: "tags" },
+        { label: "Colors", value: ["All colors", "Especially red, yellow, green"], type: "tags" }
+      ]
     },
     {
       name: "धूलि वंदन",
       english: "Dhuli Vandan",
       roman: "Dhuli Vandan",
       type: "auspicious",
-      category: "Spring Festival",
       significance: "Second day of Holi celebrations, known as Dhuleti in some regions",
       mythology: "Continuation of Holi festivities with color play and social bonding",
       whatToDo: [
@@ -139,11 +148,14 @@ const FESTIVALS_2025 = {
         "Share sweets and festive foods",
         "Enjoy community celebrations"
       ],
-      foods: ["Gujiya", "Festive sweets", "Thandai"],
-      colors: ["Bright colors", "Yellow", "Red"],
-      duration: "Half day",
-      mantra: "ॐ कृष्णाय नमः",
-      deity: "Lord Krishna"
+      additionalInfo: [
+        { label: "Mantra", value: "ॐ कृष्णाय नमः", type: "mantra" },
+        { label: "Deity", value: "Lord Krishna" },
+        { label: "Category", value: "Spring Festival" },
+        { label: "Duration", value: "Half day" },
+        { label: "Traditional Foods", value: ["Gujiya", "Festive sweets", "Thandai"], type: "tags" },
+        { label: "Colors", value: ["Bright colors", "Yellow", "Red"], type: "tags" }
+      ]
     }
   ],
 
@@ -152,7 +164,6 @@ const FESTIVALS_2025 = {
     english: "Ugadi/Gudi Padwa",
     roman: "Ugadi/Gudi Padwa",
     type: "major",
-    category: "New Year Festival",
     significance: "Hindu New Year, beginning of Chaitra month",
     mythology: "Day when Lord Brahma created the universe",
     whatToDo: [
@@ -162,11 +173,14 @@ const FESTIVALS_2025 = {
       "Read panchang predictions for new year",
       "Visit temples and seek blessings"
     ],
-    foods: ["Ugadi pachadi", "Puran poli", "Traditional sweets"],
-    colors: ["Yellow", "Green"],
-    duration: "1 day",
-    mantra: "ॐ ब्रह्मणे नमः",
-    deity: "Lord Brahma"
+    additionalInfo: [
+      { label: "Mantra", value: "ॐ ब्रह्मणे नमः", type: "mantra" },
+      { label: "Deity", value: "Lord Brahma" },
+      { label: "Category", value: "New Year Festival" },
+      { label: "Duration", value: "1 day" },
+      { label: "Traditional Foods", value: ["Ugadi pachadi", "Puran poli", "Traditional sweets"], type: "tags" },
+      { label: "Colors", value: ["Yellow", "Green"], type: "tags" }
+    ]
   },
 
   // April 2025
@@ -175,7 +189,6 @@ const FESTIVALS_2025 = {
     english: "Ram Navami",
     roman: "Raam Navami",
     type: "major",
-    category: "Vishnu Avatar Festival",
     significance: "Birth anniversary of Lord Rama, celebration of dharma and righteousness",
     mythology: "Lord Rama was born on this day to King Dasharatha and Queen Kausalya in Ayodhya",
     whatToDo: [
@@ -185,11 +198,14 @@ const FESTIVALS_2025 = {
       "Chant Ram mantras and bhajans",
       "Perform charitable acts and help the needy"
     ],
-    foods: ["Prasadam from temples", "Simple vegetarian meals", "Panchamrit"],
-    colors: ["Yellow", "Red"],
-    duration: "1 day",
-    mantra: "ॐ रामाय नमः",
-    deity: "Lord Rama"
+    additionalInfo: [
+      { label: "Mantra", value: "ॐ रामाय नमः", type: "mantra" },
+      { label: "Deity", value: "Lord Rama" },
+      { label: "Category", value: "Vishnu Avatar Festival" },
+      { label: "Duration", value: "1 day" },
+      { label: "Traditional Foods", value: ["Prasadam from temples", "Simple vegetarian meals", "Panchamrit"], type: "tags" },
+      { label: "Colors", value: ["Yellow", "Red"], type: "tags" }
+    ]
   },
 
   "2025-04-12": {
@@ -197,7 +213,6 @@ const FESTIVALS_2025 = {
     english: "Hanuman Jayanti",
     roman: "Hanumaan Jayanti",
     type: "major",
-    category: "Hanuman Festival",
     significance: "Birth anniversary of Lord Hanuman, symbol of devotion, strength, and service",
     mythology: "Birth of Lord Hanuman to Anjana and Kesari, blessed by Lord Vayu",
     whatToDo: [
@@ -207,11 +222,14 @@ const FESTIVALS_2025 = {
       "Read stories of Hanuman's devotion to Rama",
       "Practice physical fitness and strength building"
     ],
-    foods: ["Besan laddu", "Coconut prasad", "Bananas"],
-    colors: ["Red", "Orange"],
-    duration: "1 day",
-    mantra: "ॐ हनुमते नमः",
-    deity: "Lord Hanuman"
+    additionalInfo: [
+      { label: "Mantra", value: "ॐ हनुमते नमः", type: "mantra" },
+      { label: "Deity", value: "Lord Hanuman" },
+      { label: "Category", value: "Hanuman Festival" },
+      { label: "Duration", value: "1 day" },
+      { label: "Traditional Foods", value: ["Besan laddu", "Coconut prasad", "Bananas"], type: "tags" },
+      { label: "Colors", value: ["Red", "Orange"], type: "tags" }
+    ]
   },
 
   // May 2025
@@ -220,7 +238,6 @@ const FESTIVALS_2025 = {
     english: "Akshaya Tritiya",
     roman: "Akshaya Tritiya",
     type: "auspicious",
-    category: "Prosperity Festival",
     significance: "Day of eternal prosperity, auspicious for new beginnings and gold purchases",
     mythology: "Day when Treta Yuga began, also when Lord Krishna and Sudama met",
     whatToDo: [
@@ -230,11 +247,14 @@ const FESTIVALS_2025 = {
       "Worship Lord Vishnu and Goddess Lakshmi",
       "Give gifts to family and friends"
     ],
-    foods: ["Sweets", "Traditional prasadam"],
-    colors: ["Gold", "Yellow"],
-    duration: "1 day",
-    mantra: "ॐ विष्णवे नमः",
-    deity: "Lord Vishnu"
+    additionalInfo: [
+      { label: "Mantra", value: "ॐ विष्णवे नमः", type: "mantra" },
+      { label: "Deity", value: "Lord Vishnu" },
+      { label: "Category", value: "Prosperity Festival" },
+      { label: "Duration", value: "1 day" },
+      { label: "Traditional Foods", value: ["Sweets", "Traditional prasadam"], type: "tags" },
+      { label: "Colors", value: ["Gold", "Yellow"], type: "tags" }
+    ]
   },
 
   "2025-05-12": {
@@ -242,7 +262,6 @@ const FESTIVALS_2025 = {
     english: "Buddha Purnima",
     roman: "Buddha Purnima",
     type: "major",
-    category: "Buddhist Festival",
     significance: "Birth, enlightenment, and death anniversary of Gautam Buddha",
     mythology: "Triple blessing day when Buddha was born, attained enlightenment, and attained nirvana",
     whatToDo: [
@@ -252,11 +271,14 @@ const FESTIVALS_2025 = {
       "Practice compassion and non-violence",
       "Donate to charity and help the needy"
     ],
-    foods: ["Simple vegetarian meals", "Kheer", "Fruits"],
-    colors: ["White", "Yellow"],
-    duration: "1 day",
-    mantra: "बुद्धं शरणं गच्छामि",
-    deity: "Gautam Buddha"
+    additionalInfo: [
+      { label: "Mantra", value: "बुद्धं शरणं गच्छामि", type: "mantra" },
+      { label: "Deity", value: "Gautam Buddha" },
+      { label: "Category", value: "Buddhist Festival" },
+      { label: "Duration", value: "1 day" },
+      { label: "Traditional Foods", value: ["Simple vegetarian meals", "Kheer", "Fruits"], type: "tags" },
+      { label: "Colors", value: ["White", "Yellow"], type: "tags" }
+    ]
   },
 
   // June 2025
@@ -265,7 +287,6 @@ const FESTIVALS_2025 = {
     english: "Jagannath Rath Yatra",
     roman: "Jagannath Rath Yatra",
     type: "major",
-    category: "Vishnu Festival",
     significance: "Lord Jagannath's journey to aunt's house, celebration of divine love",
     mythology: "Lord Krishna visits his aunt's house with siblings Balabhadra and Subhadra",
     whatToDo: [
@@ -275,11 +296,14 @@ const FESTIVALS_2025 = {
       "Offer prayers and seek darshan",
       "Distribute prasadam to all"
     ],
-    foods: ["Mahaprasadam", "Kheer", "Traditional sweets"],
-    colors: ["Yellow", "Red"],
-    duration: "9 days",
-    mantra: "ॐ जगन्नाथाय नमः",
-    deity: "Lord Jagannath"
+    additionalInfo: [
+      { label: "Mantra", value: "ॐ जगन्नाथाय नमः", type: "mantra" },
+      { label: "Deity", value: "Lord Jagannath" },
+      { label: "Category", value: "Vishnu Festival" },
+      { label: "Duration", value: "9 days" },
+      { label: "Traditional Foods", value: ["Mahaprasadam", "Kheer", "Traditional sweets"], type: "tags" },
+      { label: "Colors", value: ["Yellow", "Red"], type: "tags" }
+    ]
   },
 
   // July 2025
@@ -288,7 +312,6 @@ const FESTIVALS_2025 = {
     english: "Guru Purnima",
     roman: "Guru Purnima",
     type: "major",
-    category: "Spiritual Festival",
     significance: "Honor spiritual teachers and gurus who guide us on the path of knowledge",
     mythology: "Birth anniversary of Sage Vyasa, author of Mahabharata and compiler of Vedas",
     whatToDo: [
@@ -298,11 +321,14 @@ const FESTIVALS_2025 = {
       "Perform guru dakshina (offering to teacher)",
       "Meditate and reflect on spiritual growth"
     ],
-    foods: ["Simple vegetarian meals", "Sweets for guru"],
-    colors: ["White", "Yellow"],
-    duration: "1 day",
-    mantra: "गुरुर्ब्रह्मा गुरुर्विष्णुः",
-    deity: "Sage Vyasa"
+    additionalInfo: [
+      { label: "Mantra", value: "गुरुर्ब्रह्मा गुरुर्विष्णुः", type: "mantra" },
+      { label: "Deity", value: "Sage Vyasa" },
+      { label: "Category", value: "Spiritual Festival" },
+      { label: "Duration", value: "1 day" },
+      { label: "Traditional Foods", value: ["Simple vegetarian meals", "Sweets for guru"], type: "tags" },
+      { label: "Colors", value: ["White", "Yellow"], type: "tags" }
+    ]
   },
 
   "2025-07-29": {
@@ -310,7 +336,6 @@ const FESTIVALS_2025 = {
     english: "Nag Panchami",
     roman: "Nag Panchami",
     type: "major",
-    category: "Snake Festival",
     significance: "Worship of serpent gods, protection from snake bites and evil",
     mythology: "Worship of divine serpents like Sheshnag, Vasuki, and Takshak",
     whatToDo: [
@@ -320,11 +345,14 @@ const FESTIVALS_2025 = {
       "Avoid digging earth on this day",
       "Pray for protection from snake bites"
     ],
-    foods: ["Milk sweets", "Traditional prasadam"],
-    colors: ["White", "Yellow"],
-    duration: "1 day",
-    mantra: "ॐ नागाय नमः",
-    deity: "Nag Devatas"
+    additionalInfo: [
+      { label: "Mantra", value: "ॐ नागाय नमः", type: "mantra" },
+      { label: "Deity", value: "Nag Devatas" },
+      { label: "Category", value: "Snake Festival" },
+      { label: "Duration", value: "1 day" },
+      { label: "Traditional Foods", value: ["Milk sweets", "Traditional prasadam"], type: "tags" },
+      { label: "Colors", value: ["White", "Yellow"], type: "tags" }
+    ]
   },
 
   // August 2025
@@ -334,7 +362,6 @@ const FESTIVALS_2025 = {
       english: "Raksha Bandhan",
       roman: "Rakshaa Bandhan",
       type: "major",
-      category: "Family Festival",
       significance: "Sacred bond between brothers and sisters, promise of protection and love",
       mythology: "Goddess Lakshmi tied rakhi to King Bali, various stories of divine protection",
       whatToDo: [
@@ -344,19 +371,21 @@ const FESTIVALS_2025 = {
         "Share sweets and celebrate togetherness",
         "Remember distant siblings with video calls"
       ],
-      foods: ["Mithai", "Festive meals", "Traditional sweets"],
-      colors: ["Red", "Yellow"],
-      duration: "1 day",
-      mantra: "यस्य द्विजबन्धुत्वे",
-      deity: "Family bonds",
-      image: "images/festivals/rakhi.jpg"
+      image: "images/festivals/rakhi.jpg",
+      additionalInfo: [
+        { label: "Mantra", value: "यस्य द्विजबन्धुत्वे", type: "mantra" },
+        { label: "Deity", value: "Family bonds" },
+        { label: "Category", value: "Family Festival" },
+        { label: "Duration", value: "1 day" },
+        { label: "Traditional Foods", value: ["Mithai", "Festive meals", "Traditional sweets"], type: "tags" },
+        { label: "Colors", value: ["Red", "Yellow"], type: "tags" }
+      ]
     },
     {
       name: "नारियली पूर्णिमा",
       english: "Nariyali Purnima",
       roman: "Nariyali Purnima",
       type: "auspicious",
-      category: "Coastal Festival",
       significance: "Offering coconuts to the sea, prayers for safe sea voyages",
       mythology: "Coastal communities offer prayers to Varuna (sea god) for protection",
       whatToDo: [
@@ -366,11 +395,14 @@ const FESTIVALS_2025 = {
         "Prepare coconut-based dishes",
         "Thank the ocean for its bounty"
       ],
-      foods: ["Coconut sweets", "Fish curry", "Coastal delicacies"],
-      colors: ["White", "Blue"],
-      duration: "1 day",
-      mantra: "ॐ वरुणाय नमः",
-      deity: "Lord Varuna"
+      additionalInfo: [
+        { label: "Mantra", value: "ॐ वरुणाय नमः", type: "mantra" },
+        { label: "Deity", value: "Lord Varuna" },
+        { label: "Category", value: "Coastal Festival" },
+        { label: "Duration", value: "1 day" },
+        { label: "Traditional Foods", value: ["Coconut sweets", "Fish curry", "Coastal delicacies"], type: "tags" },
+        { label: "Colors", value: ["White", "Blue"], type: "tags" }
+      ]
     }
   ],
 
@@ -379,7 +411,6 @@ const FESTIVALS_2025 = {
     english: "Krishna Janmashtami",
     roman: "Krishna Janmaashtami",
     type: "major",
-    category: "Vishnu Avatar Festival",
     significance: "Birth anniversary of Lord Krishna, celebration of divine love and dharma",
     mythology: "Lord Krishna was born at midnight to Devaki and Vasudeva in Mathura prison",
     whatToDo: [
@@ -389,13 +420,16 @@ const FESTIVALS_2025 = {
       "Sing Krishna bhajans and perform Ras Leela",
       "Prepare Krishna's favorite foods"
     ],
-    foods: ["Makhan", "Mishri", "Panjiri", "56 bhog varieties"],
-    colors: ["Blue", "Yellow"],
-    duration: "1 day",
-    mantra: "ॐ कृष्णाय नमः",
-    deity: "Lord Krishna",
     birthTime: "Midnight",
-    image: "images/festivals/krishna.jpg"
+    image: "images/festivals/krishna.jpg",
+    additionalInfo: [
+      { label: "Mantra", value: "ॐ कृष्णाय नमः", type: "mantra" },
+      { label: "Deity", value: "Lord Krishna" },
+      { label: "Category", value: "Vishnu Avatar Festival" },
+      { label: "Duration", value: "1 day" },
+      { label: "Traditional Foods", value: ["Makhan", "Mishri", "Panjiri", "56 bhog varieties"], type: "tags" },
+      { label: "Colors", value: ["Blue", "Yellow"], type: "tags" }
+    ]
   },
 
   "2025-08-27": {
@@ -403,7 +437,6 @@ const FESTIVALS_2025 = {
     english: "Ganesh Chaturthi",
     roman: "Ganesh Chaturthi",
     type: "major",
-    category: "Ganesha Festival",
     significance: "Birth anniversary of Lord Ganesha, remover of obstacles",
     mythology: "Day when Lord Ganesha was created by Goddess Parvati",
     whatToDo: [
@@ -413,12 +446,15 @@ const FESTIVALS_2025 = {
       "Organize cultural programs and processions",
       "Immerse idols in water bodies on Anant Chaturdashi"
     ],
-    foods: ["Modak", "Laddu", "Coconut sweets"],
-    colors: ["Red", "Yellow"],
-    duration: "11 days",
-    mantra: "ॐ गं गणपतये नमः",
-    deity: "Lord Ganesha",
-    image: "images/festivals/ganesh_chathurti.jpg"
+    image: "images/festivals/ganesh_chathurti.jpg",
+    additionalInfo: [
+      { label: "Mantra", value: "ॐ गं गणपतये नमः", type: "mantra" },
+      { label: "Deity", value: "Lord Ganesha" },
+      { label: "Category", value: "Ganesha Festival" },
+      { label: "Duration", value: "11 days" },
+      { label: "Traditional Foods", value: ["Modak", "Laddu", "Coconut sweets"], type: "tags" },
+      { label: "Colors", value: ["Red", "Yellow"], type: "tags" }
+    ]
   },
 
   // September 2025
@@ -427,7 +463,6 @@ const FESTIVALS_2025 = {
     english: "Navratri Begins",
     roman: "Navratri Shuru",
     type: "major",
-    category: "Goddess Festival",
     significance: "Nine nights of Goddess Durga worship, victory of good over evil",
     mythology: "Nine forms of Goddess Durga worshipped for nine nights",
     whatToDo: [
@@ -437,12 +472,15 @@ const FESTIVALS_2025 = {
       "Maintain cleanliness and purity",
       "Read Durga Saptashati"
     ],
-    foods: ["Vrat foods", "Fruits", "Dairy products"],
-    colors: ["Nine different colors for nine days"],
-    duration: "9 days",
-    mantra: "ॐ दुर्गायै नमः",
-    deity: "Goddess Durga",
-    image: "images/temples/vaishnodevi/vaishno_devi_shrin.jpg"
+    image: "images/temples/vaishnodevi/vaishno_devi_shrin.jpg",
+    additionalInfo: [
+      { label: "Mantra", value: "ॐ दुर्गायै नमः", type: "mantra" },
+      { label: "Deity", value: "Goddess Durga" },
+      { label: "Category", value: "Goddess Festival" },
+      { label: "Duration", value: "9 days" },
+      { label: "Traditional Foods", value: ["Vrat foods", "Fruits", "Dairy products"], type: "tags" },
+      { label: "Colors", value: ["Nine different colors for nine days"], type: "tags" }
+    ]
   },
 
   "2025-10-02": {
@@ -477,7 +515,6 @@ const FESTIVALS_2025 = {
     english: "Diwali/Deepavali",
     roman: "Diwali/Deepavali",
     type: "major",
-    category: "Light Festival",
     significance: "Festival of lights, return of Lord Rama to Ayodhya, worship of Goddess Lakshmi",
     mythology: "People of Ayodhya lit lamps to welcome Lord Rama after 14 years of exile",
     whatToDo: [
@@ -487,11 +524,14 @@ const FESTIVALS_2025 = {
       "Burst crackers (eco-friendly)",
       "Exchange gifts and sweets with family and friends"
     ],
-    foods: ["Mithai", "Dry fruits", "Festive delicacies"],
-    colors: ["Golden", "Red", "Yellow"],
-    duration: "5 days",
-    mantra: "ॐ श्री लक्ष्म्यै नमः",
-    deity: "Goddess Lakshmi"
+    additionalInfo: [
+      { label: "Mantra", value: "ॐ श्री लक्ष्म्यै नमः", type: "mantra" },
+      { label: "Deity", value: "Goddess Lakshmi" },
+      { label: "Category", value: "Light Festival" },
+      { label: "Duration", value: "5 days" },
+      { label: "Traditional Foods", value: ["Mithai", "Dry fruits", "Festive delicacies"], type: "tags" },
+      { label: "Colors", value: ["Golden", "Red", "Yellow"], type: "tags" }
+    ]
   },
 
   // November 2025
@@ -500,7 +540,6 @@ const FESTIVALS_2025 = {
     english: "Guru Nanak Jayanti",
     roman: "Guru Nanak Jayanti",
     type: "major",
-    category: "Sikh Festival",
     significance: "Birth anniversary of Guru Nanak Dev Ji, founder of Sikhism",
     mythology: "Birth of the first Sikh Guru who spread message of unity and devotion",
     whatToDo: [
@@ -510,12 +549,15 @@ const FESTIVALS_2025 = {
       "Share langar (community meal) with all",
       "Read Guru Granth Sahib"
     ],
-    foods: ["Langar prasadam", "Simple vegetarian meals"],
-    colors: ["Orange", "Blue"],
-    duration: "1 day",
-    mantra: "वाहे गुरु",
-    deity: "Guru Nanak Dev Ji",
-    image: "images/festivals/gurunanak_jayanti.jpg"
+    image: "images/festivals/gurunanak_jayanti.jpg",
+    additionalInfo: [
+      { label: "Mantra", value: "वाहे गुरु", type: "mantra" },
+      { label: "Deity", value: "Guru Nanak Dev Ji" },
+      { label: "Category", value: "Sikh Festival" },
+      { label: "Duration", value: "1 day" },
+      { label: "Traditional Foods", value: ["Langar prasadam", "Simple vegetarian meals"], type: "tags" },
+      { label: "Colors", value: ["Orange", "Blue"], type: "tags" }
+    ]
   },
 
   // December 2025
@@ -524,7 +566,6 @@ const FESTIVALS_2025 = {
     english: "Gita Jayanti",
     roman: "Gita Jayanti",
     type: "auspicious",
-    category: "Scripture Festival",
     significance: "Day when Lord Krishna delivered Bhagavad Gita to Arjuna",
     mythology: "On battlefield of Kurukshetra, Krishna gave divine knowledge to Arjuna",
     whatToDo: [
@@ -534,12 +575,15 @@ const FESTIVALS_2025 = {
       "Practice meditation and dharma",
       "Share Gita's wisdom with others"
     ],
-    foods: ["Simple vegetarian meals", "Kheer"],
-    colors: ["Yellow", "Blue"],
-    duration: "1 day",
-    mantra: "ॐ कृष्णाय नमः",
-    deity: "Lord Krishna",
-    image: "images/festivals/gita_jayanti.jpg"
+    image: "images/festivals/gita_jayanti.jpg",
+    additionalInfo: [
+      { label: "Mantra", value: "ॐ कृष्णाय नमः", type: "mantra" },
+      { label: "Deity", value: "Lord Krishna" },
+      { label: "Category", value: "Scripture Festival" },
+      { label: "Duration", value: "1 day" },
+      { label: "Traditional Foods", value: ["Simple vegetarian meals", "Kheer"], type: "tags" },
+      { label: "Colors", value: ["Yellow", "Blue"], type: "tags" }
+    ]
   }
 };
 
