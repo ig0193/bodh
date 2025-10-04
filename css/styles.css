@@ -2267,11 +2267,8 @@
 }
 
 .event-modal-body .additional-info .info-item {
-  background: var(--white);
-  padding: var(--spacing-sm);
   border-radius: var(--border-radius-sm);
   font-size: var(--font-size-sm);
-  line-height: 1.5;
 }
 
 .event-modal-body .additional-info .info-item strong {

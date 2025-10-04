@@ -28,7 +28,7 @@ const FESTIVALS_2025 = {
       { label: "Mantra", value: "ॐ सूर्याय नमः", type: "mantra" },
       { label: "Deity", value: "Surya (Sun God)" },
       { label: "Category", value: "Solar Festival" },
-      { label: "Duration", value: "1 day" },
+      
       { label: "Traditional Foods", value: ["Til-gud laddu", "Khichdi", "Jaggery sweets"], type: "tags" },
       { label: "Colors", value: ["Yellow", "Orange"], type: "tags" }
     ]
@@ -53,7 +53,7 @@ const FESTIVALS_2025 = {
       { label: "Mantra", value: "ॐ सरस्वत्यै नमः", type: "mantra" },
       { label: "Deity", value: "Goddess Saraswati" },
       { label: "Category", value: "Knowledge Festival" },
-      { label: "Duration", value: "1 day" },
+      
       { label: "Traditional Foods", value: ["Yellow rice", "Kesari halwa", "Yellow sweets"], type: "tags" },
       { label: "Colors", value: ["Yellow"], type: "tags" }
     ]
@@ -79,7 +79,7 @@ const FESTIVALS_2025 = {
       { label: "Mantra", value: "ॐ नमः शिवाय", type: "mantra" },
       { label: "Deity", value: "Lord Shiva" },
       { label: "Category", value: "Shiva Festival" },
-      { label: "Duration", value: "1 night" },
+      
       { label: "Traditional Foods", value: ["Fruits (for those who break fast)", "Thandai", "Milk"], type: "tags" },
       { label: "Colors", value: ["White", "Blue"], type: "tags" }
     ]
@@ -104,7 +104,6 @@ const FESTIVALS_2025 = {
       { label: "Mantra", value: "ॐ कृष्णाय नमः", type: "mantra" },
       { label: "Deity", value: "Lord Krishna" },
       { label: "Category", value: "Spring Festival" },
-      { label: "Duration", value: "1 evening" },
       { label: "Traditional Foods", value: ["Gujiya", "Traditional sweets"], type: "tags" },
       { label: "Colors", value: ["Yellow", "Orange"], type: "tags" }
     ]
@@ -129,7 +128,7 @@ const FESTIVALS_2025 = {
         { label: "Mantra", value: "ॐ कृष्णाय नमः", type: "mantra" },
         { label: "Deity", value: "Lord Krishna" },
         { label: "Category", value: "Spring Festival" },
-        { label: "Duration", value: "1 day" },
+        
         { label: "Traditional Foods", value: ["Gujiya", "Thandai", "Dahi bhalla", "Malpua"], type: "tags" },
         { label: "Colors", value: ["All colors", "Especially red, yellow, green"], type: "tags" }
       ]
@@ -152,7 +151,6 @@ const FESTIVALS_2025 = {
         { label: "Mantra", value: "ॐ कृष्णाय नमः", type: "mantra" },
         { label: "Deity", value: "Lord Krishna" },
         { label: "Category", value: "Spring Festival" },
-        { label: "Duration", value: "Half day" },
         { label: "Traditional Foods", value: ["Gujiya", "Festive sweets", "Thandai"], type: "tags" },
         { label: "Colors", value: ["Bright colors", "Yellow", "Red"], type: "tags" }
       ]
@@ -177,7 +175,6 @@ const FESTIVALS_2025 = {
       { label: "Mantra", value: "ॐ ब्रह्मणे नमः", type: "mantra" },
       { label: "Deity", value: "Lord Brahma" },
       { label: "Category", value: "New Year Festival" },
-      { label: "Duration", value: "1 day" },
       { label: "Traditional Foods", value: ["Ugadi pachadi", "Puran poli", "Traditional sweets"], type: "tags" },
       { label: "Colors", value: ["Yellow", "Green"], type: "tags" }
     ]
@@ -202,7 +199,6 @@ const FESTIVALS_2025 = {
       { label: "Mantra", value: "ॐ रामाय नमः", type: "mantra" },
       { label: "Deity", value: "Lord Rama" },
       { label: "Category", value: "Vishnu Avatar Festival" },
-      { label: "Duration", value: "1 day" },
       { label: "Traditional Foods", value: ["Prasadam from temples", "Simple vegetarian meals", "Panchamrit"], type: "tags" },
       { label: "Colors", value: ["Yellow", "Red"], type: "tags" }
     ]
@@ -226,7 +222,6 @@ const FESTIVALS_2025 = {
       { label: "Mantra", value: "ॐ हनुमते नमः", type: "mantra" },
       { label: "Deity", value: "Lord Hanuman" },
       { label: "Category", value: "Hanuman Festival" },
-      { label: "Duration", value: "1 day" },
       { label: "Traditional Foods", value: ["Besan laddu", "Coconut prasad", "Bananas"], type: "tags" },
       { label: "Colors", value: ["Red", "Orange"], type: "tags" }
     ]
@@ -251,7 +246,7 @@ const FESTIVALS_2025 = {
       { label: "Mantra", value: "ॐ विष्णवे नमः", type: "mantra" },
       { label: "Deity", value: "Lord Vishnu" },
       { label: "Category", value: "Prosperity Festival" },
-      { label: "Duration", value: "1 day" },
+      
       { label: "Traditional Foods", value: ["Sweets", "Traditional prasadam"], type: "tags" },
       { label: "Colors", value: ["Gold", "Yellow"], type: "tags" }
     ]
@@ -275,7 +270,7 @@ const FESTIVALS_2025 = {
       { label: "Mantra", value: "बुद्धं शरणं गच्छामि", type: "mantra" },
       { label: "Deity", value: "Gautam Buddha" },
       { label: "Category", value: "Buddhist Festival" },
-      { label: "Duration", value: "1 day" },
+      
       { label: "Traditional Foods", value: ["Simple vegetarian meals", "Kheer", "Fruits"], type: "tags" },
       { label: "Colors", value: ["White", "Yellow"], type: "tags" }
     ]
@@ -325,7 +320,7 @@ const FESTIVALS_2025 = {
       { label: "Mantra", value: "गुरुर्ब्रह्मा गुरुर्विष्णुः", type: "mantra" },
       { label: "Deity", value: "Sage Vyasa" },
       { label: "Category", value: "Spiritual Festival" },
-      { label: "Duration", value: "1 day" },
+      
       { label: "Traditional Foods", value: ["Simple vegetarian meals", "Sweets for guru"], type: "tags" },
       { label: "Colors", value: ["White", "Yellow"], type: "tags" }
     ]
@@ -349,7 +344,7 @@ const FESTIVALS_2025 = {
       { label: "Mantra", value: "ॐ नागाय नमः", type: "mantra" },
       { label: "Deity", value: "Nag Devatas" },
       { label: "Category", value: "Snake Festival" },
-      { label: "Duration", value: "1 day" },
+      
       { label: "Traditional Foods", value: ["Milk sweets", "Traditional prasadam"], type: "tags" },
       { label: "Colors", value: ["White", "Yellow"], type: "tags" }
     ]
@@ -376,7 +371,7 @@ const FESTIVALS_2025 = {
         { label: "Mantra", value: "यस्य द्विजबन्धुत्वे", type: "mantra" },
         { label: "Deity", value: "Family bonds" },
         { label: "Category", value: "Family Festival" },
-        { label: "Duration", value: "1 day" },
+        
         { label: "Traditional Foods", value: ["Mithai", "Festive meals", "Traditional sweets"], type: "tags" },
         { label: "Colors", value: ["Red", "Yellow"], type: "tags" }
       ]
@@ -399,7 +394,7 @@ const FESTIVALS_2025 = {
         { label: "Mantra", value: "ॐ वरुणाय नमः", type: "mantra" },
         { label: "Deity", value: "Lord Varuna" },
         { label: "Category", value: "Coastal Festival" },
-        { label: "Duration", value: "1 day" },
+        
         { label: "Traditional Foods", value: ["Coconut sweets", "Fish curry", "Coastal delicacies"], type: "tags" },
         { label: "Colors", value: ["White", "Blue"], type: "tags" }
       ]
@@ -426,7 +421,7 @@ const FESTIVALS_2025 = {
       { label: "Mantra", value: "ॐ कृष्णाय नमः", type: "mantra" },
       { label: "Deity", value: "Lord Krishna" },
       { label: "Category", value: "Vishnu Avatar Festival" },
-      { label: "Duration", value: "1 day" },
+      
       { label: "Traditional Foods", value: ["Makhan", "Mishri", "Panjiri", "56 bhog varieties"], type: "tags" },
       { label: "Colors", value: ["Blue", "Yellow"], type: "tags" }
     ]
@@ -503,7 +498,7 @@ const FESTIVALS_2025 = {
       { label: "Mantra", value: "ॐ रामाय नमः", type: "mantra" },
       { label: "Deity", value: "Lord Rama" },
       { label: "Category", value: "Victory Festival" },
-      { label: "Duration", value: "1 day" },
+      
       { label: "Traditional Foods", value: ["Traditional sweets", "Festive meals"], type: "tags" },
       { label: "Colors", value: ["Red", "Yellow"], type: "tags" }
     ]
@@ -528,7 +523,7 @@ const FESTIVALS_2025 = {
       { label: "Mantra", value: "ॐ श्री लक्ष्म्यै नमः", type: "mantra" },
       { label: "Deity", value: "Goddess Lakshmi" },
       { label: "Category", value: "Light Festival" },
-      { label: "Duration", value: "5 days" },
+      
       { label: "Traditional Foods", value: ["Mithai", "Dry fruits", "Festive delicacies"], type: "tags" },
       { label: "Colors", value: ["Golden", "Red", "Yellow"], type: "tags" }
     ]
@@ -554,7 +549,7 @@ const FESTIVALS_2025 = {
       { label: "Mantra", value: "वाहे गुरु", type: "mantra" },
       { label: "Deity", value: "Guru Nanak Dev Ji" },
       { label: "Category", value: "Sikh Festival" },
-      { label: "Duration", value: "1 day" },
+      
       { label: "Traditional Foods", value: ["Langar prasadam", "Simple vegetarian meals"], type: "tags" },
       { label: "Colors", value: ["Orange", "Blue"], type: "tags" }
     ]
@@ -580,7 +575,7 @@ const FESTIVALS_2025 = {
       { label: "Mantra", value: "ॐ कृष्णाय नमः", type: "mantra" },
       { label: "Deity", value: "Lord Krishna" },
       { label: "Category", value: "Scripture Festival" },
-      { label: "Duration", value: "1 day" },
+      
       { label: "Traditional Foods", value: ["Simple vegetarian meals", "Kheer"], type: "tags" },
       { label: "Colors", value: ["Yellow", "Blue"], type: "tags" }
     ]
