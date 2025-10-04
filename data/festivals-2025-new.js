@@ -75,7 +75,8 @@ const FESTIVALS_2025 = {
     duration: "1 night",
     mantra: "ॐ नमः शिवाय",
     deity: "Lord Shiva",
-    specialRituals: ["Rudra Abhishek", "Jagran (staying awake)", "Shiva Tandava recitation"]
+    specialRituals: ["Rudra Abhishek", "Jagran (staying awake)", "Shiva Tandava recitation"],
+    image: "images/festivals/shiv.jpg"
   },
 
   // March 2025

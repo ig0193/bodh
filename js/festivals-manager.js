@@ -273,7 +273,14 @@ class FestivalsManager {
     // Add click events for festival cards
     container.querySelectorAll('.festival-card').forEach(card => {
       card.addEventListener('click', () => {
-        const festivalData = JSON.parse(card.dataset.festival);
+        // Decode HTML entities from the escaped JSON
+        const festivalJson = card.dataset.festival
+          .replace(/&quot;/g, '"')
+          .replace(/&apos;/g, "'")
+          .replace(/&lt;/g, '<')
+          .replace(/&gt;/g, '>')
+          .replace(/&amp;/g, '&');
+        const festivalData = JSON.parse(festivalJson);
         this.showFestivalDetails(festivalData);
       });
     });
@@ -304,14 +311,25 @@ class FestivalsManager {
    * Render individual festival card
    */
   renderFestivalCard(festival) {
-    const dayName = festival.dateObj.toLocaleDateString('en-US', { weekday: 'short' }).toUpperCase();
-    const date = festival.dateObj.getDate();
+    // Ensure dateObj is a Date object (it might be a string if from JSON.parse)
+    const dateObj = festival.dateObj instanceof Date ? festival.dateObj : new Date(festival.dateObj);
+    
+    const dayName = dateObj.toLocaleDateString('en-US', { weekday: 'short' }).toUpperCase();
+    const date = dateObj.getDate();
     
     const typeClass = festival.source === 'ekadashi' ? 'ekadashi' : festival.type || 'festival';
     const cardClass = `festival-card ${typeClass}`;
 
     // Check if festival has an image
     const hasImage = festival.image && festival.image.trim() !== '';
+    
+    // Escape JSON for safe HTML attribute storage
+    const festivalJson = JSON.stringify(festival)
+      .replace(/&/g, '&amp;')
+      .replace(/'/g, '&apos;')
+      .replace(/"/g, '&quot;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;');
 
     return `
       <div class="festival-wrapper ${hasImage ? 'with-image' : ''}">
@@ -320,7 +338,7 @@ class FestivalsManager {
             <img src="${festival.image}" alt="${festival.name}" onerror="this.style.display='none'">
           </div>
         ` : ''}
-        <div class="${cardClass}" data-festival='${JSON.stringify(festival)}'>
+        <div class="${cardClass}" data-festival='${festivalJson}'>
           <div class="festival-date">
             <div class="date-day">${date}</div>
             <div class="date-weekday">${dayName}</div>
@@ -366,7 +384,10 @@ class FestivalsManager {
    * Show festival details in modal
    */
   showFestivalDetails(festival) {
-    const dateStr = festival.dateObj.toLocaleDateString('en-US', { 
+    // Ensure dateObj is a Date object (it might be a string if from JSON.parse)
+    const dateObj = festival.dateObj instanceof Date ? festival.dateObj : new Date(festival.dateObj);
+    
+    const dateStr = dateObj.toLocaleDateString('en-US', { 
       weekday: 'long', 
       year: 'numeric', 
       month: 'long', 
