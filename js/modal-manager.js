@@ -79,17 +79,22 @@ class ModalManager {
     const { date, events } = dayData;
     
     if (!events || events.length === 0) {
-      // No events - show basic day info
+      // No events - show basic day info (keep old format for regular days)
       const content = this.createDetailContent(dayData);
       this.showModal('Day Details', content);
       return;
     }
     
     if (events.length === 1) {
-      // Single event - use existing modal
-      const content = this.createDetailContent(dayData);
+      // Single event - use unified modal
       const event = events[0];
-      const modalTitle = `${event.roman || ''}${event.name ? ` (${event.name})` : ''}`.trim() || 'Day Details';
+      const eventData = {
+        ...event,
+        date: date,
+        dateObj: date
+      };
+      const content = this.createUnifiedEventModal(eventData);
+      const modalTitle = `${event.roman || event.english || event.name || 'Event Details'}`;
       this.showModal(modalTitle, content);
       return;
     }
@@ -202,25 +207,16 @@ class ModalManager {
    * Create content for a single event (similar to existing createDetailContent but for one event)
    */
   createSingleEventContent(event, dayData) {
-    const { date, hinduMonth } = dayData;
+    const { date } = dayData;
     
-    const content = `
-      <div class="day-details">
-        <div class="significance-section">
-          <h3>Significance (महत्व)</h3>
-          <p class="significance-text">${event.significance || 'A sacred day in the Hindu calendar.'}</p>
-        </div>
-
-        <div class="${event.type}-section">
-          <h3>${event.roman || event.name} (${event.hindi || event.name})</h3>
-          <div class="${event.type}-info">
-            ${event.type === 'festival' ? this.createFestivalContent(event) : this.createEkadashiContent(event)}
-          </div>
-        </div>
-      </div>
-    `;
+    // Use the unified modal content for consistency
+    const eventData = {
+      ...event,
+      date: date,
+      dateObj: date
+    };
     
-    return content;
+    return this.createUnifiedEventModal(eventData);
   }
 
   /**
@@ -359,6 +355,171 @@ class ModalManager {
             <p>${ekadashi.significance}</p>
           </div>
         ` : ''}
+      </div>
+    `;
+  }
+
+  /**
+   * Create unified event modal content with image support
+   * Works for festivals, ekadashi, and calendar events
+   */
+  createUnifiedEventModal(eventData) {
+    const { 
+      date, 
+      dateObj,
+      name, 
+      english, 
+      roman, 
+      image,
+      type,
+      significance,
+      mythology,
+      whatToDo,
+      foods,
+      colors,
+      mantra,
+      deity,
+      duration,
+      category,
+      // Ekadashi-specific
+      paksha,
+      month,
+      startTime,
+      endTime,
+      fasting,
+      benefits,
+      storyBrief,
+      warning,
+      source
+    } = eventData;
+
+    // Determine date string
+    let dateStr;
+    if (dateObj) {
+      const dateObject = dateObj instanceof Date ? dateObj : new Date(dateObj);
+      dateStr = dateObject.toLocaleDateString('en-US', { 
+        weekday: 'long', 
+        year: 'numeric', 
+        month: 'long', 
+        day: 'numeric' 
+      });
+    } else if (date) {
+      const dateObject = date instanceof Date ? date : new Date(date);
+      dateStr = dateObject.toLocaleDateString('en-US', { 
+        weekday: 'long', 
+        year: 'numeric', 
+        month: 'long', 
+        day: 'numeric' 
+      });
+    } else {
+      dateStr = 'Date not available';
+    }
+
+    // Determine if this is an Ekadashi
+    const isEkadashi = type === 'ekadashi' || source === 'ekadashi';
+
+    return `
+      <div class="unified-event-modal">
+        ${image ? `
+          <div class="event-hero-image-modal">
+            <img src="${image}" alt="${name || english || roman}" onerror="this.parentElement.style.display='none'">
+          </div>
+        ` : ''}
+        
+        <div class="event-modal-header">
+          <div class="event-date-badge">${dateStr}</div>
+          <h2 class="event-title">${name || roman || english || 'Event Details'}</h2>
+          ${(english || roman) && name !== (english || roman) ? `
+            <p class="event-subtitle">${english || roman || ''}</p>
+          ` : ''}
+        </div>
+        
+        <div class="event-modal-body">
+          ${significance ? `
+            <div class="detail-section">
+              <h3><i class="fas fa-star"></i> Significance</h3>
+              <p>${significance}</p>
+            </div>
+          ` : ''}
+          
+          ${mythology ? `
+            <div class="detail-section">
+              <h3><i class="fas fa-book-open"></i> Mythology</h3>
+              <p>${mythology}</p>
+            </div>
+          ` : ''}
+          
+          ${whatToDo && whatToDo.length > 0 ? `
+            <div class="detail-section">
+              <h3><i class="fas fa-tasks"></i> What to Do</h3>
+              <ul>
+                ${whatToDo.map(item => `<li>${item}</li>`).join('')}
+              </ul>
+            </div>
+          ` : ''}
+          
+          ${foods && foods.length > 0 ? `
+            <div class="detail-section">
+              <h3><i class="fas fa-utensils"></i> Traditional Foods</h3>
+              <div class="foods-list">
+                ${foods.map(food => `<span class="food-tag">${food}</span>`).join('')}
+              </div>
+            </div>
+          ` : ''}
+          
+          ${colors && colors.length > 0 ? `
+            <div class="detail-section">
+              <h3><i class="fas fa-palette"></i> Colors</h3>
+              <div class="colors-list">
+                ${colors.map(color => `<span class="color-tag">${color}</span>`).join('')}
+              </div>
+            </div>
+          ` : ''}
+          
+          ${mantra ? `
+            <div class="detail-section">
+              <h3><i class="fas fa-om"></i> Mantra</h3>
+              <p class="mantra-text">${mantra}</p>
+            </div>
+          ` : ''}
+          
+          ${deity ? `
+            <div class="detail-section">
+              <h3><i class="fas fa-hands-praying"></i> Deity</h3>
+              <p>${deity}</p>
+            </div>
+          ` : ''}
+          
+          ${category ? `
+            <div class="detail-section">
+              <h3><i class="fas fa-tag"></i> Category</h3>
+              <p>${category}</p>
+            </div>
+          ` : ''}
+          
+          ${duration ? `
+            <div class="detail-section">
+              <h3><i class="fas fa-clock"></i> Duration</h3>
+              <p>${duration}</p>
+            </div>
+          ` : ''}
+
+          ${isEkadashi ? `
+            <div class="detail-section ekadashi-specific">
+              <h3><i class="fas fa-moon"></i> Ekadashi Details</h3>
+              <div class="ekadashi-info">
+                ${paksha ? `<p><strong>Paksha:</strong> ${paksha}</p>` : ''}
+                ${month ? `<p><strong>Hindu Month:</strong> ${month}</p>` : ''}
+                ${startTime ? `<p><strong>Start Time:</strong> ${startTime}</p>` : ''}
+                ${endTime ? `<p><strong>End Time:</strong> ${endTime}</p>` : ''}
+                ${fasting ? `<p><strong>Fasting:</strong> ${fasting}</p>` : ''}
+                ${benefits ? `<p><strong>Benefits:</strong> ${benefits}</p>` : ''}
+                ${storyBrief ? `<p><strong>Story:</strong> ${storyBrief}</p>` : ''}
+                ${warning ? `<p class="warning"><strong>⚠️ Note:</strong> ${warning}</p>` : ''}
+              </div>
+            </div>
+          ` : ''}
+        </div>
       </div>
     `;
   }

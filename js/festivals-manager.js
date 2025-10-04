@@ -387,103 +387,19 @@ class FestivalsManager {
     // Ensure dateObj is a Date object (it might be a string if from JSON.parse)
     const dateObj = festival.dateObj instanceof Date ? festival.dateObj : new Date(festival.dateObj);
     
-    const dateStr = dateObj.toLocaleDateString('en-US', { 
-      weekday: 'long', 
-      year: 'numeric', 
-      month: 'long', 
-      day: 'numeric' 
-    });
+    // Prepare event data for unified modal
+    const eventData = {
+      ...festival,
+      dateObj: dateObj,
+      date: dateObj
+    };
 
-    let content = `
-      <div class="festival-details-modal">
-        <div class="festival-modal-header">
-          <div class="festival-date-badge">${dateStr}</div>
-          <h2 class="festival-title">${festival.name}</h2>
-          <p class="festival-subtitle">${festival.english || festival.roman || ''}</p>
-        </div>
-        
-        <div class="festival-modal-body">
-          ${festival.significance ? `
-            <div class="detail-section">
-              <h3><i class="fas fa-star"></i> Significance</h3>
-              <p>${festival.significance}</p>
-            </div>
-          ` : ''}
-          
-          ${festival.mythology ? `
-            <div class="detail-section">
-              <h3><i class="fas fa-book-open"></i> Mythology</h3>
-              <p>${festival.mythology}</p>
-            </div>
-          ` : ''}
-          
-          ${festival.whatToDo && festival.whatToDo.length > 0 ? `
-            <div class="detail-section">
-              <h3><i class="fas fa-tasks"></i> What to Do</h3>
-              <ul>
-                ${festival.whatToDo.map(item => `<li>${item}</li>`).join('')}
-              </ul>
-            </div>
-          ` : ''}
-          
-          ${festival.foods && festival.foods.length > 0 ? `
-            <div class="detail-section">
-              <h3><i class="fas fa-utensils"></i> Traditional Foods</h3>
-              <div class="foods-list">
-                ${festival.foods.map(food => `<span class="food-tag">${food}</span>`).join('')}
-              </div>
-            </div>
-          ` : ''}
-          
-          ${festival.colors && festival.colors.length > 0 ? `
-            <div class="detail-section">
-              <h3><i class="fas fa-palette"></i> Colors</h3>
-              <div class="colors-list">
-                ${festival.colors.map(color => `<span class="color-tag">${color}</span>`).join('')}
-              </div>
-            </div>
-          ` : ''}
-          
-          ${festival.mantra ? `
-            <div class="detail-section">
-              <h3><i class="fas fa-om"></i> Mantra</h3>
-              <p class="mantra-text">${festival.mantra}</p>
-            </div>
-          ` : ''}
-          
-          ${festival.deity ? `
-            <div class="detail-section">
-              <h3><i class="fas fa-hands-praying"></i> Deity</h3>
-              <p>${festival.deity}</p>
-            </div>
-          ` : ''}
-          
-          ${festival.duration ? `
-            <div class="detail-section">
-              <h3><i class="fas fa-clock"></i> Duration</h3>
-              <p>${festival.duration}</p>
-            </div>
-          ` : ''}
-
-          ${festival.source === 'ekadashi' ? `
-            <div class="detail-section ekadashi-specific">
-              <h3><i class="fas fa-moon"></i> Ekadashi Details</h3>
-              <div class="ekadashi-info">
-                ${festival.paksha ? `<p><strong>Paksha:</strong> ${festival.paksha}</p>` : ''}
-                ${festival.month ? `<p><strong>Hindu Month:</strong> ${festival.month}</p>` : ''}
-                ${festival.startTime ? `<p><strong>Start Time:</strong> ${festival.startTime}</p>` : ''}
-                ${festival.endTime ? `<p><strong>End Time:</strong> ${festival.endTime}</p>` : ''}
-                ${festival.fasting ? `<p><strong>Fasting:</strong> ${festival.fasting}</p>` : ''}
-                ${festival.benefits ? `<p><strong>Benefits:</strong> ${festival.benefits}</p>` : ''}
-              </div>
-            </div>
-          ` : ''}
-        </div>
-      </div>
-    `;
+    // Use the unified modal content generator
+    const content = this.ui.modalManager.createUnifiedEventModal(eventData);
+    const modalTitle = festival.english || festival.roman || festival.name || 'Event Details';
 
     if (this.ui && this.ui.modalManager) {
-      this.ui.modalManager.showModal(festival.name, content);
+      this.ui.modalManager.showModal(modalTitle, content);
     }
   }
 
