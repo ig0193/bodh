@@ -460,12 +460,15 @@ const FESTIVALS_2025 = {
       "Seek blessings for new ventures",
       "Celebrate victory of righteousness"
     ],
-    foods: ["Traditional sweets", "Festive meals"],
-    colors: ["Red", "Yellow"],
-    duration: "1 day",
-    mantra: "ॐ रामाय नमः",
-    deity: "Lord Rama",
-    image: "images/festivals/dusherra.jpg"
+    image: "images/festivals/dusherra.jpg",
+    additionalInfo: [
+      { label: "Mantra", value: "ॐ रामाय नमः", type: "mantra" },
+      { label: "Deity", value: "Lord Rama" },
+      { label: "Category", value: "Victory Festival" },
+      { label: "Duration", value: "1 day" },
+      { label: "Traditional Foods", value: ["Traditional sweets", "Festive meals"], type: "tags" },
+      { label: "Colors", value: ["Red", "Yellow"], type: "tags" }
+    ]
   },
 
   // October 2025

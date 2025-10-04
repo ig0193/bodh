@@ -360,6 +360,55 @@ class ModalManager {
   }
 
   /**
+   * Create additional information section from event data
+   * Data-driven approach - automatically adapts to new fields
+   */
+  createAdditionalInfoSection(eventData) {
+    const { additionalInfo } = eventData;
+    
+    // If no additionalInfo array, return empty string
+    if (!additionalInfo || !Array.isArray(additionalInfo) || additionalInfo.length === 0) {
+      return '';
+    }
+    
+    // Generate HTML for info items
+    const itemsHtml = additionalInfo.map(item => {
+      const { label, value, type = "text" } = item;
+      
+      // Handle different value types
+      if (type === "mantra") {
+        return `
+          <div class="info-item mantra-item">
+            <strong>${label}:</strong>
+            <span class="mantra-text-inline">${value}</span>
+          </div>
+        `;
+      } else if (type === "tags" && Array.isArray(value)) {
+        return `
+          <div class="info-item info-item-full">
+            <strong>${label}:</strong>
+            <div class="tags-list-inline">
+              ${value.map(tag => `<span class="info-tag">${tag}</span>`).join('')}
+            </div>
+          </div>
+        `;
+      } else {
+        // Regular text item
+        return `<div class="info-item"><strong>${label}:</strong> ${value}</div>`;
+      }
+    }).join('');
+    
+    return `
+      <div class="detail-section additional-info">
+        <h3><i class="fas fa-info-circle"></i> Additional Information</h3>
+        <div class="info-grid">
+          ${itemsHtml}
+        </div>
+      </div>
+    `;
+  }
+
+  /**
    * Create unified event modal content with image support
    * Works for festivals, ekadashi, and calendar events
    */
@@ -458,51 +507,7 @@ class ModalManager {
             </div>
           ` : ''}
           
-          ${foods && foods.length > 0 ? `
-            <div class="detail-section">
-              <h3><i class="fas fa-utensils"></i> Traditional Foods</h3>
-              <div class="foods-list">
-                ${foods.map(food => `<span class="food-tag">${food}</span>`).join('')}
-              </div>
-            </div>
-          ` : ''}
-          
-          ${colors && colors.length > 0 ? `
-            <div class="detail-section">
-              <h3><i class="fas fa-palette"></i> Colors</h3>
-              <div class="colors-list">
-                ${colors.map(color => `<span class="color-tag">${color}</span>`).join('')}
-              </div>
-            </div>
-          ` : ''}
-          
-          ${mantra ? `
-            <div class="detail-section">
-              <h3><i class="fas fa-om"></i> Mantra</h3>
-              <p class="mantra-text">${mantra}</p>
-            </div>
-          ` : ''}
-          
-          ${deity ? `
-            <div class="detail-section">
-              <h3><i class="fas fa-hands-praying"></i> Deity</h3>
-              <p>${deity}</p>
-            </div>
-          ` : ''}
-          
-          ${category ? `
-            <div class="detail-section">
-              <h3><i class="fas fa-tag"></i> Category</h3>
-              <p>${category}</p>
-            </div>
-          ` : ''}
-          
-          ${duration ? `
-            <div class="detail-section">
-              <h3><i class="fas fa-clock"></i> Duration</h3>
-              <p>${duration}</p>
-            </div>
-          ` : ''}
+          ${this.createAdditionalInfoSection(eventData)}
 
           ${isEkadashi ? `
             <div class="detail-section ekadashi-specific">
