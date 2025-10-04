@@ -293,6 +293,7 @@ const FESTIVALS_2025 = {
       "Offer prayers and seek darshan",
       "Distribute prasadam to all"
     ],
+    image: "images/festivals/jaganath_yatra.jpg",
     additionalInfo: [
       { label: "Mantra", value: "ॐ जगन्नाथाय नमः", type: "mantra" },
       { label: "Deity", value: "Lord Jagannath" },

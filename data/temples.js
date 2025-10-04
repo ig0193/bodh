@@ -65,17 +65,17 @@ const TEMPLES_DATA = [
         description: 'The Tirumala Venkateswara Temple is one of the most visited religious sites in the world, with millions of devotees visiting annually. The temple is dedicated to Lord Venkateswara, an incarnation of Lord Vishnu. The temple is known for its magnificent architecture and the sacred Tirumala hills.',
         images: [
             {
-                url: 'https://via.placeholder.com/600x400/3498DB/FFFFFF?text=Tirupati+Exterior',
-                alt: 'Tirupati Temple exterior',
-                caption: 'Magnificent temple exterior'
-            },
-            {
-                url: 'https://via.placeholder.com/600x400/2ECC71/FFFFFF?text=Tirupati+Interior',
+                url: 'images/temples/Tirumala/central.jpg',
                 alt: 'Tirupati Temple interior',
                 caption: 'Sacred sanctum'
+            },
+            {
+                url: 'images/temples/Tirumala/exterior.jpg',
+                alt: 'Tirupati Temple exterior',
+                caption: 'Magnificent temple exterior'
             }
         ],
-        primaryImage: 'https://via.placeholder.com/600x400/3498DB/FFFFFF?text=Tirupati+Exterior'
+        primaryImage: 'images/temples/Tirumala/central.jpg'
     },
     {
         id: 'meenakshi-temple',
@@ -87,17 +87,18 @@ const TEMPLES_DATA = [
         description: 'The Meenakshi Amman Temple is a historic Hindu temple located in Madurai. The temple is dedicated to Goddess Meenakshi and her consort Lord Sundareswarar. The temple complex is famous for its stunning architecture, colorful gopurams (towers), and the thousand-pillar hall.',
         images: [
             {
-                url: 'https://via.placeholder.com/600x400/F39C12/FFFFFF?text=Meenakshi+Gopuram',
-                alt: 'Meenakshi Temple gopuram',
-                caption: 'Colorful gopuram towers'
-            },
-            {
-                url: 'https://via.placeholder.com/600x400/E67E22/FFFFFF?text=Meenakshi+Hall',
+                url: 'images/temples/minakshi_temple/interior.jpg',
                 alt: 'Thousand pillar hall',
                 caption: 'Thousand pillar hall'
+            },
+            {
+                url: 'images/temples/minakshi_temple/exterior.jpg',
+                alt: 'Meenakshi Temple exterior',
+                caption: 'Colorful gopuram towers'
             }
+            
         ],
-        primaryImage: 'https://via.placeholder.com/600x400/F39C12/FFFFFF?text=Meenakshi+Gopuram'
+        primaryImage: 'images/temples/minakshi_temple/interior.jpg'
     },
     {
         id: 'somnath-temple',
