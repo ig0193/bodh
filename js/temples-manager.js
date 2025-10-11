@@ -442,44 +442,66 @@ class TemplesManager {
     async getSampleTemples() {
         // Return cached data if already loaded
         if (window.TEMPLES_DATA) {
+            console.log('Using cached temples data');
             return window.TEMPLES_DATA;
         }
 
-        // Try to fetch from JSON file (works with http:// or when deployed)
+        // GitHub data repository URL (with cache busting)
+        const GITHUB_DATA_REPO = `https://raw.githubusercontent.com/ig0193/bodh-data/main/temples.json?t=${Date.now()}`;
+        
+        // Try to fetch from GitHub first (works everywhere)
         try {
-            console.log('Fetching temples from JSON...');
-            const url = window.location.protocol === 'file:' 
-                ? './data/temples.json'  // Local file path
-                : 'data/temples.json';    // Server path
-            console.log('Fetch URL:', url);
+            console.log('Fetching temples from GitHub repo...');
+            const response = await fetch(GITHUB_DATA_REPO);
             
-            const response = await fetch(url);
             if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
+                throw new Error(`GitHub fetch failed: ${response.status}`);
             }
-            window.TEMPLES_DATA = await response.json();
-            console.log('Temples loaded from JSON:', window.TEMPLES_DATA.length, 'temples');
-            return window.TEMPLES_DATA;
-        } catch (error) {
-            console.warn('Failed to load JSON, falling back to inline data:', error.message);
             
-            // Fallback: Load inline data for file:// protocol
-            // This will be replaced when data is fetched from GitHub in React Native
-            if (!window.TEMPLES_DATA) {
-                // Import inline as last resort
-                const script = document.createElement('script');
-                script.src = 'data/temples-inline.js';  // We'll create this
-                document.head.appendChild(script);
-                
-                // Wait for script to load
-                await new Promise((resolve) => {
-                    script.onload = resolve;
-                    script.onerror = () => {
-                        console.error('Failed to load inline temples data');
-                        window.TEMPLES_DATA = [];
-                        resolve();
-                    };
-                });
+            window.TEMPLES_DATA = await response.json();
+            console.log('✅ Temples loaded from GitHub:', window.TEMPLES_DATA.length, 'temples');
+            
+            // Cache in localStorage for offline use
+            try {
+                localStorage.setItem('temples_cache', JSON.stringify(window.TEMPLES_DATA));
+                localStorage.setItem('temples_cache_time', Date.now().toString());
+                console.log('Cached temples in localStorage');
+            } catch (e) {
+                console.warn('Failed to cache in localStorage:', e.message);
+            }
+            
+            return window.TEMPLES_DATA;
+        } catch (githubError) {
+            console.warn('GitHub fetch failed:', githubError.message);
+            
+            // Fallback 1: Try localStorage cache
+            try {
+                const cached = localStorage.getItem('temples_cache');
+                if (cached) {
+                    window.TEMPLES_DATA = JSON.parse(cached);
+                    const cacheTime = localStorage.getItem('temples_cache_time');
+                    console.log('✅ Using cached temples from localStorage (cached:', new Date(parseInt(cacheTime)).toLocaleString() + ')');
+                    return window.TEMPLES_DATA;
+                }
+            } catch (e) {
+                console.warn('localStorage cache failed:', e.message);
+            }
+            
+            // Fallback 2: Try local JSON file
+            try {
+                console.log('Trying local JSON file...');
+                const localUrl = window.location.protocol === 'file:' 
+                    ? './data/temples.json'
+                    : 'data/temples.json';
+                    
+                const response = await fetch(localUrl);
+                if (response.ok) {
+                    window.TEMPLES_DATA = await response.json();
+                    console.log('✅ Temples loaded from local file:', window.TEMPLES_DATA.length, 'temples');
+                    return window.TEMPLES_DATA;
+                }
+            } catch (localError) {
+                console.warn('Local JSON fetch failed:', localError.message);
             }
             
             return window.TEMPLES_DATA || [];
