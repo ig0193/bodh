@@ -168,6 +168,33 @@ const TEMPLES_DATA = [
         primaryImage: 'images/temples/akshardham_nj/central.jpg'
     },
     {
+        id: 'uluwatu-temple-bali',
+        name: 'Pura Luhur Uluwatu',
+        deity: 'shiva',
+        deityName: 'Rudra (Shiva)',
+        location: 'Uluwatu, Bali, Indonesia',
+        significance: 'Clifftop temple with spiritual guardians',
+        description: 'Pura Luhur Uluwatu is one of Bali\'s six key spiritual temples, built on a steep cliff approximately 70 meters above sea level. Dating back to the 11th century, it is dedicated to Sang Hyang Widhi Wasa in his manifestation as Rudra. The temple is famous for its magnificent clifftop location, sunset Kecak dance performances, and resident monkeys.',
+        images: [
+            {
+                url: 'images/temples/uluwatu/central.jpg',
+                alt: 'Uluwatu Temple Bali',
+                caption: 'Clifftop ocean temple'
+            },
+            {
+                url: 'images/temples/uluwatu/dance.jpg',
+                alt: 'Uluwatu Temple Bali',
+                caption: 'Clifftop ocean temple'
+            },
+            {
+                url: 'images/temples/uluwatu/aerial.jpg',
+                alt: 'Uluwatu Temple Bali',
+                caption: 'Clifftop ocean temple'
+            }
+        ],
+        primaryImage: 'images/temples/uluwatu/central.jpg'
+    },
+    {
         id: 'sri-venkateswara-temple-pittsburgh',
         name: 'Sri Venkateswara Temple',
         deity: 'vishnu',
@@ -336,23 +363,6 @@ const TEMPLES_DATA = [
             }
         ],
         primaryImage: 'images/temples/besakih/central.jpg'
-    },
-    {
-        id: 'uluwatu-temple-bali',
-        name: 'Pura Luhur Uluwatu',
-        deity: 'shiva',
-        deityName: 'Rudra (Shiva)',
-        location: 'Uluwatu, Bali, Indonesia',
-        significance: 'Clifftop temple with spiritual guardians',
-        description: 'Pura Luhur Uluwatu is one of Bali\'s six key spiritual temples, built on a steep cliff approximately 70 meters above sea level. Dating back to the 11th century, it is dedicated to Sang Hyang Widhi Wasa in his manifestation as Rudra. The temple is famous for its magnificent clifftop location, sunset Kecak dance performances, and resident monkeys.',
-        images: [
-            {
-                url: 'images/temples/uluwatu/central.jpg',
-                alt: 'Uluwatu Temple Bali',
-                caption: 'Clifftop ocean temple'
-            }
-        ],
-        primaryImage: 'images/temples/uluwatu/central.jpg'
     },
     {
         id: 'tirta-empul-bali',
