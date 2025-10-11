@@ -14,10 +14,11 @@ class TemplesManager {
         };
         this.currentTempleIndex = 0;
         this.currentImageIndex = 0;
+        this.templesLoaded = false;
         
         this.initializeElements();
         this.bindEvents();
-        this.loadTemples();
+        // Don't load temples in constructor, wait for renderTemplesView to call it
     }
 
     initializeElements() {
@@ -298,17 +299,34 @@ class TemplesManager {
 
     async loadTemples() {
         try {
+            // Only load once
+            if (this.templesLoaded) {
+                console.log('Temples already loaded, just re-rendering');
+                this.renderTemples();
+                return;
+            }
+            
             // Show loading state
             this.showLoadingState();
             
-            // Load temple data
-            this.temples = this.getSampleTemples();
+            // Load temple data (await the async call)
+            this.temples = await this.getSampleTemples();
+            console.log('Temples after loading:', this.temples ? this.temples.length : 'null');
+            
+            if (!this.temples || this.temples.length === 0) {
+                console.error('No temples loaded!');
+                this.showErrorState();
+                return;
+            }
+            
+            this.templesLoaded = true;
             
             // Populate filter dropdowns with available values
             this.populateFilterDropdowns();
             
             // Apply current filters
             this.applyFilters();
+            console.log('Filtered temples:', this.filteredTemples.length);
             
             // Render temples
             this.renderTemples();
@@ -421,8 +439,51 @@ class TemplesManager {
         });
     }
 
-    getSampleTemples() {
-        return window.TEMPLES_DATA;
+    async getSampleTemples() {
+        // Return cached data if already loaded
+        if (window.TEMPLES_DATA) {
+            return window.TEMPLES_DATA;
+        }
+
+        // Try to fetch from JSON file (works with http:// or when deployed)
+        try {
+            console.log('Fetching temples from JSON...');
+            const url = window.location.protocol === 'file:' 
+                ? './data/temples.json'  // Local file path
+                : 'data/temples.json';    // Server path
+            console.log('Fetch URL:', url);
+            
+            const response = await fetch(url);
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            window.TEMPLES_DATA = await response.json();
+            console.log('Temples loaded from JSON:', window.TEMPLES_DATA.length, 'temples');
+            return window.TEMPLES_DATA;
+        } catch (error) {
+            console.warn('Failed to load JSON, falling back to inline data:', error.message);
+            
+            // Fallback: Load inline data for file:// protocol
+            // This will be replaced when data is fetched from GitHub in React Native
+            if (!window.TEMPLES_DATA) {
+                // Import inline as last resort
+                const script = document.createElement('script');
+                script.src = 'data/temples-inline.js';  // We'll create this
+                document.head.appendChild(script);
+                
+                // Wait for script to load
+                await new Promise((resolve) => {
+                    script.onload = resolve;
+                    script.onerror = () => {
+                        console.error('Failed to load inline temples data');
+                        window.TEMPLES_DATA = [];
+                        resolve();
+                    };
+                });
+            }
+            
+            return window.TEMPLES_DATA || [];
+        }
     }
 
     handleDeityFilter(deity) {
