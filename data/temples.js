@@ -56,6 +56,55 @@ const TEMPLES_DATA = [
         primaryImage: 'images/temples/vaishnodevi/vaishno_devi_aerial.jpg'
     },
     {
+        id: 'swaminarayan-akshardham-usa',
+        name: 'BAPS Swaminarayan Akshardham',
+        deity: 'vishnu',
+        deityName: 'Swaminarayan',
+        location: 'Robbinsville, New Jersey, USA',
+        significance: 'Largest Hindu temple in the United States',
+        description: 'The BAPS Swaminarayan Akshardham in New Jersey is the largest Hindu temple in the United States and the second-largest in the world. Built with stunning traditional Indian architecture using over 2 million cubic feet of stone, it features intricate carvings and serves as a spiritual and cultural center for the Hindu community in North America.',
+        images: [
+            {
+                url: 'images/temples/akshardham_nj/central.jpg',
+                alt: 'Akshardham New Jersey',
+                caption: 'Largest Hindu temple in USA'
+            },
+            {
+                url: 'images/temples/akshardham_nj/outside.jpg',
+                alt: 'Akshardham New Jersey',
+                caption: 'Outside of Akshardham New Jersey'
+            }
+        ],
+        primaryImage: 'images/temples/akshardham_nj/central.jpg'
+    },
+    {
+        id: 'uluwatu-temple-bali',
+        name: 'Pura Luhur Uluwatu',
+        deity: 'shiva',
+        deityName: 'Rudra (Shiva)',
+        location: 'Uluwatu, Bali, Indonesia',
+        significance: 'Clifftop temple with spiritual guardians',
+        description: 'Pura Luhur Uluwatu is one of Bali\'s six key spiritual temples, built on a steep cliff approximately 70 meters above sea level. Dating back to the 11th century, it is dedicated to Sang Hyang Widhi Wasa in his manifestation as Rudra. The temple is famous for its magnificent clifftop location, sunset Kecak dance performances, and resident monkeys.',
+        images: [
+            {
+                url: 'images/temples/uluwatu/central.jpg',
+                alt: 'Uluwatu Temple Bali',
+                caption: 'Clifftop ocean temple'
+            },
+            {
+                url: 'images/temples/uluwatu/dance.jpg',
+                alt: 'Uluwatu Temple Bali',
+                caption: 'Clifftop ocean temple'
+            },
+            {
+                url: 'images/temples/uluwatu/aerial.jpg',
+                alt: 'Uluwatu Temple Bali',
+                caption: 'Clifftop ocean temple'
+            }
+        ],
+        primaryImage: 'images/temples/uluwatu/central.jpg'
+    },
+    {
         id: 'tirupati-balaji',
         name: 'Tirumala Temple',
         deity: 'vishnu',
@@ -232,55 +281,7 @@ const TEMPLES_DATA = [
         primaryImage: 'images/temples/khatu_shyam/central.jpg'
     },
     // International Temples
-    {
-        id: 'swaminarayan-akshardham-usa',
-        name: 'BAPS Swaminarayan Akshardham',
-        deity: 'vishnu',
-        deityName: 'Swaminarayan',
-        location: 'Robbinsville, New Jersey, USA',
-        significance: 'Largest Hindu temple in the United States',
-        description: 'The BAPS Swaminarayan Akshardham in New Jersey is the largest Hindu temple in the United States and the second-largest in the world. Built with stunning traditional Indian architecture using over 2 million cubic feet of stone, it features intricate carvings and serves as a spiritual and cultural center for the Hindu community in North America.',
-        images: [
-            {
-                url: 'images/temples/akshardham_nj/central.jpg',
-                alt: 'Akshardham New Jersey',
-                caption: 'Largest Hindu temple in USA'
-            },
-            {
-                url: 'images/temples/akshardham_nj/outside.jpg',
-                alt: 'Akshardham New Jersey',
-                caption: 'Outside of Akshardham New Jersey'
-            }
-        ],
-        primaryImage: 'images/temples/akshardham_nj/central.jpg'
-    },
-    {
-        id: 'uluwatu-temple-bali',
-        name: 'Pura Luhur Uluwatu',
-        deity: 'shiva',
-        deityName: 'Rudra (Shiva)',
-        location: 'Uluwatu, Bali, Indonesia',
-        significance: 'Clifftop temple with spiritual guardians',
-        description: 'Pura Luhur Uluwatu is one of Bali\'s six key spiritual temples, built on a steep cliff approximately 70 meters above sea level. Dating back to the 11th century, it is dedicated to Sang Hyang Widhi Wasa in his manifestation as Rudra. The temple is famous for its magnificent clifftop location, sunset Kecak dance performances, and resident monkeys.',
-        images: [
-            {
-                url: 'images/temples/uluwatu/central.jpg',
-                alt: 'Uluwatu Temple Bali',
-                caption: 'Clifftop ocean temple'
-            },
-            {
-                url: 'images/temples/uluwatu/dance.jpg',
-                alt: 'Uluwatu Temple Bali',
-                caption: 'Clifftop ocean temple'
-            },
-            {
-                url: 'images/temples/uluwatu/aerial.jpg',
-                alt: 'Uluwatu Temple Bali',
-                caption: 'Clifftop ocean temple'
-            }
-        ],
-        primaryImage: 'images/temples/uluwatu/central.jpg'
-    },
+    
     {
         id: 'neasden-temple-london',
         name: 'BAPS Shri Swaminarayan Mandir',
