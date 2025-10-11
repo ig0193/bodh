@@ -87,18 +87,18 @@ const TEMPLES_DATA = [
         description: 'The Meenakshi Amman Temple is a historic Hindu temple located in Madurai. The temple is dedicated to Goddess Meenakshi and her consort Lord Sundareswarar. The temple complex is famous for its stunning architecture, colorful gopurams (towers), and the thousand-pillar hall.',
         images: [
             {
-                url: 'images/temples/minakshi_temple/interior.jpg',
-                alt: 'Thousand pillar hall',
-                caption: 'Thousand pillar hall'
-            },
-            {
                 url: 'images/temples/minakshi_temple/exterior.jpg',
                 alt: 'Meenakshi Temple exterior',
                 caption: 'Colorful gopuram towers'
+            },
+            {
+                url: 'images/temples/minakshi_temple/interior.jpg',
+                alt: 'Thousand pillar hall',
+                caption: 'Thousand pillar hall'
             }
             
         ],
-        primaryImage: 'images/temples/minakshi_temple/interior.jpg'
+        primaryImage: 'images/temples/minakshi_temple/exterior.jpg'
     },
     {
         id: 'somnath-temple',
@@ -143,6 +143,93 @@ const TEMPLES_DATA = [
             }
         ],
         primaryImage: 'images/temples/siddhivinayak/central.jpg'
+    },
+    {
+        id: 'ashtavinayak-ganesh',
+        name: 'Ashtavinayak Temples',
+        deity: 'ganesha',
+        deityName: 'Lord Ganesha',
+        location: 'Maharashtra',
+        significance: '8 sacred Ganesha temples pilgrimage circuit',
+        description: 'The Ashtavinayak refers to eight revered Ganesha temples in Maharashtra, forming one of the most sacred pilgrimage circuits for Ganesha devotees. Each temple has a unique Swayambhu (self-originated) idol and its own legend. The circuit includes Moreshwar, Siddhivinayak, Ballaleshwar, Varadavinayak, Chintamani, Girijatmaj, Vighnahar, and Mahaganapati temples.',
+        images: [
+            {
+                url: 'images/temples/ashtavinayak/central.jpg',
+                alt: 'Ashtavinayak Temple',
+                caption: 'Sacred Ganesha pilgrimage circuit'
+            },
+            {
+                url: 'images/temples/ashtavinayak/outer.jpg',
+                alt: 'Ashtavinayak Temple',
+                caption: 'Sacred Ganesha pilgrimage circuit'
+            }
+        ],
+        primaryImage: 'images/temples/ashtavinayak/central.jpg'
+    },
+    {
+        id: 'dwarka-temple',
+        name: 'Dwarkadhish Temple',
+        deity: 'krishna',
+        deityName: 'Lord Krishna',
+        location: 'Dwarka, Gujarat',
+        significance: 'One of Char Dham pilgrimage sites',
+        description: 'The Dwarkadhish Temple, also known as Jagat Mandir, is one of the most sacred Krishna temples and part of the Char Dham pilgrimage. Built over 2,500 years ago, it stands on the site where Lord Krishna established his kingdom. The 5-story temple structure is supported by 72 pillars and features intricate architecture. It is believed to be the ancient kingdom of Lord Krishna.',
+        images: [
+            {
+                url: 'images/temples/dwarkadhish/central.jpg',
+                alt: 'Dwarkadhish Temple',
+                caption: 'Ancient Krishna temple and Char Dham site'
+            },
+            {
+                url: 'images/temples/dwarkadhish/outer.jpg',
+                alt: 'Dwarkadhish Temple',
+                caption: 'Ancient Krishna temple and Char Dham site'
+            }
+        ],
+        primaryImage: 'images/temples/dwarka/central.jpg'
+    },
+    {
+        id: 'hanuman-temple-connaught',
+        name: 'Hanuman Temple (Connaught Place)',
+        deity: 'hanuman',
+        deityName: 'Lord Hanuman',
+        location: 'New Delhi',
+        significance: 'Ancient temple predating Delhi city',
+        description: 'The Hanuman Temple in Connaught Place is one of the five temples of Mahabharata fame in Delhi. This ancient temple is believed to be over 1,000 years old, predating the construction of New Delhi. It is said that the Pandavas built this temple and the idol is self-manifested (Swayambhu). The temple is famous for its continuous chanting of "Shri Ram Jai Ram Jai Jai Ram" since August 1, 1964.',
+        images: [
+            {
+                url: 'images/temples/hanuman_cp/central.jpg',
+                alt: 'Hanuman Temple Delhi',
+                caption: 'Ancient Hanuman temple in Delhi'
+            },{
+                url: 'images/temples/hanuman_cp/central2.jpg',
+                alt: 'Hanuman Temple Delhi',
+                caption: 'Ancient Hanuman temple in Delhi'
+            }
+        ],
+        primaryImage: 'images/temples/hanuman_cp/central.jpg'
+    },
+    {
+        id: 'khatu-shyam-temple',
+        name: 'Khatu Shyam Ji Temple',
+        deity: 'krishna',
+        deityName: 'Shyam Baba (Barbarik)',
+        location: 'Rajasthan',
+        significance: 'Sacred temple of Barbarik (grandson of Bhima)',
+        description: 'The Khatu Shyam Ji Temple is dedicated to Barbarik (also known as Shyam Baba), the grandson of Bhima and son of Ghatotkacha. According to legend, Barbarik was the most powerful warrior who wanted to participate in the Mahabharata war. Lord Krishna asked for his head as a sacrifice, and Barbarik obliged. Krishna blessed him that he would be worshipped in Kali Yuga by the name of Shyam. The temple houses the deity\'s head, believed to have been discovered in the current location. The temple is especially crowded during the Phalguna Mela.',
+        images: [
+            {
+                url: 'images/temples/khatu-shyam/central.jpg',
+                alt: 'Khatu Shyam Ji Temple',
+                caption: 'Sacred temple of Shyam Baba'
+            },
+            {
+                url: 'images/temples/khatu-shyam/outer.jpg',
+                alt: 'Khatu Shyam Ji Temple',
+                caption: 'Sacred temple of Shyam Baba'
+            }
+        ],
+        primaryImage: 'images/temples/khatu_shyam/central.jpg'
     },
     // International Temples
     {
@@ -204,7 +291,17 @@ const TEMPLES_DATA = [
         description: 'The Neasden Temple in London, inaugurated in 1995, was the first traditional Hindu stone temple built in Europe. Made entirely of Bulgarian limestone and Italian Carrara marble, with no structural steel, it showcases traditional Indian craftsmanship and serves as a landmark of Hindu culture in the UK.',
         images: [
             {
-                url: 'images/temples/neasden/central.jpg',
+                url: 'images/temples/neasden-temple-london/outer.jpg',
+                alt: 'Neasden Temple London',
+                caption: 'First stone Hindu temple in Europe'
+            },
+            {
+                url: 'images/temples/neasden-temple-london/central.jpg',
+                alt: 'Neasden Temple London',
+                caption: 'First stone Hindu temple in Europe'
+            },
+            {
+                url: 'images/temples/neasden-temple-london/interior.jpg',
                 alt: 'Neasden Temple London',
                 caption: 'First stone Hindu temple in Europe'
             }
@@ -239,23 +336,6 @@ const TEMPLES_DATA = [
         primaryImage: 'images/temples/batu_caves/outer.jpg'
     },
     {
-        id: 'hindu-temple-toronto',
-        name: 'BAPS Shri Swaminarayan Mandir',
-        deity: 'vishnu',
-        deityName: 'Swaminarayan',
-        location: 'Toronto, Ontario, Canada',
-        significance: 'Traditional Hindu temple in Canada',
-        description: 'The BAPS Shri Swaminarayan Mandir in Toronto is a magnificent traditional Hindu temple made of Turkish limestone and Italian marble, hand-carved in India and assembled in Canada. Opened in 2007, it serves as a major spiritual and cultural center for the Hindu community in Canada.',
-        images: [
-            {
-                url: 'images/temples/toronto/central.jpg',
-                alt: 'BAPS Toronto Temple',
-                caption: 'Traditional Hindu temple in Canada'
-            }
-        ],
-        primaryImage: 'images/temples/toronto/central.jpg'
-    },
-    {
         id: 'hindu-temple-dubai',
         name: 'BAPS Hindu Mandir',
         deity: 'vishnu',
@@ -276,91 +356,6 @@ const TEMPLES_DATA = [
             }
         ],
         primaryImage: 'images/temples/dubai/central.jpg'
-    },
-    {
-        id: 'pashupatinath-nepal',
-        name: 'Pashupatinath Temple',
-        deity: 'shiva',
-        deityName: 'Lord Shiva',
-        location: 'Kathmandu, Nepal',
-        significance: 'UNESCO World Heritage Site and major Shiva temple',
-        description: 'Pashupatinath Temple is one of the most sacred Hindu temples dedicated to Lord Shiva. Located on the banks of the Bagmati River, it is a UNESCO World Heritage Site and serves as the seat of the national deity, Lord Pashupatinath. The temple is an important destination for pilgrims from across the world.',
-        images: [
-            {
-                url: 'images/temples/pashupatinath/central.jpg',
-                alt: 'Pashupatinath Temple Nepal',
-                caption: 'Sacred Shiva temple in Nepal'
-            }
-        ],
-        primaryImage: 'images/temples/pashupatinath/central.jpg'
-    },
-    {
-        id: 'hindu-temple-sydney',
-        name: 'Murugan Temple',
-        deity: 'murugan',
-        deityName: 'Lord Murugan',
-        location: 'Mays Hill, Sydney, Australia',
-        significance: 'Major Hindu temple in Australia',
-        description: 'The Sri Mandir (Murugan Temple) in Sydney is one of the largest and most visited Hindu temples in Australia. It serves the growing Hindu community in Australia and is known for its traditional South Indian architecture and vibrant festivals.',
-        images: [
-            {
-                url: 'images/temples/sydney/central.jpg',
-                alt: 'Murugan Temple Sydney',
-                caption: 'Major Hindu temple in Australia'
-            }
-        ],
-        primaryImage: 'images/temples/sydney/central.jpg'
-    },
-    {
-        id: 'tanah-lot-bali',
-        name: 'Tanah Lot Temple',
-        deity: 'other',
-        deityName: 'Dewa Baruna (Sea God)',
-        location: 'Tabanan, Bali, Indonesia',
-        significance: 'Iconic ocean temple and major pilgrimage site',
-        description: 'Tanah Lot is one of Bali\'s most iconic temples, perched on a rock formation in the ocean. Built in the 16th century, it is dedicated to the sea gods (Dewa Baruna) and is part of a chain of sea temples around Bali. The temple is famous for its stunning sunset views and unique offshore setting.',
-        images: [
-            {
-                url: 'images/temples/tanah_lot/central.jpg',
-                alt: 'Tanah Lot Temple Bali',
-                caption: 'Iconic ocean temple'
-            }
-        ],
-        primaryImage: 'images/temples/tanah_lot/central.jpg'
-    },
-    {
-        id: 'besakih-temple-bali',
-        name: 'Pura Besakih (Mother Temple)',
-        deity: 'other',
-        deityName: 'Trimurti (Brahma, Vishnu, Shiva)',
-        location: 'Mount Agung, Bali, Indonesia',
-        significance: 'Largest and holiest Hindu temple in Bali',
-        description: 'Pura Besakih, known as the "Mother Temple of Bali", is the largest and holiest temple complex on the island. Located on the slopes of Mount Agung, it comprises 23 separate but related temples dedicated to the Trimurti (Brahma, Vishnu, Shiva). The temple has been a pilgrimage site for over 1,000 years and is central to Balinese Hindu worship.',
-        images: [
-            {
-                url: 'images/temples/besakih/central.jpg',
-                alt: 'Pura Besakih Bali',
-                caption: 'Mother Temple of Bali'
-            }
-        ],
-        primaryImage: 'images/temples/besakih/central.jpg'
-    },
-    {
-        id: 'tirta-empul-bali',
-        name: 'Tirta Empul Temple',
-        deity: 'vishnu',
-        deityName: 'Vishnu',
-        location: 'Tampaksiring, Bali, Indonesia',
-        significance: 'Holy spring water temple for purification rituals',
-        description: 'Tirta Empul is a water temple famous for its sacred spring water, where Balinese Hindus go for ritual purification. Founded in 962 AD, the temple features holy spring pools used for traditional Melukat (purification) ceremonies. The crystal-clear water is believed to have magical powers and visitors can participate in the cleansing rituals.',
-        images: [
-            {
-                url: 'images/temples/tirta_empul/central.jpg',
-                alt: 'Tirta Empul Temple Bali',
-                caption: 'Sacred water purification temple'
-            }
-        ],
-        primaryImage: 'images/temples/tirta_empul/central.jpg'
     },
 ];
 
