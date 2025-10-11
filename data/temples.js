@@ -144,6 +144,233 @@ const TEMPLES_DATA = [
         ],
         primaryImage: 'images/temples/siddhivinayak/central.jpg'
     },
+    // International Temples
+    {
+        id: 'swaminarayan-akshardham-usa',
+        name: 'BAPS Swaminarayan Akshardham',
+        deity: 'vishnu',
+        deityName: 'Swaminarayan',
+        location: 'Robbinsville, New Jersey, USA',
+        significance: 'Largest Hindu temple in the United States',
+        description: 'The BAPS Swaminarayan Akshardham in New Jersey is the largest Hindu temple in the United States and the second-largest in the world. Built with stunning traditional Indian architecture using over 2 million cubic feet of stone, it features intricate carvings and serves as a spiritual and cultural center for the Hindu community in North America.',
+        images: [
+            {
+                url: 'images/temples/akshardham_nj/central.jpg',
+                alt: 'Akshardham New Jersey',
+                caption: 'Largest Hindu temple in USA'
+            },
+            {
+                url: 'images/temples/akshardham_nj/outside.jpg',
+                alt: 'Akshardham New Jersey',
+                caption: 'Outside of Akshardham New Jersey'
+            }
+        ],
+        primaryImage: 'images/temples/akshardham_nj/central.jpg'
+    },
+    {
+        id: 'sri-venkateswara-temple-pittsburgh',
+        name: 'Sri Venkateswara Temple',
+        deity: 'vishnu',
+        deityName: 'Lord Venkateswara',
+        location: 'Pittsburgh, Pennsylvania, USA',
+        significance: 'First traditional Hindu temple in USA',
+        description: 'The Sri Venkateswara Temple in Pittsburgh was the first traditional Hindu temple built in the United States in 1976. Built in the South Indian style, it serves as a major spiritual center for the Hindu community in North America and attracts devotees from across the country.',
+        images: [
+            {
+                url: 'images/temples/pittsburgh/central.jpg',
+                alt: 'Sri Venkateswara Temple Pittsburgh',
+                caption: 'First traditional Hindu temple in USA'
+            }
+        ],
+        primaryImage: 'images/temples/pittsburgh/central.jpg'
+    },
+    {
+        id: 'neasden-temple-london',
+        name: 'BAPS Shri Swaminarayan Mandir',
+        deity: 'vishnu',
+        deityName: 'Swaminarayan',
+        location: 'Neasden, London, UK',
+        significance: 'First traditional stone Hindu temple in Europe',
+        description: 'The Neasden Temple in London, inaugurated in 1995, was the first traditional Hindu stone temple built in Europe. Made entirely of Bulgarian limestone and Italian Carrara marble, with no structural steel, it showcases traditional Indian craftsmanship and serves as a landmark of Hindu culture in the UK.',
+        images: [
+            {
+                url: 'images/temples/neasden/central.jpg',
+                alt: 'Neasden Temple London',
+                caption: 'First stone Hindu temple in Europe'
+            }
+        ],
+        primaryImage: 'images/temples/neasden/central.jpg'
+    },
+    {
+        id: 'batu-caves-malaysia',
+        name: 'Batu Caves Temple',
+        deity: 'murugan',
+        deityName: 'Lord Murugan',
+        location: 'Selangor, Malaysia',
+        significance: 'Largest Murugan statue and famous cave temple',
+        description: 'The Batu Caves is a limestone hill with a series of caves and cave temples dedicated to Lord Murugan. The site is one of the most popular Hindu shrines outside of India, famous for its massive golden statue of Lord Murugan (42.7 meters tall) and 272 colorful steps. It is the focal point of the annual Thaipusam festival.',
+        images: [
+            {
+                url: 'images/temples/batu_caves/central.jpg',
+                alt: 'Batu Caves Malaysia',
+                caption: 'Largest Murugan statue in the world'
+            }
+        ],
+        primaryImage: 'images/temples/batu_caves/central.jpg'
+    },
+    {
+        id: 'hindu-temple-toronto',
+        name: 'BAPS Shri Swaminarayan Mandir',
+        deity: 'vishnu',
+        deityName: 'Swaminarayan',
+        location: 'Toronto, Ontario, Canada',
+        significance: 'Traditional Hindu temple in Canada',
+        description: 'The BAPS Shri Swaminarayan Mandir in Toronto is a magnificent traditional Hindu temple made of Turkish limestone and Italian marble, hand-carved in India and assembled in Canada. Opened in 2007, it serves as a major spiritual and cultural center for the Hindu community in Canada.',
+        images: [
+            {
+                url: 'images/temples/toronto/central.jpg',
+                alt: 'BAPS Toronto Temple',
+                caption: 'Traditional Hindu temple in Canada'
+            }
+        ],
+        primaryImage: 'images/temples/toronto/central.jpg'
+    },
+    {
+        id: 'sri-siva-subramaniya-fiji',
+        name: 'Sri Siva Subramaniya Temple',
+        deity: 'murugan',
+        deityName: 'Lord Murugan',
+        location: 'Nadi, Fiji',
+        significance: 'Largest Hindu temple in Southern Hemisphere',
+        description: 'The Sri Siva Subramaniya Temple in Fiji is the largest Hindu temple in the Southern Hemisphere. Built in traditional Dravidian architecture with colorful gopurams, it serves the significant Hindu population in Fiji and is a major tourist attraction.',
+        images: [
+            {
+                url: 'images/temples/fiji/central.jpg',
+                alt: 'Sri Siva Subramaniya Temple Fiji',
+                caption: 'Largest temple in Southern Hemisphere'
+            }
+        ],
+        primaryImage: 'images/temples/fiji/central.jpg'
+    },
+    {
+        id: 'hindu-temple-dubai',
+        name: 'BAPS Hindu Mandir',
+        deity: 'vishnu',
+        deityName: 'Swaminarayan',
+        location: 'Dubai, UAE',
+        significance: 'First traditional stone temple in Middle East',
+        description: 'The BAPS Hindu Mandir in Dubai, inaugurated in 2024, is the first traditional stone Hindu temple in the Middle East. This architectural marvel showcases traditional Indian craftsmanship and serves as a symbol of cultural harmony in the UAE, welcoming people of all faiths.',
+        images: [
+            {
+                url: 'images/temples/dubai/central.jpg',
+                alt: 'BAPS Hindu Mandir Dubai',
+                caption: 'First stone temple in Middle East'
+            }
+        ],
+        primaryImage: 'images/temples/dubai/central.jpg'
+    },
+    {
+        id: 'pashupatinath-nepal',
+        name: 'Pashupatinath Temple',
+        deity: 'shiva',
+        deityName: 'Lord Shiva',
+        location: 'Kathmandu, Nepal',
+        significance: 'UNESCO World Heritage Site and major Shiva temple',
+        description: 'Pashupatinath Temple is one of the most sacred Hindu temples dedicated to Lord Shiva. Located on the banks of the Bagmati River, it is a UNESCO World Heritage Site and serves as the seat of the national deity, Lord Pashupatinath. The temple is an important destination for pilgrims from across the world.',
+        images: [
+            {
+                url: 'images/temples/pashupatinath/central.jpg',
+                alt: 'Pashupatinath Temple Nepal',
+                caption: 'Sacred Shiva temple in Nepal'
+            }
+        ],
+        primaryImage: 'images/temples/pashupatinath/central.jpg'
+    },
+    {
+        id: 'hindu-temple-sydney',
+        name: 'Murugan Temple',
+        deity: 'murugan',
+        deityName: 'Lord Murugan',
+        location: 'Mays Hill, Sydney, Australia',
+        significance: 'Major Hindu temple in Australia',
+        description: 'The Sri Mandir (Murugan Temple) in Sydney is one of the largest and most visited Hindu temples in Australia. It serves the growing Hindu community in Australia and is known for its traditional South Indian architecture and vibrant festivals.',
+        images: [
+            {
+                url: 'images/temples/sydney/central.jpg',
+                alt: 'Murugan Temple Sydney',
+                caption: 'Major Hindu temple in Australia'
+            }
+        ],
+        primaryImage: 'images/temples/sydney/central.jpg'
+    },
+    {
+        id: 'tanah-lot-bali',
+        name: 'Tanah Lot Temple',
+        deity: 'other',
+        deityName: 'Dewa Baruna (Sea God)',
+        location: 'Tabanan, Bali, Indonesia',
+        significance: 'Iconic ocean temple and major pilgrimage site',
+        description: 'Tanah Lot is one of Bali\'s most iconic temples, perched on a rock formation in the ocean. Built in the 16th century, it is dedicated to the sea gods (Dewa Baruna) and is part of a chain of sea temples around Bali. The temple is famous for its stunning sunset views and unique offshore setting.',
+        images: [
+            {
+                url: 'images/temples/tanah_lot/central.jpg',
+                alt: 'Tanah Lot Temple Bali',
+                caption: 'Iconic ocean temple'
+            }
+        ],
+        primaryImage: 'images/temples/tanah_lot/central.jpg'
+    },
+    {
+        id: 'besakih-temple-bali',
+        name: 'Pura Besakih (Mother Temple)',
+        deity: 'other',
+        deityName: 'Trimurti (Brahma, Vishnu, Shiva)',
+        location: 'Mount Agung, Bali, Indonesia',
+        significance: 'Largest and holiest Hindu temple in Bali',
+        description: 'Pura Besakih, known as the "Mother Temple of Bali", is the largest and holiest temple complex on the island. Located on the slopes of Mount Agung, it comprises 23 separate but related temples dedicated to the Trimurti (Brahma, Vishnu, Shiva). The temple has been a pilgrimage site for over 1,000 years and is central to Balinese Hindu worship.',
+        images: [
+            {
+                url: 'images/temples/besakih/central.jpg',
+                alt: 'Pura Besakih Bali',
+                caption: 'Mother Temple of Bali'
+            }
+        ],
+        primaryImage: 'images/temples/besakih/central.jpg'
+    },
+    {
+        id: 'uluwatu-temple-bali',
+        name: 'Pura Luhur Uluwatu',
+        deity: 'shiva',
+        deityName: 'Rudra (Shiva)',
+        location: 'Uluwatu, Bali, Indonesia',
+        significance: 'Clifftop temple with spiritual guardians',
+        description: 'Pura Luhur Uluwatu is one of Bali\'s six key spiritual temples, built on a steep cliff approximately 70 meters above sea level. Dating back to the 11th century, it is dedicated to Sang Hyang Widhi Wasa in his manifestation as Rudra. The temple is famous for its magnificent clifftop location, sunset Kecak dance performances, and resident monkeys.',
+        images: [
+            {
+                url: 'images/temples/uluwatu/central.jpg',
+                alt: 'Uluwatu Temple Bali',
+                caption: 'Clifftop ocean temple'
+            }
+        ],
+        primaryImage: 'images/temples/uluwatu/central.jpg'
+    },
+    {
+        id: 'tirta-empul-bali',
+        name: 'Tirta Empul Temple',
+        deity: 'vishnu',
+        deityName: 'Vishnu',
+        location: 'Tampaksiring, Bali, Indonesia',
+        significance: 'Holy spring water temple for purification rituals',
+        description: 'Tirta Empul is a water temple famous for its sacred spring water, where Balinese Hindus go for ritual purification. Founded in 962 AD, the temple features holy spring pools used for traditional Melukat (purification) ceremonies. The crystal-clear water is believed to have magical powers and visitors can participate in the cleansing rituals.',
+        images: [
+            {
+                url: 'images/temples/tirta_empul/central.jpg',
+                alt: 'Tirta Empul Temple Bali',
+                caption: 'Sacred water purification temple'
+            }
+        ],
+        primaryImage: 'images/temples/tirta_empul/central.jpg'
+    },
 ];
 
 // Export for use in other modules
