@@ -195,23 +195,6 @@ const TEMPLES_DATA = [
         primaryImage: 'images/temples/uluwatu/central.jpg'
     },
     {
-        id: 'sri-venkateswara-temple-pittsburgh',
-        name: 'Sri Venkateswara Temple',
-        deity: 'vishnu',
-        deityName: 'Lord Venkateswara',
-        location: 'Pittsburgh, Pennsylvania, USA',
-        significance: 'First traditional Hindu temple in USA',
-        description: 'The Sri Venkateswara Temple in Pittsburgh was the first traditional Hindu temple built in the United States in 1976. Built in the South Indian style, it serves as a major spiritual center for the Hindu community in North America and attracts devotees from across the country.',
-        images: [
-            {
-                url: 'images/temples/pittsburgh/central.jpg',
-                alt: 'Sri Venkateswara Temple Pittsburgh',
-                caption: 'First traditional Hindu temple in USA'
-            }
-        ],
-        primaryImage: 'images/temples/pittsburgh/central.jpg'
-    },
-    {
         id: 'neasden-temple-london',
         name: 'BAPS Shri Swaminarayan Mandir',
         deity: 'vishnu',
@@ -238,12 +221,22 @@ const TEMPLES_DATA = [
         description: 'The Batu Caves is a limestone hill with a series of caves and cave temples dedicated to Lord Murugan. The site is one of the most popular Hindu shrines outside of India, famous for its massive golden statue of Lord Murugan (42.7 meters tall) and 272 colorful steps. It is the focal point of the annual Thaipusam festival.',
         images: [
             {
-                url: 'images/temples/batu_caves/central.jpg',
+                url: 'images/temples/batu_caves/outer.jpg',
                 alt: 'Batu Caves Malaysia',
                 caption: 'Largest Murugan statue in the world'
+            },
+            {
+                url: 'images/temples/batu_caves/central.jpg',
+                alt: 'Batu Caves Malaysia',
+                caption: 'Inside the Batu Caves'
+            },
+            {
+                url: 'images/temples/batu_caves/interior.jpg',
+                alt: 'Batu Caves Malaysia',
+                caption: 'Inside the Batu Caves'
             }
         ],
-        primaryImage: 'images/temples/batu_caves/central.jpg'
+        primaryImage: 'images/temples/batu_caves/outer.jpg'
     },
     {
         id: 'hindu-temple-toronto',
@@ -263,23 +256,6 @@ const TEMPLES_DATA = [
         primaryImage: 'images/temples/toronto/central.jpg'
     },
     {
-        id: 'sri-siva-subramaniya-fiji',
-        name: 'Sri Siva Subramaniya Temple',
-        deity: 'murugan',
-        deityName: 'Lord Murugan',
-        location: 'Nadi, Fiji',
-        significance: 'Largest Hindu temple in Southern Hemisphere',
-        description: 'The Sri Siva Subramaniya Temple in Fiji is the largest Hindu temple in the Southern Hemisphere. Built in traditional Dravidian architecture with colorful gopurams, it serves the significant Hindu population in Fiji and is a major tourist attraction.',
-        images: [
-            {
-                url: 'images/temples/fiji/central.jpg',
-                alt: 'Sri Siva Subramaniya Temple Fiji',
-                caption: 'Largest temple in Southern Hemisphere'
-            }
-        ],
-        primaryImage: 'images/temples/fiji/central.jpg'
-    },
-    {
         id: 'hindu-temple-dubai',
         name: 'BAPS Hindu Mandir',
         deity: 'vishnu',
@@ -289,7 +265,12 @@ const TEMPLES_DATA = [
         description: 'The BAPS Hindu Mandir in Dubai, inaugurated in 2024, is the first traditional stone Hindu temple in the Middle East. This architectural marvel showcases traditional Indian craftsmanship and serves as a symbol of cultural harmony in the UAE, welcoming people of all faiths.',
         images: [
             {
-                url: 'images/temples/dubai/central.jpg',
+                url: 'images/temples/baps-temple-dubai/outer.jpg',
+                alt: 'BAPS Hindu Mandir Dubai',
+                caption: 'First stone temple in Middle East'
+            },
+            {
+                url: 'images/temples/baps-temple-dubai/central.jpg',
                 alt: 'BAPS Hindu Mandir Dubai',
                 caption: 'First stone temple in Middle East'
             }
