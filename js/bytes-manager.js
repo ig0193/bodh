@@ -6,10 +6,15 @@ class BytesManager {
         this.bytes = [];
         this.currentByteIndex = 0;
         this.isLoading = false;
+        this.dataReady = false;
+        this.prefetchPromise = null;
         
         this.initializeElements();
         this.bindEvents();
-        this.loadBytes();
+        
+        // Start prefetching bytes data immediately (non-blocking)
+        console.log('BytesManager: Starting background data prefetch...');
+        this.prefetchPromise = this.prefetchBytes();
     }
 
     initializeElements() {
@@ -31,12 +36,52 @@ class BytesManager {
         // Touch/swipe events will be added to individual cards
     }
 
+    /**
+     * Prefetch bytes data in background (called from constructor)
+     */
+    async prefetchBytes() {
+        try {
+            console.log('Prefetching bytes data from CDN...');
+            
+            // Try to fetch from GitHub CDN (primary source)
+            const response = await fetch('https://raw.githubusercontent.com/ig0193/bodh-data/main/bytes.json?t=' + Date.now());
+            
+            if (!response.ok) {
+                throw new Error(`GitHub fetch failed: ${response.status}`);
+            }
+            
+            this.bytes = await response.json();
+            this.dataReady = true;
+            console.log('Bytes prefetched from CDN:', this.bytes.length, 'bytes');
+            
+        } catch (error) {
+            console.warn('GitHub prefetch failed, using local bytes.json fallback:', error.message);
+            
+            // Fallback to local bytes.json
+            this.bytes = await this.loadLocalBytes();
+            this.dataReady = true;
+            console.log('Using local bytes (offline mode):', this.bytes.length, 'bytes');
+        }
+    }
+
+    /**
+     * Load bytes view (called when user clicks "Bytes" menu)
+     */
     async loadBytes() {
         try {
+            // Check if data is already ready from prefetch
+            if (this.dataReady && this.bytes && this.bytes.length > 0) {
+                this.renderBytes();
+                return;
+            }
+            
+            // If not ready yet, show loading and wait for prefetch
             this.showLoadingState();
             
-            // Get sample bytes data
-            this.bytes = this.getSampleBytes();
+            // Wait for prefetch to complete
+            if (this.prefetchPromise) {
+                await this.prefetchPromise;
+            }
             
             if (this.bytes && this.bytes.length > 0) {
                 this.renderBytes();
@@ -49,12 +94,34 @@ class BytesManager {
         }
     }
 
-    getSampleBytes() {
-        return window.BYTES_DATA || [];
+    /**
+     * Load local bytes.json (bundled fallback for offline mode)
+     */
+    async loadLocalBytes() {
+        try {
+            const response = await fetch('data/bytes.json');
+            
+            if (response.ok) {
+                const bytes = await response.json();
+                return bytes;
+            }
+            
+            return [];
+            
+        } catch (error) {
+            console.error('Error loading local bytes:', error);
+            return [];
+        }
     }
 
     renderBytes() {
-        if (!this.bytesCards) return;
+        if (!this.bytesCards) {
+            this.bytesCards = document.getElementById('bytesCards');
+            if (!this.bytesCards) {
+                console.error('bytesCards element not found');
+                return;
+            }
+        }
 
         const bytesHTML = this.bytes.map((byte, index) => this.createByteCard(byte, index)).join('');
         this.bytesCards.innerHTML = bytesHTML;

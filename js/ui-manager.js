@@ -784,6 +784,12 @@ class HinduCalendarUI {
       case 'upcoming':
         this.upcomingEventsHandler.renderUpcomingEvents();
         break;
+      case 'bytes':
+        // Bytes view is handled by BytesManager
+        if (window.bytesManager) {
+          window.bytesManager.loadBytes();
+        }
+        break;
       case 'temples':
         this.renderTemplesView();
         break;
