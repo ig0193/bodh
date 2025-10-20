@@ -15,10 +15,15 @@ class TemplesManager {
         this.currentTempleIndex = 0;
         this.currentImageIndex = 0;
         this.templesLoaded = false;
+        this.dataReady = false;
+        this.prefetchPromise = null;
         
         this.initializeElements();
         this.bindEvents();
-        // Don't load temples in constructor, wait for renderTemplesView to call it
+        
+        // Start prefetching temples data immediately (non-blocking)
+        console.log('TemplesManager: Starting background data prefetch...');
+        this.prefetchPromise = this.prefetchTemples();
     }
 
     initializeElements() {
@@ -297,21 +302,62 @@ class TemplesManager {
         }
     }
 
+    /**
+     * Prefetch temples data in background (called from constructor)
+     */
+    async prefetchTemples() {
+        try {
+            console.log('Prefetching temples data from CDN...');
+            
+            // Try to fetch from GitHub CDN (primary source)
+            const response = await fetch('https://raw.githubusercontent.com/ig0193/bodh-data/main/temples.json?t=' + Date.now());
+            
+            if (!response.ok) {
+                throw new Error(`GitHub fetch failed: ${response.status}`);
+            }
+            
+            this.temples = await response.json();
+            this.dataReady = true;
+            console.log('Temples prefetched from CDN:', this.temples.length, 'temples');
+            
+        } catch (error) {
+            console.warn('GitHub prefetch failed, using local temples.json fallback:', error.message);
+            
+            // Fallback to local temples.json (whatever we have bundled)
+            this.temples = await this.loadLocalTemples();
+            this.dataReady = true;
+            console.log('Using local temples (offline mode):', this.temples.length, 'temples');
+        }
+    }
+
+    /**
+     * Load temples view (called when user clicks "Temples" menu)
+     */
     async loadTemples() {
         try {
-            // Only load once
-            if (this.templesLoaded) {
-                console.log('Temples already loaded, just re-rendering');
+            // Check if data is already ready from prefetch
+            if (this.dataReady && this.temples && this.temples.length > 0) {
+                console.log('Temples data already ready, rendering instantly!');
+                
+                // Only populate and render if not already done
+                if (!this.templesLoaded) {
+                    this.populateFilterDropdowns();
+                    this.applyFilters();
+                    this.templesLoaded = true;
+                }
+                
                 this.renderTemples();
                 return;
             }
             
-            // Show loading state
+            // If not ready yet, show loading and wait for prefetch
+            console.log('Temples data not ready yet, waiting for prefetch...');
             this.showLoadingState();
             
-            // Load temple data (await the async call)
-            this.temples = await this.getSampleTemples();
-            console.log('Temples after loading:', this.temples ? this.temples.length : 'null');
+            // Wait for prefetch to complete
+            if (this.prefetchPromise) {
+                await this.prefetchPromise;
+            }
             
             if (!this.temples || this.temples.length === 0) {
                 console.error('No temples loaded!');
@@ -319,14 +365,14 @@ class TemplesManager {
                 return;
             }
             
-            this.templesLoaded = true;
-            
-            // Populate filter dropdowns with available values
+            // Populate filter dropdowns
             this.populateFilterDropdowns();
             
             // Apply current filters
             this.applyFilters();
             console.log('Filtered temples:', this.filteredTemples.length);
+            
+            this.templesLoaded = true;
             
             // Render temples
             this.renderTemples();
@@ -439,72 +485,29 @@ class TemplesManager {
         });
     }
 
-    async getSampleTemples() {
-        // Return cached data if already loaded
-        if (window.TEMPLES_DATA) {
-            console.log('Using cached temples data');
-            return window.TEMPLES_DATA;
-        }
-
-        // GitHub data repository URL (with cache busting)
-        const GITHUB_DATA_REPO = `https://raw.githubusercontent.com/ig0193/bodh-data/main/temples.json?t=${Date.now()}`;
-        
-        // Try to fetch from GitHub first (works everywhere)
+    /**
+     * Load local temples.json (bundled fallback for offline mode)
+     */
+    async loadLocalTemples() {
         try {
-            console.log('Fetching temples from GitHub repo...');
-            const response = await fetch(GITHUB_DATA_REPO);
+            console.log('Loading local temples.json...');
             
-            if (!response.ok) {
-                throw new Error(`GitHub fetch failed: ${response.status}`);
+            // Try to fetch local temples JSON
+            const response = await fetch('data/temples.json');
+            
+            if (response.ok) {
+                const temples = await response.json();
+                console.log('Local temples loaded:', temples.length, 'temples');
+                return temples;
             }
             
-            window.TEMPLES_DATA = await response.json();
-            console.log('✅ Temples loaded from GitHub:', window.TEMPLES_DATA.length, 'temples');
+            // If fetch fails, return empty array (better than crashing)
+            console.warn('Could not load local temples.json');
+            return [];
             
-            // Cache in localStorage for offline use
-            try {
-                localStorage.setItem('temples_cache', JSON.stringify(window.TEMPLES_DATA));
-                localStorage.setItem('temples_cache_time', Date.now().toString());
-                console.log('Cached temples in localStorage');
-            } catch (e) {
-                console.warn('Failed to cache in localStorage:', e.message);
-            }
-            
-            return window.TEMPLES_DATA;
-        } catch (githubError) {
-            console.warn('GitHub fetch failed:', githubError.message);
-            
-            // Fallback 1: Try localStorage cache
-            try {
-                const cached = localStorage.getItem('temples_cache');
-                if (cached) {
-                    window.TEMPLES_DATA = JSON.parse(cached);
-                    const cacheTime = localStorage.getItem('temples_cache_time');
-                    console.log('✅ Using cached temples from localStorage (cached:', new Date(parseInt(cacheTime)).toLocaleString() + ')');
-                    return window.TEMPLES_DATA;
-                }
-            } catch (e) {
-                console.warn('localStorage cache failed:', e.message);
-            }
-            
-            // Fallback 2: Try local JSON file
-            try {
-                console.log('Trying local JSON file...');
-                const localUrl = window.location.protocol === 'file:' 
-                    ? './data/temples.json'
-                    : 'data/temples.json';
-                    
-                const response = await fetch(localUrl);
-                if (response.ok) {
-                    window.TEMPLES_DATA = await response.json();
-                    console.log('✅ Temples loaded from local file:', window.TEMPLES_DATA.length, 'temples');
-                    return window.TEMPLES_DATA;
-                }
-            } catch (localError) {
-                console.warn('Local JSON fetch failed:', localError.message);
-            }
-            
-            return window.TEMPLES_DATA || [];
+        } catch (error) {
+            console.error('Error loading local temples:', error);
+            return [];
         }
     }
 
