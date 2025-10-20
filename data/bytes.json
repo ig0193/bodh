@@ -1,131 +1,161 @@
 [
   {
     "id": 1,
-    "title": "🌅 Why offer water to the Sun?",
-    "text": "Ancient Ayurveda meets modern science: Morning sun exposure helps regulate circadian rhythm, while water offering creates mindful gratitude practice.",
+    "title": "Why early morning sunlight matters?",
+    "titleHindi": "सुबह की धूप क्यों जरूरी है?",
+    "text": "Your body has an internal clock that controls sleep, hormones, and energy levels. Early morning sunlight is the most powerful way to reset this clock. The sun's rays at sunrise are perfect for vitamin D production without skin damage. This practice forces you outside at dawn, exposing you to natural light that boosts your mood hormones. The daily ritual creates consistency - your brain thrives on patterns.",
+    "textHindi": "आपके शरीर की एक आंतरिक घड़ी है जो नींद, हार्मोन और ऊर्जा स्तर को नियंत्रित करती है। सुबह की धूप इस घड़ी को रीसेट करने का सबसे शक्तिशाली तरीका है। सूर्योदय की किरणें त्वचा को नुकसान पहुंचाए बिना विटामिन डी उत्पादन के लिए एकदम सही हैं। यह अभ्यास आपको भोर में बाहर जाने के लिए मजबूर करता है, जिससे आप प्राकृतिक प्रकाश के संपर्क में आते हैं जो आपके मूड हार्मोन को बढ़ाता है। यह दैनिक अनुष्ठान निरंतरता बनाता है - आपका दिमाग पैटर्न पर पनपता है।",
     "visual": {
       "type": "icon",
       "content": "🌅",
       "background": "linear-gradient(135deg, #ff9933 0%, #ff6b35 100%)"
     },
     "category": "daily-practice",
+    "timestamp": "2025-01-15T10:00:00Z",
     "likes": 0,
     "shares": 0
   },
   {
     "id": 2,
-    "title": "🕉️ What does OM really mean?",
-    "text": "A-U-M represents creation, preservation, and destruction. The silence after represents the infinite. Modern physics confirms sound's creative power.",
+    "title": "What does OM really mean?",
+    "titleHindi": "ओम का वास्तविक अर्थ क्या है?",
+    "text": "Sound is vibration, and vibration affects matter. OM produces a frequency around 432 Hz, matching Earth's natural vibration. When you chant it, a major nerve connected to your relaxation system gets activated. This triggers your body's calming response, lowering stress hormones. The three sounds A-U-M engage your entire vocal system, creating internal massage. It's sound therapy backed by brain science.",
+    "textHindi": "ध्वनि कंपन है, और कंपन पदार्थ को प्रभावित करता है। ओम लगभग 432 Hz की आवृत्ति उत्पन्न करता है, जो पृथ्वी के प्राकृतिक कंपन से मेल खाता है। जब आप इसका जाप करते हैं, तो आपके विश्राम प्रणाली से जुड़ी एक प्रमुख तंत्रिका सक्रिय हो जाती है। यह आपके शरीर की शांत प्रतिक्रिया को ट्रिगर करता है, तनाव हार्मोन को कम करता है। तीन ध्वनियाँ अ-उ-म आपकी पूरी स्वर प्रणाली को संलग्न करती हैं, आंतरिक मालिश बनाती हैं। यह मस्तिष्क विज्ञान द्वारा समर्थित ध्वनि चिकित्सा है।",
     "visual": {
       "type": "icon",
       "content": "🕉️",
       "background": "linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%)"
     },
     "category": "spirituality",
+    "timestamp": "2025-01-16T10:00:00Z",
     "likes": 0,
     "shares": 0
   },
   {
     "id": 3,
-    "title": "🪔 Why light lamps at dusk?",
-    "text": "Diya lighting at Sandhya (twilight) symbolizes dispelling ignorance. The ritual also maintains vitamin D balance as daylight fades.",
+    "title": "Why light lamps at dusk?",
+    "titleHindi": "शाम को दीपक क्यों जलाएं?",
+    "text": "Evening time triggers a shift in your brain from active to rest mode. Blue light from screens disrupts this by blocking sleep hormones. A lamp's warm, yellow light doesn't mess with your sleep chemistry. The ritual creates a consistent evening signal, telling your brain that work time is over. Mentally, it's a boundary between doing and being - essential for mental health in our always-connected modern life.",
+    "textHindi": "शाम का समय आपके मस्तिष्क को सक्रिय से आराम मोड में स्थानांतरित करता है। स्क्रीन से नीली रोशनी नींद के हार्मोन को अवरुद्ध करके इसे बाधित करती है। दीपक की गर्म, पीली रोशनी आपके नींद के रसायन को गड़बड़ नहीं करती। यह अनुष्ठान एक सुसंगत शाम का संकेत बनाता है, जो आपके मस्तिष्क को बताता है कि काम का समय खत्म हो गया है। मानसिक रूप से, यह करने और होने के बीच एक सीमा है - हमारे हमेशा-जुड़े आधुनिक जीवन में मानसिक स्वास्थ्य के लिए आवश्यक।",
     "visual": {
       "type": "icon",
       "content": "🪔",
       "background": "linear-gradient(135deg, #f59e0b 0%, #d97706 100%)"
     },
     "category": "daily-practice",
+    "timestamp": "2025-01-17T10:00:00Z",
     "likes": 0,
     "shares": 0
   },
   {
     "id": 4,
-    "title": "🌿 The science of Tulsi worship",
-    "text": "Holy Basil releases oxygen 20 hours daily and purifies air. Ancient texts knew what modern science confirms - it's nature's air purifier.",
+    "title": "The science of Tulsi worship",
+    "titleHindi": "तुलसी पूजा का विज्ञान",
+    "text": "Tulsi contains compounds like eugenol and rosmarinic acid that have proven antimicrobial properties. Unlike most plants that release oxygen only during day, Tulsi continues at night, making it ideal for enclosed spaces. Studies show it absorbs harmful gases like CO2, CO, and SO2. The plant's volatile oils act as natural air purifiers. Daily exposure to these compounds supports immune function - it's preventive medicine through environmental design.",
+    "textHindi": "तुलसी में यूजेनॉल और रोज़मेरिनिक एसिड जैसे यौगिक होते हैं जिनमें सिद्ध रोगाणुरोधी गुण हैं। अधिकांश पौधों के विपरीत जो केवल दिन के दौरान ऑक्सीजन छोड़ते हैं, तुलसी रात में भी जारी रहती है, जिससे यह बंद स्थानों के लिए आदर्श बन जाती है। अध्ययन बताते हैं कि यह CO2, CO, और SO2 जैसी हानिकारक गैसों को अवशोषित करती है। पौधे के वाष्पशील तेल प्राकृतिक वायु शोधक के रूप में कार्य करते हैं। इन यौगिकों के दैनिक संपर्क से प्रतिरक्षा कार्य को समर्थन मिलता है - यह पर्यावरण डिजाइन के माध्यम से निवारक चिकित्सा है।",
     "visual": {
       "type": "icon",
       "content": "🌿",
       "background": "linear-gradient(135deg, #10b981 0%, #059669 100%)"
     },
     "category": "science",
+    "timestamp": "2025-01-18T10:00:00Z",
     "likes": 0,
     "shares": 0
   },
   {
     "id": 5,
-    "title": "🙏 Why join palms in Namaste?",
-    "text": "Pressing palms activates pressure points, calms the mind, and shows respect. The gesture means 'the divine in me honors the divine in you.'",
+    "title": "Why join palms in Namaste?",
+    "titleHindi": "नमस्ते में हाथ क्यों जोड़ें?",
+    "text": "Your palms contain nerve endings connected to your brain's emotional centers. Pressing them together at heart level activates these pressure points while balancing both sides of your brain. The gesture eliminates physical hierarchy - everyone does the same motion regardless of status. Mentally, it creates mutual respect without touch, crucial in cultures valuing personal space. It's a brain hack for instant calm and social connection combined in one movement.",
+    "textHindi": "आपकी हथेलियों में तंत्रिका अंत होते हैं जो आपके मस्तिष्क के भावनात्मक केंद्रों से जुड़े होते हैं। उन्हें हृदय स्तर पर एक साथ दबाने से ये दबाव बिंदु सक्रिय होते हैं जबकि आपके मस्तिष्क के दोनों पक्षों को संतुलित करते हैं। यह इशारा शारीरिक पदानुक्रम को समाप्त करता है - स्थिति की परवाह किए बिना हर कोई एक ही गति करता है। मानसिक रूप से, यह स्पर्श के बिना आपसी सम्मान बनाता है, जो व्यक्तिगत स्थान को महत्व देने वाली संस्कृतियों में महत्वपूर्ण है। यह एक ही गति में तत्काल शांति और सामाजिक संबंध के लिए एक मस्तिष्क हैक है।",
     "visual": {
       "type": "icon",
       "content": "🙏",
       "background": "linear-gradient(135deg, #ec4899 0%, #be185d 100%)"
     },
     "category": "culture",
+    "timestamp": "2025-01-19T10:00:00Z",
     "likes": 0,
     "shares": 0
   },
   {
     "id": 6,
-    "title": "🔔 Temple bells and their purpose",
-    "text": "Bell sound clears the mind and announces your arrival to the divine. The specific frequency (50-60 Hz) synchronizes brain hemispheres.",
+    "title": "Temple bells and their purpose",
+    "titleHindi": "मंदिर की घंटियाँ और उनका उद्देश्य",
+    "text": "Temple bells produce sound waves at a specific frequency that makes both sides of your brain sync up. This brief moment creates what brain scientists call a 'mental gap' - your internal dialogue stops. The sharp, clear tone activates your hearing center intensely, pulling attention away from mental noise. The long echo forces your brain into listening mode rather than thinking mode. It's engineered sound design for instant focus.",
+    "textHindi": "मंदिर की घंटियाँ एक विशिष्ट आवृत्ति पर ध्वनि तरंगें उत्पन्न करती हैं जो आपके मस्तिष्क के दोनों पक्षों को समन्वयित करती हैं। यह संक्षिप्त क्षण वह बनाता है जिसे मस्तिष्क वैज्ञानिक 'मानसिक अंतर' कहते हैं - आपका आंतरिक संवाद रुक जाता है। तीक्ष्ण, स्पष्ट स्वर आपके श्रवण केंद्र को गहनता से सक्रिय करता है, मानसिक शोर से ध्यान हटाता है। लंबी गूंज आपके मस्तिष्क को सोच मोड के बजाय सुनने के मोड में मजबूर करती है। यह तत्काल फोकस के लिए इंजीनियर ध्वनि डिजाइन है।",
     "visual": {
       "type": "icon",
       "content": "🔔",
       "background": "linear-gradient(135deg, #06b6d4 0%, #0891b2 100%)"
     },
     "category": "temples",
+    "timestamp": "2025-01-20T10:00:00Z",
     "likes": 0,
     "shares": 0
   },
   {
     "id": 7,
-    "title": "🌺 Why flowers in worship?",
-    "text": "Flowers represent the impermanence of beauty and life. Their fragrance purifies the environment while colors stimulate positive emotions.",
+    "title": "Why flowers in worship?",
+    "titleHindi": "पूजा में फूल क्यों?",
+    "text": "Flowers are expensive in effort and time - they die quickly and need constant replacement. This built-in temporary nature makes them mentally powerful for teaching letting go. Their colors trigger specific emotional responses: red increases energy, white promotes calm, yellow stimulates optimism. Natural fragrances activate your brain's emotional center. Choosing fresh flowers daily is a commitment test - building consistency in small actions creates discipline for larger ones.",
+    "textHindi": "फूल प्रयास और समय में महंगे होते हैं - वे जल्दी मर जाते हैं और निरंतर प्रतिस्थापन की आवश्यकता होती है। यह अंतर्निहित अस्थायी प्रकृति उन्हें छोड़ना सिखाने के लिए मानसिक रूप से शक्तिशाली बनाती है। उनके रंग विशिष्ट भावनात्मक प्रतिक्रियाओं को ट्रिगर करते हैं: लाल ऊर्जा बढ़ाता है, सफेद शांति को बढ़ावा देता है, पीला आशावाद को उत्तेजित करता है। प्राकृतिक सुगंध आपके मस्तिष्क के भावनात्मक केंद्र को सक्रिय करती है। प्रतिदिन ताजे फूल चुनना एक प्रतिबद्धता परीक्षण है - छोटे कार्यों में स्थिरता बनाना बड़े कार्यों के लिए अनुशासन बनाता है।",
     "visual": {
       "type": "icon",
       "content": "🌺",
       "background": "linear-gradient(135deg, #f472b6 0%, #ec4899 100%)"
     },
     "category": "worship",
+    "timestamp": "2025-01-21T10:00:00Z",
     "likes": 0,
     "shares": 0
   },
   {
     "id": 8,
-    "title": "🧘 The power of meditation postures",
-    "text": "Padmasana (lotus pose) optimizes blood flow to the brain and spine. Ancient yogis discovered what neuroscience now proves about posture and focus.",
+    "title": "The power of meditation postures",
+    "titleHindi": "ध्यान मुद्राओं की शक्ति",
+    "text": "Padmasana creates the most stable base mechanically possible with your body - a low center of gravity with wide support. This frees your brain from constant micro-adjustments needed in less stable poses. Blood flow to legs reduces while increasing to your core and head. The straight spine allows optimal breathing, maximizing oxygen intake. Stability breeds mental stability - when your body stops fighting gravity, your mind stops fighting thoughts. It's biomechanics designed for consciousness.",
+    "textHindi": "पद्मासन आपके शरीर के साथ यांत्रिक रूप से संभव सबसे स्थिर आधार बनाता है - व्यापक समर्थन के साथ गुरुत्वाकर्षण का एक निम्न केंद्र। यह आपके मस्तिष्क को कम स्थिर मुद्राओं में आवश्यक निरंतर सूक्ष्म समायोजन से मुक्त करता है। पैरों में रक्त प्रवाह कम हो जाता है जबकि आपके कोर और सिर में बढ़ जाता है। सीधी रीढ़ इष्टतम श्वास की अनुमति देती है, ऑक्सीजन सेवन को अधिकतम करती है। स्थिरता मानसिक स्थिरता पैदा करती है - जब आपका शरीर गुरुत्वाकर्षण से लड़ना बंद कर देता है, तो आपका मन विचारों से लड़ना बंद कर देता है। यह चेतना के लिए डिज़ाइन किया गया बायोमैकेनिक्स है।",
     "visual": {
       "type": "icon",
       "content": "🧘",
       "background": "linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%)"
     },
     "category": "yoga",
+    "timestamp": "2025-01-22T10:00:00Z",
     "likes": 0,
     "shares": 0
   },
   {
     "id": 9,
-    "title": "🌙 Fasting on Ekadashi explained",
-    "text": "Lunar cycles affect body water (70% of us). Ekadashi fasting aligns with moon's gravitational pull, aiding digestion and mental clarity.",
+    "title": "Fasting on Ekadashi explained",
+    "titleHindi": "एकादशी उपवास समझाया गया",
+    "text": "Periodic fasting triggers your cells' self-cleaning process. During the 11th lunar day, gravitational forces peak, affecting how water moves in your body. Your digestive system uses 20-30% of your body's energy. Fasting redirects this energy to cell repair and brain function. Studies show 24-hour fasts improve mental clarity by boosting brain growth factors. Ancient timing synced with biology - your body responds differently to food based on moon cycles.",
+    "textHindi": "आवधिक उपवास आपकी कोशिकाओं की स्व-सफाई प्रक्रिया को ट्रिगर करता है। 11वें चंद्र दिवस के दौरान, गुरुत्वाकर्षण बल चरम पर होता है, जो आपके शरीर में पानी की गति को प्रभावित करता है। आपका पाचन तंत्र आपके शरीर की 20-30% ऊर्जा का उपयोग करता है। उपवास इस ऊर्जा को कोशिका मरम्मत और मस्तिष्क कार्य के लिए पुनर्निर्देशित करता है। अध्ययन बताते हैं कि 24 घंटे का उपवास मस्तिष्क वृद्धि कारकों को बढ़ाकर मानसिक स्पष्टता में सुधार करता है। प्राचीन समय जीवविज्ञान के साथ समन्वयित था - आपका शरीर चंद्र चक्र के आधार पर भोजन पर अलग तरह से प्रतिक्रिया करता है।",
     "visual": {
       "type": "icon",
       "content": "🌙",
       "background": "linear-gradient(135deg, #374151 0%, #1f2937 100%)"
     },
     "category": "fasting",
+    "timestamp": "2025-01-23T10:00:00Z",
     "likes": 0,
     "shares": 0
   },
   {
     "id": 10,
-    "title": "🐄 Why cows are considered sacred?",
-    "text": "Cows provide milk, dung (fuel/fertilizer), and urine (antiseptic). Ancient economy depended on them - hence the reverence and protection.",
+    "title": "Why cows are considered sacred?",
+    "titleHindi": "गायों को पवित्र क्यों माना जाता है?",
+    "text": "In agricultural economies, cows represented renewable wealth - they produced milk, offspring, labor, fuel, and fertilizer simultaneously. Protecting them was economic necessity disguised as spirituality. Cow dung contains bacteria that repel insects and purify air when burned. Cow urine has documented antimicrobial properties due to nitrogen compounds. What looks like religion was actually resource management at scale - making conservation sacred made it enforceable across generations.",
+    "textHindi": "कृषि अर्थव्यवस्थाओं में, गायें नवीकरणीय संपत्ति का प्रतिनिधित्व करती थीं - वे एक साथ दूध, संतान, श्रम, ईंधन और उर्वरक का उत्पादन करती थीं। उनकी रक्षा करना आध्यात्मिकता के रूप में छिपी आर्थिक आवश्यकता थी। गोबर में बैक्टीरिया होते हैं जो कीड़ों को दूर करते हैं और जलाने पर हवा को शुद्ध करते हैं। गोमूत्र में नाइट्रोजन यौगिकों के कारण दस्तावेजित रोगाणुरोधी गुण हैं। श्रद्धा एक सामाजिक तकनीक थी जो स्थिरता सुनिश्चित करती थी। जो धर्म जैसा दिखता है वह वास्तव में बड़े पैमाने पर संसाधन प्रबंधन था - संरक्षण को पवित्र बनाने से यह पीढ़ियों में लागू करने योग्य हो गया।",
     "visual": {
       "type": "icon",
       "content": "🐄",
       "background": "linear-gradient(135deg, #10b981 0%, #047857 100%)"
     },
     "category": "culture",
+    "timestamp": "2025-01-14T10:00:00Z",
     "likes": 0,
     "shares": 0
   }

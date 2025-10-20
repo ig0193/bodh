@@ -53,6 +53,44 @@
   padding: var(--spacing-lg);
 }
 
+/* ===== LANGUAGE TOGGLE ICON (On Image) ===== */
+.byte-lang-icon-toggle {
+  position: absolute;
+  bottom: 16px;
+  right: 16px;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.95);
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  transition: all 0.3s ease;
+  z-index: 10;
+  backdrop-filter: blur(10px);
+  opacity: 80%;
+}
+
+.byte-lang-icon-toggle:hover {
+  transform: scale(1.1);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+  background: rgba(255, 255, 255, 1);
+}
+
+.byte-lang-icon-toggle:active {
+  transform: scale(0.95);
+}
+
+.lang-toggle-icon {
+  font-size: 1rem;
+  line-height: 1;
+  font-weight: 600;
+  color: var(--dark-text);
+}
+
 .byte-visual img {
   max-width: 80%;
   max-height: 80%;
@@ -95,6 +133,27 @@
   margin: 0;
   color: var(--gray-700);
   flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+/* Responsive text sizing based on content length */
+@media (max-height: 700px) {
+  .byte-text {
+    font-size: 0.9rem;
+    line-height: 1.5;
+  }
+}
+
+@media (max-height: 600px) {
+  .byte-text {
+    font-size: 0.85rem;
+    line-height: 1.4;
+  }
+}
+
+.byte-text-hi {
+  font-family: 'Noto Sans Devanagari', 'Noto Sans', sans-serif;
 }
 
 /* ===== ACTION BAR (Hidden for now) ===== */

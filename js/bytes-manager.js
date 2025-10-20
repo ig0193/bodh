@@ -8,6 +8,7 @@ class BytesManager {
         this.isLoading = false;
         this.dataReady = false;
         this.prefetchPromise = null;
+        this.currentLanguage = 'en'; // Global language preference: 'en' or 'hi'
         
         this.initializeElements();
         this.bindEvents();
@@ -51,6 +52,7 @@ class BytesManager {
             }
             
             this.bytes = await response.json();
+            this.sortBytesByTimestamp();
             this.dataReady = true;
             console.log('Bytes prefetched from CDN:', this.bytes.length, 'bytes');
             
@@ -59,6 +61,7 @@ class BytesManager {
             
             // Fallback to local bytes.json
             this.bytes = await this.loadLocalBytes();
+            this.sortBytesByTimestamp();
             this.dataReady = true;
             console.log('Using local bytes (offline mode):', this.bytes.length, 'bytes');
         }
@@ -114,6 +117,20 @@ class BytesManager {
         }
     }
 
+    /**
+     * Sort bytes by timestamp (newest first)
+     */
+    sortBytesByTimestamp() {
+        if (!this.bytes || this.bytes.length === 0) return;
+        
+        this.bytes.sort((a, b) => {
+            // Parse timestamps and sort in descending order (newest first)
+            const timeA = a.timestamp ? new Date(a.timestamp).getTime() : 0;
+            const timeB = b.timestamp ? new Date(b.timestamp).getTime() : 0;
+            return timeB - timeA;
+        });
+    }
+
     renderBytes() {
         if (!this.bytesCards) {
             this.bytesCards = document.getElementById('bytesCards');
@@ -135,16 +152,30 @@ class BytesManager {
 
     createByteCard(byte, index) {
         const visualContent = this.createVisualContent(byte.visual);
+        const hasHindi = byte.textHindi && byte.textHindi.trim().length > 0;
+        
+        // Determine which text to show based on current global language
+        const showHindi = this.currentLanguage === 'hi' && hasHindi;
+        const enDisplay = showHindi ? 'none' : 'block';
+        const hiDisplay = showHindi ? 'block' : 'none';
+        const iconText = showHindi ? 'A' : 'अ';
+        const iconTitle = showHindi ? 'Read in English' : 'हिंदी में पढ़ें';
+        const displayTitle = showHindi && byte.titleHindi ? byte.titleHindi : byte.title;
         
         return `
             <div class="byte-card" data-byte-index="${index}" data-byte-id="${byte.id}">
                 <div class="byte-visual" style="background: ${byte.visual.background}">
                     ${visualContent}
+                    ${hasHindi ? `
+                    <button class="byte-lang-icon-toggle" data-byte-id="${byte.id}" aria-label="Switch language" title="${iconTitle}">
+                        <span class="lang-toggle-icon">${iconText}</span>
+                    </button>
+                    ` : ''}
                 </div>
                 <div class="byte-content">
-                    <h3 class="byte-title">${byte.title}</h3>
-                    <p class="byte-text">${byte.text}</p>
-
+                    <h3 class="byte-title" data-title-en="${byte.title}" data-title-hi="${byte.titleHindi || byte.title}">${displayTitle}</h3>
+                    <p class="byte-text byte-text-en" data-lang="en" style="display: ${enDisplay};">${byte.text}</p>
+                    ${hasHindi ? `<p class="byte-text byte-text-hi" data-lang="hi" style="display: ${hiDisplay};">${byte.textHindi}</p>` : ''}
                 </div>
             </div>
         `;
@@ -174,8 +205,15 @@ class BytesManager {
     }
 
     bindCardEvents() {
-        // Action button events
+        // Language toggle button events
         this.bytesCards.addEventListener('click', (e) => {
+            if (e.target.closest('.byte-lang-icon-toggle')) {
+                const button = e.target.closest('.byte-lang-icon-toggle');
+                const card = button.closest('.byte-card');
+                this.toggleLanguage(card, button);
+                return;
+            }
+            
             if (e.target.closest('.byte-action')) {
                 const button = e.target.closest('.byte-action');
                 const action = button.dataset.action;
@@ -185,6 +223,72 @@ class BytesManager {
 
         // Add touch/swipe events for better mobile experience
         this.addSwipeEvents();
+    }
+    
+    toggleLanguage(card, button) {
+        const enText = card.querySelector('.byte-text-en');
+        const hiText = card.querySelector('.byte-text-hi');
+        
+        if (!hiText) return;
+        
+        // Toggle global language preference
+        this.currentLanguage = this.currentLanguage === 'en' ? 'hi' : 'en';
+        
+        // Apply to ALL bytes
+        this.applyLanguageToAllBytes();
+    }
+    
+    applyLanguageToAllBytes() {
+        const allCards = this.bytesCards.querySelectorAll('.byte-card');
+        const isHindi = this.currentLanguage === 'hi';
+        
+        allCards.forEach(card => {
+            const enText = card.querySelector('.byte-text-en');
+            const hiText = card.querySelector('.byte-text-hi');
+            const titleElement = card.querySelector('.byte-title');
+            const toggleButton = card.querySelector('.byte-lang-icon-toggle');
+            const toggleIcon = toggleButton?.querySelector('.lang-toggle-icon');
+            
+            if (!hiText) return; // Skip if no Hindi translation
+            
+            if (isHindi) {
+                // Switch to Hindi
+                enText.style.display = 'none';
+                hiText.style.display = 'block';
+                
+                // Update title to Hindi if available
+                if (titleElement) {
+                    const hindiTitle = titleElement.getAttribute('data-title-hi');
+                    if (hindiTitle) {
+                        titleElement.textContent = hindiTitle;
+                    }
+                }
+                
+                if (toggleIcon) {
+                    toggleIcon.textContent = 'A';
+                    toggleButton.setAttribute('title', 'Read in English');
+                    toggleButton.setAttribute('aria-label', 'Switch to English');
+                }
+            } else {
+                // Switch to English
+                enText.style.display = 'block';
+                hiText.style.display = 'none';
+                
+                // Update title to English
+                if (titleElement) {
+                    const englishTitle = titleElement.getAttribute('data-title-en');
+                    if (englishTitle) {
+                        titleElement.textContent = englishTitle;
+                    }
+                }
+                
+                if (toggleIcon) {
+                    toggleIcon.textContent = 'अ';
+                    toggleButton.setAttribute('title', 'हिंदी में पढ़ें');
+                    toggleButton.setAttribute('aria-label', 'Switch to Hindi');
+                }
+            }
+        });
     }
 
     addSwipeEvents() {
