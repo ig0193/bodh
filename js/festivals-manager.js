@@ -248,11 +248,16 @@ class FestivalsManager {
       groupedFestivals[monthName].push(festival);
     });
 
+    // Get current month for auto-scroll
+    const currentMonth = new Date().getMonth();
+    const currentMonthName = monthNames[currentMonth];
+
     let html = '';
     for (const [monthName, monthFestivals] of Object.entries(groupedFestivals)) {
       const monthId = monthName.toLowerCase().replace(' ', '-');
+      const isCurrentMonth = monthName === currentMonthName;
       html += `
-        <div class="month-section">
+        <div class="month-section" ${isCurrentMonth ? 'id="current-month-section"' : ''}>
           <h3 class="month-header collapsible" data-month="${monthId}">
             <div class="month-header-content">
               <i class="fas fa-calendar-alt"></i>
@@ -305,6 +310,17 @@ class FestivalsManager {
         }
       });
     });
+
+    // Auto-scroll to current month section
+    setTimeout(() => {
+      const currentMonthSection = document.getElementById('current-month-section');
+      if (currentMonthSection) {
+        currentMonthSection.scrollIntoView({ 
+          behavior: 'smooth', 
+          block: 'start'
+        });
+      }
+    }, 100); // Small delay to ensure DOM is fully rendered
   }
 
   /**
