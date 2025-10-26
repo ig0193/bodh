@@ -1,7 +1,7 @@
 /**
- * Hindu Calendar Engine - Core Logic for 2024-2025
+ * Hindu Calendar Engine - Core Logic
  * Handles calendar generation, date mapping, and cultural data integration
- * Supports both 2024 and 2025 with automatic year detection
+ * Supports dynamic year detection and automatically loads available data
  */
 
 class HinduCalendarEngine {
@@ -10,23 +10,32 @@ class HinduCalendarEngine {
     this.currentMonth = this.currentDate.getMonth();
     this.currentYear = this.currentDate.getFullYear();
     this.hinduMonths = window.HINDU_MONTHS_2024_2025 || {};
-    this.festivals = {
-      2024: window.FESTIVALS_2024 || {},
-      2025: window.FESTIVALS_2025 || {}
-    };
-    this.ekadashi = {
-      2024: window.EKADASHI_2024 || {},
-      2025: window.EKADASHI_2025 || {}
-    };
     
-    // Auto-detect supported years
-    this.supportedYears = [2024, 2025];
+    // Dynamically detect available years from window object
+    this.supportedYears = this.detectSupportedYears();
     this.isValidYear = this.supportedYears.includes(this.currentYear);
     
-    if (!this.isValidYear) {
-      console.warn(`Year ${this.currentYear} not fully supported. Using 2025 data as fallback.`);
-      this.currentYear = 2025; // Fallback to latest supported year
+    if (!this.isValidYear && this.supportedYears.length > 0) {
+      console.warn(`Year ${this.currentYear} not fully supported. Using ${this.supportedYears[this.supportedYears.length - 1]} data as fallback.`);
+      this.currentYear = this.supportedYears[this.supportedYears.length - 1]; // Fallback to latest supported year
     }
+  }
+  
+  /**
+   * Detect supported years dynamically from available data
+   */
+  detectSupportedYears() {
+    const years = [];
+    const currentYear = new Date().getFullYear();
+    
+    // Check for data in a range around current year
+    for (let year = currentYear - 1; year <= currentYear + 5; year++) {
+      if (window[`FESTIVALS_${year}`] || window[`EKADASHI_${year}`]) {
+        years.push(year);
+      }
+    }
+    
+    return years.sort((a, b) => a - b);
   }
 
   /**
@@ -34,10 +43,24 @@ class HinduCalendarEngine {
    */
   getCurrentYearData() {
     return {
-      hinduMonths: this.hinduMonths[this.currentYear] || this.hinduMonths[2025],
-      festivals: this.festivals[this.currentYear] || this.festivals[2025],
-      ekadashi: this.ekadashi[this.currentYear] || this.ekadashi[2025]
+      hinduMonths: this.hinduMonths[this.currentYear] || this.hinduMonths[this.supportedYears[this.supportedYears.length - 1]],
+      festivals: this.getFestivalsData(this.currentYear),
+      ekadashi: this.getEkadashiData(this.currentYear)
     };
+  }
+  
+  /**
+   * Get festivals data for a specific year
+   */
+  getFestivalsData(year) {
+    return window[`FESTIVALS_${year}`] || window[`FESTIVALS_${this.supportedYears[this.supportedYears.length - 1]}`] || {};
+  }
+  
+  /**
+   * Get ekadashi data for a specific year
+   */
+  getEkadashiData(year) {
+    return window[`EKADASHI_${year}`] || window[`EKADASHI_${this.supportedYears[this.supportedYears.length - 1]}`] || {};
   }
 
   /**
@@ -254,7 +277,7 @@ class HinduCalendarEngine {
    */
   getFestivalForDate(dateString) {
     const year = parseInt(dateString.substring(0, 4));
-    const festivalsData = this.festivals[year] || this.festivals[2025];
+    const festivalsData = this.getFestivalsData(year);
     const festivalData = festivalsData[dateString];
     
     if (!festivalData) return null;
@@ -269,7 +292,7 @@ class HinduCalendarEngine {
    */
   getFestivalsForDate(dateString) {
     const year = parseInt(dateString.substring(0, 4));
-    const festivalsData = this.festivals[year] || this.festivals[2025];
+    const festivalsData = this.getFestivalsData(year);
     const festivalData = festivalsData[dateString];
     
     if (!festivalData) return [];
@@ -289,7 +312,7 @@ class HinduCalendarEngine {
     
     // Fallback to direct access
     const year = parseInt(dateString.substring(0, 4));
-    const ekadashiData = this.ekadashi[year] || this.ekadashi[2025];
+    const ekadashiData = this.getEkadashiData(year);
     return ekadashiData[dateString] || null;
   }
 
@@ -405,13 +428,13 @@ class HinduCalendarEngine {
       if (hinduMonth.key === 'shravana') {
         periods.push({
           name: "Sawan Maas",
-          description: "Sacred month of Lord Shiva - time for devotion and spiritual purification",
-          recommendations: ["Monday fasting", "Shiva temple visits", "Kanwar Yatra"]
+          description: "Sacred month of Lord Shiva ",
+          recommendations: ["Monday fasting", "Shiva temple visits"]
         });
       } else if (hinduMonth.key === 'kartika') {
         periods.push({
           name: "Kartik Maas",
-          description: "Month of lights and prosperity - time for Lakshmi worship",
+          description: "Month of lights and prosperity",
           recommendations: ["Light diyas daily", "Tulsi worship", "Charitable activities"]
         });
       }
@@ -532,17 +555,8 @@ class HinduCalendarEngine {
       return null;
     }
 
-    const festivalsData = this.festivals[year] || {};
-    
-    // Use direct access to ekadashi data for statistics
-    let ekadashiData = {};
-    if (year === 2024 && window.EKADASHI_2024) {
-      ekadashiData = window.EKADASHI_2024;
-    } else if (year === 2025 && window.EKADASHI_2025) {
-      ekadashiData = window.EKADASHI_2025;
-    } else {
-      ekadashiData = this.ekadashi[year] || {};
-    }
+    const festivalsData = this.getFestivalsData(year);
+    const ekadashiData = this.getEkadashiData(year);
 
     return {
       year: year,
@@ -551,7 +565,7 @@ class HinduCalendarEngine {
       majorFestivals: Object.values(festivalsData).filter(f => f.type === 'major').length,
       supportedMonths: 12,
       dataVersion: '2.0',
-      lastUpdated: year === 2025 ? '2025' : '2024'
+      lastUpdated: year.toString()
     };
   }
 
