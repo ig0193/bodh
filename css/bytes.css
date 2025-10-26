@@ -53,11 +53,18 @@
   padding: var(--spacing-lg);
 }
 
-/* ===== LANGUAGE TOGGLE ICON (On Image) ===== */
-.byte-lang-icon-toggle {
+/* ===== BYTE CONTROLS CONTAINER ===== */
+.byte-controls {
   position: absolute;
   bottom: 16px;
   right: 16px;
+  display: flex;
+  gap: 8px;
+  z-index: 10;
+}
+
+/* ===== LANGUAGE TOGGLE ICON (On Image) ===== */
+.byte-lang-icon-toggle {
   width: 30px;
   height: 30px;
   border-radius: 50%;
@@ -69,7 +76,6 @@
   cursor: pointer;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   transition: all 0.3s ease;
-  z-index: 10;
   backdrop-filter: blur(10px);
   opacity: 80%;
 }
@@ -89,6 +95,47 @@
   line-height: 1;
   font-weight: 600;
   color: var(--dark-text);
+}
+
+/* ===== READER TOGGLE BUTTON ===== */
+.byte-reader-toggle {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.95);
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+  opacity: 80%;
+}
+
+.byte-reader-toggle:hover {
+  transform: scale(1.1);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+  background: rgba(255, 255, 255, 1);
+}
+
+.byte-reader-toggle:active {
+  transform: scale(0.95);
+}
+
+.byte-reader-toggle.playing {
+  background: var(--primary-blue);
+  opacity: 100%;
+}
+
+.byte-reader-toggle.playing .reader-icon {
+  filter: brightness(0) invert(1);
+}
+
+.reader-icon {
+  font-size: 0.9rem;
+  line-height: 1;
 }
 
 .byte-visual img {

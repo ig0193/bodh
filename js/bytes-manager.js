@@ -9,13 +9,32 @@ class BytesManager {
         this.dataReady = false;
         this.prefetchPromise = null;
         this.currentLanguage = 'en'; // Global language preference: 'en' or 'hi'
+        this.currentSpeech = null; // Track current speech utterance
+        this.isSpeaking = false;
+        this.currentSpeakingByteId = null;
         
         this.initializeElements();
         this.bindEvents();
+        this.initializeSpeech();
         
         // Start prefetching bytes data immediately (non-blocking)
         console.log('BytesManager: Starting background data prefetch...');
         this.prefetchPromise = this.prefetchBytes();
+    }
+    
+    /**
+     * Initialize speech synthesis
+     */
+    initializeSpeech() {
+        // Check if speech synthesis is supported
+        if ('speechSynthesis' in window) {
+            // Listen for speech end event
+            window.speechSynthesis.onvoiceschanged = () => {
+                console.log('Speech voices loaded');
+            };
+        } else {
+            console.warn('Speech Synthesis not supported in this browser');
+        }
     }
 
     initializeElements() {
@@ -166,11 +185,16 @@ class BytesManager {
             <div class="byte-card" data-byte-index="${index}" data-byte-id="${byte.id}">
                 <div class="byte-visual" style="background: ${byte.visual.background}">
                     ${visualContent}
-                    ${hasHindi ? `
-                    <button class="byte-lang-icon-toggle" data-byte-id="${byte.id}" aria-label="Switch language" title="${iconTitle}">
-                        <span class="lang-toggle-icon">${iconText}</span>
-                    </button>
-                    ` : ''}
+                    <div class="byte-controls">
+                        ${hasHindi ? `
+                        <button class="byte-lang-icon-toggle" data-byte-id="${byte.id}" aria-label="Switch language" title="${iconTitle}">
+                            <span class="lang-toggle-icon">${iconText}</span>
+                        </button>
+                        ` : ''}
+                        <button class="byte-reader-toggle" data-byte-id="${byte.id}" aria-label="Read aloud" title="Read aloud">
+                            <span class="reader-icon">►</span>
+                        </button>
+                    </div>
                 </div>
                 <div class="byte-content">
                     <h3 class="byte-title" data-title-en="${byte.title}" data-title-hi="${byte.titleHindi || byte.title}">${displayTitle}</h3>
@@ -205,12 +229,20 @@ class BytesManager {
     }
 
     bindCardEvents() {
-        // Language toggle button events
+        // Language toggle and reader button events
         this.bytesCards.addEventListener('click', (e) => {
             if (e.target.closest('.byte-lang-icon-toggle')) {
                 const button = e.target.closest('.byte-lang-icon-toggle');
                 const card = button.closest('.byte-card');
                 this.toggleLanguage(card, button);
+                return;
+            }
+            
+            if (e.target.closest('.byte-reader-toggle')) {
+                const button = e.target.closest('.byte-reader-toggle');
+                const card = button.closest('.byte-card');
+                const byteId = parseInt(button.dataset.byteId);
+                this.toggleReader(card, button, byteId);
                 return;
             }
             
@@ -230,6 +262,11 @@ class BytesManager {
         const hiText = card.querySelector('.byte-text-hi');
         
         if (!hiText) return;
+        
+        // Stop any ongoing speech when switching language
+        if (this.isSpeaking) {
+            this.stopAllSpeech();
+        }
         
         // Toggle global language preference
         this.currentLanguage = this.currentLanguage === 'en' ? 'hi' : 'en';
@@ -321,6 +358,10 @@ class BytesManager {
                 if (entry.isIntersecting) {
                     const cardIndex = parseInt(entry.target.dataset.byteIndex);
                     if (!isNaN(cardIndex)) {
+                        // If switching to a different byte and audio is playing, stop it
+                        if (this.currentByteIndex !== cardIndex && this.isSpeaking) {
+                            this.stopAllSpeech();
+                        }
                         this.currentByteIndex = cardIndex;
                     }
                 }
@@ -438,8 +479,217 @@ class BytesManager {
             `;
         }
     }
+    
+    /**
+     * Toggle text-to-speech reader
+     */
+    toggleReader(card, button, byteId) {
+        // Check if speech synthesis is supported
+        if (!('speechSynthesis' in window)) {
+            this.showToast('⚠️ Speech synthesis not supported in your browser');
+            return;
+        }
+        
+        // If currently speaking this byte, stop it
+        if (this.isSpeaking && this.currentSpeakingByteId === byteId) {
+            this.stopSpeech(button);
+            return;
+        }
+        
+        // If speaking different byte, stop it first
+        if (this.isSpeaking) {
+            this.stopAllSpeech();
+        }
+        
+        // Start speaking this byte
+        this.startSpeech(card, button, byteId);
+    }
+    
+    /**
+     * Start speech synthesis
+     */
+    startSpeech(card, button, byteId) {
+        // Get the visible text (either English or Hindi based on current language)
+        const titleElement = card.querySelector('.byte-title');
+        const textElement = card.querySelector(`.byte-text-${this.currentLanguage}`);
+        
+        if (!textElement) {
+            this.showToast('⚠️ No text available to read');
+            return;
+        }
+        
+        const title = titleElement.textContent;
+        const text = textElement.textContent;
+        const fullText = `${title}. ${text}`;
+        
+        // Create speech utterance
+        this.currentSpeech = new SpeechSynthesisUtterance(fullText);
+        
+        // Set language based on current language preference
+        const targetLang = this.currentLanguage === 'hi' ? 'hi-IN' : 'en-IN';
+        this.currentSpeech.lang = targetLang;
+        
+        // Try to select the best available voice for the language
+        const bestVoice = this.getBestVoiceForLanguage(targetLang);
+        if (bestVoice) {
+            this.currentSpeech.voice = bestVoice;
+        }
+        
+        // Set speech parameters for more natural, subtle voice
+        this.currentSpeech.rate = 1; // Slower for better clarity and calmness
+        this.currentSpeech.pitch = 1; // Slightly lower pitch for softer tone
+        this.currentSpeech.volume = 0.9; // Slightly reduced volume for subtlety
+        
+        // Handle speech events
+        this.currentSpeech.onstart = () => {
+            this.isSpeaking = true;
+            this.currentSpeakingByteId = byteId;
+            this.updateReaderButton(button, 'playing');
+        };
+        
+        this.currentSpeech.onend = () => {
+            this.isSpeaking = false;
+            this.currentSpeakingByteId = null;
+            this.updateReaderButton(button, 'stopped');
+            this.currentSpeech = null;
+        };
+        
+        this.currentSpeech.onerror = (event) => {
+            // Ignore "interrupted" error - it's expected when user pauses
+            if (event.error === 'interrupted') {
+                return;
+            }
+            
+            console.error('Speech synthesis error:', event);
+            this.isSpeaking = false;
+            this.currentSpeakingByteId = null;
+            this.updateReaderButton(button, 'stopped');
+            this.showToast('⚠️ Error reading text');
+        };
+        
+        // Start speaking
+        window.speechSynthesis.speak(this.currentSpeech);
+    }
+    
+    /**
+     * Get the best voice for a specific language
+     */
+    getBestVoiceForLanguage(targetLang) {
+        const voices = window.speechSynthesis.getVoices();
+        if (!voices || voices.length === 0) return null;
+        
+        // For English, prioritize these voices in order (most natural sounding)
+        const preferredEnglishVoices = [
+            'Google UK English Female',
+            'Google UK English Male',
+            'Google US English',
+            'Samantha',  // macOS
+            'Karen',     // macOS
+            'Daniel',    // macOS
+            'Rishi',     // Indian English on some systems
+            'Microsoft Heera',  // Windows Indian English
+        ];
+        
+        // For Hindi, prioritize these
+        const preferredHindiVoices = [
+            'Google हिन्दी',
+            'Lekha',     // macOS Hindi
+            'Microsoft Hemant', // Windows Hindi
+        ];
+        
+        const isHindi = targetLang.startsWith('hi');
+        const preferredList = isHindi ? preferredHindiVoices : preferredEnglishVoices;
+        
+        // First, try to find exact match from preferred list
+        for (const preferredName of preferredList) {
+            const voice = voices.find(v => v.name === preferredName);
+            if (voice) {
+                console.log(`Selected voice: ${voice.name}`);
+                return voice;
+            }
+        }
+        
+        // If no preferred voice found, find any voice that matches the language
+        // and prioritize Google voices (usually better quality)
+        const googleVoice = voices.find(v => 
+            v.lang.startsWith(targetLang.split('-')[0]) && 
+            v.name.includes('Google')
+        );
+        if (googleVoice) {
+            console.log(`Selected Google voice: ${googleVoice.name}`);
+            return googleVoice;
+        }
+        
+        // Fallback: any voice matching the language
+        const anyMatchingVoice = voices.find(v => 
+            v.lang.startsWith(targetLang.split('-')[0])
+        );
+        if (anyMatchingVoice) {
+            console.log(`Selected fallback voice: ${anyMatchingVoice.name}`);
+            return anyMatchingVoice;
+        }
+        
+        console.log('No matching voice found, using default');
+        return null;
+    }
+    
+    /**
+     * Stop current speech
+     */
+    stopSpeech(button) {
+        if (window.speechSynthesis.speaking) {
+            window.speechSynthesis.cancel();
+        }
+        
+        this.isSpeaking = false;
+        this.currentSpeakingByteId = null;
+        this.updateReaderButton(button, 'stopped');
+        this.currentSpeech = null;
+    }
+    
+    /**
+     * Stop all speech (when switching bytes)
+     */
+    stopAllSpeech() {
+        if (window.speechSynthesis.speaking) {
+            window.speechSynthesis.cancel();
+        }
+        
+        // Update all reader buttons to stopped state
+        const allReaderButtons = this.bytesCards.querySelectorAll('.byte-reader-toggle');
+        allReaderButtons.forEach(btn => {
+            this.updateReaderButton(btn, 'stopped');
+        });
+        
+        this.isSpeaking = false;
+        this.currentSpeakingByteId = null;
+        this.currentSpeech = null;
+    }
+    
+    /**
+     * Update reader button appearance
+     */
+    updateReaderButton(button, state) {
+        const icon = button.querySelector('.reader-icon');
+        if (!icon) return;
+        
+        if (state === 'playing') {
+            icon.textContent = '⏸';
+            button.setAttribute('title', 'Pause');
+            button.classList.add('playing');
+        } else {
+            icon.textContent = '►';
+            button.setAttribute('title', 'Read aloud');
+            button.classList.remove('playing');
+        }
+    }
 
     destroy() {
+        // Stop any ongoing speech
+        if (this.isSpeaking) {
+            this.stopAllSpeech();
+        }
+        
         // Clean up intersection observer
         if (this.scrollObserver) {
             this.scrollObserver.disconnect();
