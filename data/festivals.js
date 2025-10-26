@@ -10,12 +10,8 @@
  */
 function getFestivalData(dateString) {
   const year = dateString.substring(0, 4);
-  if (year === "2024" && window.FESTIVALS_2024) {
-    return window.FESTIVALS_2024[dateString] || null;
-  } else if (year === "2025" && window.FESTIVALS_2025) {
-    return window.FESTIVALS_2025[dateString] || null;
-  }
-  return null;
+  const festivalsData = window[`FESTIVALS_${year}`];
+  return festivalsData ? (festivalsData[dateString] || null) : null;
 }
 
 /**
@@ -43,17 +39,12 @@ function getPrimaryFestivalData(dateString) {
 /**
  * Get all festivals for a specific month and year
  * @param {number} month - Month (1-12)
- * @param {number} year - Year (2024, 2025, etc.)
+ * @param {number} year - Year (e.g., 2024, 2025, 2026, etc.)
  * @returns {Array} Array of festivals with dates
  */
 function getFestivalsForMonth(month, year) {
-  let festivalsData = {};
-  
-  if (year === 2024 && window.FESTIVALS_2024) {
-    festivalsData = window.FESTIVALS_2024;
-  } else if (year === 2025 && window.FESTIVALS_2025) {
-    festivalsData = window.FESTIVALS_2025;
-  }
+  // Dynamically access festivals data for the year
+  const festivalsData = window[`FESTIVALS_${year}`] || {};
   
   const festivals = [];
   for (const [date, festivalData] of Object.entries(festivalsData)) {
@@ -97,35 +88,32 @@ function getUpcomingFestivals(fromDate = new Date(), daysAhead = 30) {
   
   // Check festivals from start year to end year
   for (let year = startYear; year <= endYear; year++) {
-    let festivalsData = {};
+    // Dynamically access festivals data for the year
+    const festivalsData = window[`FESTIVALS_${year}`];
     
-    if (year === 2024 && window.FESTIVALS_2024) {
-      festivalsData = window.FESTIVALS_2024;
-    } else if (year === 2025 && window.FESTIVALS_2025) {
-      festivalsData = window.FESTIVALS_2025;
-    }
-    
-    for (const [date, festivalData] of Object.entries(festivalsData)) {
-      const festivalDate = new Date(date);
-      if (festivalDate >= fromDate && festivalDate <= endDate) {
-        const daysUntil = Math.ceil((festivalDate - fromDate) / (1000 * 60 * 60 * 24));
-        
-        if (Array.isArray(festivalData)) {
-          // Multiple festivals on same date
-          festivalData.forEach(festival => {
+    if (festivalsData) {
+      for (const [date, festivalData] of Object.entries(festivalsData)) {
+        const festivalDate = new Date(date);
+        if (festivalDate >= fromDate && festivalDate <= endDate) {
+          const daysUntil = Math.ceil((festivalDate - fromDate) / (1000 * 60 * 60 * 24));
+          
+          if (Array.isArray(festivalData)) {
+            // Multiple festivals on same date
+            festivalData.forEach(festival => {
+              upcoming.push({
+                date: date,
+                daysUntil: daysUntil,
+                ...festival
+              });
+            });
+          } else {
+            // Single festival on this date
             upcoming.push({
               date: date,
               daysUntil: daysUntil,
-              ...festival
+              ...festivalData
             });
-          });
-        } else {
-          // Single festival on this date
-          upcoming.push({
-            date: date,
-            daysUntil: daysUntil,
-            ...festivalData
-          });
+          }
         }
       }
     }

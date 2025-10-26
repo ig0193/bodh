@@ -89,18 +89,17 @@ class FestivalsManager {
   }
 
   /**
-   * Load all festivals for 2025
+   * Load all festivals for current year
    */
   loadAllFestivals() {
     const { festivalsContainer, summaryContainer } = this.elements;
     if (!festivalsContainer) return;
 
-    // Get current year (2025)
+    // Get current year dynamically
     const currentYear = new Date().getFullYear();
-    const isCurrentYear = currentYear === 2025;
 
     // Combine festivals and ekadashi data
-    this.allFestivals = this.getAllFestivalsData();
+    this.allFestivals = this.getAllFestivalsData(currentYear);
     
     if (this.allFestivals.length === 0) {
       festivalsContainer.innerHTML = `
@@ -115,18 +114,22 @@ class FestivalsManager {
 
     // Store filtered festivals and render
     this.filteredFestivals = [...this.allFestivals];
-    this.renderFestivalsList(this.filteredFestivals, festivalsContainer);
+    this.renderFestivalsList(this.filteredFestivals, festivalsContainer, currentYear);
   }
 
   /**
-   * Get all festivals data from different sources
+   * Get all festivals data from different sources for a specific year
    */
-  getAllFestivalsData() {
+  getAllFestivalsData(year) {
     const festivals = [];
     
-    // Add festivals from FESTIVALS_2025
-    if (window.FESTIVALS_2025) {
-      for (const [date, festivalData] of Object.entries(window.FESTIVALS_2025)) {
+    // Dynamically access festivals data based on year
+    const festivalsData = window[`FESTIVALS_${year}`];
+    const ekadashiData = window[`EKADASHI_${year}`];
+    
+    // Add festivals from FESTIVALS_{year}
+    if (festivalsData) {
+      for (const [date, festivalData] of Object.entries(festivalsData)) {
         if (Array.isArray(festivalData)) {
           festivalData.forEach(festival => {
             festivals.push({
@@ -147,16 +150,16 @@ class FestivalsManager {
       }
     }
 
-    // Add Ekadashi from EKADASHI_2025
-    if (window.EKADASHI_2025) {
-      for (const [date, ekadashiData] of Object.entries(window.EKADASHI_2025)) {
+    // Add Ekadashi from EKADASHI_{year}
+    if (ekadashiData) {
+      for (const [date, ekadashiDataItem] of Object.entries(ekadashiData)) {
         festivals.push({
           date: date,
           dateObj: new Date(date),
           source: 'ekadashi',
           type: 'ekadashi',
           category: 'Ekadashi',
-          ...ekadashiData
+          ...ekadashiDataItem
         });
       }
     }
@@ -201,6 +204,9 @@ class FestivalsManager {
     // Store filtered results
     this.filteredFestivals = filtered;
 
+    // Get current year for rendering
+    const currentYear = new Date().getFullYear();
+
     // Update UI
     const { festivalsContainer, summaryContainer } = this.elements;
     
@@ -224,14 +230,14 @@ class FestivalsManager {
         </div>
       `;
     } else {
-      this.renderFestivalsList(filtered, festivalsContainer);
+      this.renderFestivalsList(filtered, festivalsContainer, currentYear);
     }
   }
 
   /**
    * Render festivals list
    */
-  renderFestivalsList(festivals, container) {
+  renderFestivalsList(festivals, container, year) {
     const monthNames = [
       'January', 'February', 'March', 'April', 'May', 'June',
       'July', 'August', 'September', 'October', 'November', 'December'
@@ -261,7 +267,7 @@ class FestivalsManager {
           <h3 class="month-header collapsible" data-month="${monthId}">
             <div class="month-header-content">
               <i class="fas fa-calendar-alt"></i>
-              <span class="month-title">${monthName} 2025</span>
+              <span class="month-title">${monthName} ${year}</span>
               <span class="month-count">(${monthFestivals.length})</span>
             </div>
             <i class="fas fa-chevron-down collapse-arrow"></i>

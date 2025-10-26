@@ -10,19 +10,15 @@
  */
 function getEkadashiData(dateString) {
   const year = dateString.substring(0, 4);
-  if (year === "2024") {
-    if (window.getEkadashi2024) {
-      return window.getEkadashi2024(dateString);
-    } else if (window.EKADASHI_2024) {
-      return window.EKADASHI_2024[dateString] || null;
-    }
-  } else if (year === "2025") {
-    if (window.getEkadashi2025) {
-      return window.getEkadashi2025(dateString);
-    } else if (window.EKADASHI_2025) {
-      return window.EKADASHI_2025[dateString] || null;
-    }
+  const yearSpecificFunction = window[`getEkadashi${year}`];
+  const ekadashiData = window[`EKADASHI_${year}`];
+  
+  if (yearSpecificFunction) {
+    return yearSpecificFunction(dateString);
+  } else if (ekadashiData) {
+    return ekadashiData[dateString] || null;
   }
+  
   return null;
 }
 
@@ -33,11 +29,12 @@ function getEkadashiData(dateString) {
  */
 function isEkadashi(dateString) {
   const year = dateString.substring(0, 4);
-  if (year === "2024" && window.isEkadashi2024) {
-    return window.isEkadashi2024(dateString);
-  } else if (year === "2025" && window.isEkadashi2025) {
-    return window.isEkadashi2025(dateString);
+  const yearSpecificFunction = window[`isEkadashi${year}`];
+  
+  if (yearSpecificFunction) {
+    return yearSpecificFunction(dateString);
   }
+  
   return false;
 }
 
@@ -48,11 +45,12 @@ function isEkadashi(dateString) {
  * @returns {Array} Array of Ekadashi dates for the month
  */
 function getEkadashiForMonth(month, year) {
-  if (year === 2024 && window.getEkadashiForMonth2024) {
-    return window.getEkadashiForMonth2024(month);
-  } else if (year === 2025 && window.getEkadashiForMonth2025) {
-    return window.getEkadashiForMonth2025(month);
+  const yearSpecificFunction = window[`getEkadashiForMonth${year}`];
+  
+  if (yearSpecificFunction) {
+    return yearSpecificFunction(month);
   }
+  
   return [];
 }
 
@@ -65,17 +63,16 @@ function getNextEkadashi(fromDate = new Date()) {
   const year = fromDate.getFullYear();
   const dateStr = fromDate.toISOString().split('T')[0];
   
-  // Try current year first using individual functions
+  // Try current year first using dynamically accessed functions
   let nextEkadashi = null;
-  if (year === 2024 && window.getNextEkadashi2024) {
-    nextEkadashi = window.getNextEkadashi2024(fromDate);
-  } else if (year === 2025 && window.getNextEkadashi2025) {
-    nextEkadashi = window.getNextEkadashi2025(fromDate);
+  const yearSpecificFunction = window[`getNextEkadashi${year}`];
+  if (yearSpecificFunction) {
+    nextEkadashi = yearSpecificFunction(fromDate);
   }
   
   // Fallback to direct data access if functions not available
   if (!nextEkadashi) {
-    const ekadashiData = year === 2024 ? window.EKADASHI_2024 : window.EKADASHI_2025;
+    const ekadashiData = window[`EKADASHI_${year}`];
     if (ekadashiData) {
       for (const [date, ekadashiInfo] of Object.entries(ekadashiData)) {
         if (date > dateStr) {
@@ -92,15 +89,19 @@ function getNextEkadashi(fromDate = new Date()) {
     }
   }
   
-  // If no result in current year, try next supported year
+  // If no result in current year, try next year
   if (!nextEkadashi) {
-    if (year === 2024) {
-      const nextYearStart = new Date(2025, 0, 1);
-      if (window.getNextEkadashi2025) {
-        nextEkadashi = window.getNextEkadashi2025(nextYearStart);
-      } else if (window.EKADASHI_2025) {
-        // Direct access fallback for 2025
-        for (const [date, ekadashiInfo] of Object.entries(window.EKADASHI_2025)) {
+    const nextYear = year + 1;
+    const nextYearStart = new Date(nextYear, 0, 1);
+    const nextYearFunction = window[`getNextEkadashi${nextYear}`];
+    
+    if (nextYearFunction) {
+      nextEkadashi = nextYearFunction(nextYearStart);
+    } else {
+      // Direct access fallback for next year
+      const nextYearData = window[`EKADASHI_${nextYear}`];
+      if (nextYearData) {
+        for (const [date, ekadashiInfo] of Object.entries(nextYearData)) {
           const ekadashiDate = new Date(date);
           const daysUntil = Math.ceil((ekadashiDate - fromDate) / (1000 * 60 * 60 * 24));
           nextEkadashi = {
