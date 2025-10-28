@@ -93,13 +93,9 @@ class HinduCalendarApp {
    */
   checkDataAvailability() {
     const requiredGlobals = [
-      'HINDU_MONTHS_2024_2025',
-      'FESTIVALS_2024',
-      'FESTIVALS_2025',
-      'EKADASHI_2024',
-      'EKADASHI_2025',
-      'getEkadashiData',
-      'getNextEkadashi',
+      'festivalsData',
+      'ekadashiData',
+      'hinduMonthsData',
       'HinduCalendarEngine',
       'HinduCalendarUI'
     ];

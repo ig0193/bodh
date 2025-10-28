@@ -1,0 +1,20 @@
+{
+  "supportedYears": [2024, 2025],
+  "defaultYear": 2025,
+  "lastUpdated": "2025-10-28",
+  "dataTypes": {
+    "festivals": {
+      "2024": "festivals-2024.json",
+      "2025": "festivals-2025.json"
+    },
+    "ekadashi": {
+      "2024": "ekadashi-2024.json",
+      "2025": "ekadashi-2025.json"
+    },
+    "hinduMonths": {
+      "2024": "hindu-months-2024.json",
+      "2025": "hindu-months-2025.json"
+    }
+  }
+}
+

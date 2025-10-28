@@ -9,9 +9,13 @@ class HinduCalendarEngine {
     this.currentDate = new Date();
     this.currentMonth = this.currentDate.getMonth();
     this.currentYear = this.currentDate.getFullYear();
-    this.hinduMonths = window.HINDU_MONTHS_2024_2025 || {};
     
-    // Dynamically detect available years from window object
+    // Use new data managers
+    this.festivalsData = window.festivalsData;
+    this.ekadashiData = window.ekadashiData;
+    this.hinduMonthsData = window.hinduMonthsData;
+    
+    // Dynamically detect available years from data managers
     this.supportedYears = this.detectSupportedYears();
     this.isValidYear = this.supportedYears.includes(this.currentYear);
     
@@ -22,20 +26,16 @@ class HinduCalendarEngine {
   }
   
   /**
-   * Detect supported years dynamically from available data
+   * Detect supported years dynamically from data managers
    */
   detectSupportedYears() {
-    const years = [];
-    const currentYear = new Date().getFullYear();
-    
-    // Check for data in a range around current year
-    for (let year = currentYear - 1; year <= currentYear + 5; year++) {
-      if (window[`FESTIVALS_${year}`] || window[`EKADASHI_${year}`]) {
-        years.push(year);
-      }
+    // Use the years from festivalsData manager (which reads from manifest)
+    if (this.festivalsData && this.festivalsData.supportedYears) {
+      return this.festivalsData.supportedYears;
     }
     
-    return years.sort((a, b) => a - b);
+    // Fallback to current year if managers not ready
+    return [new Date().getFullYear()];
   }
 
   /**
@@ -43,9 +43,8 @@ class HinduCalendarEngine {
    */
   getCurrentYearData() {
     return {
-      hinduMonths: this.hinduMonths[this.currentYear] || this.hinduMonths[this.supportedYears[this.supportedYears.length - 1]],
-      festivals: this.getFestivalsData(this.currentYear),
-      ekadashi: this.getEkadashiData(this.currentYear)
+      festivals: this.festivalsData ? this.festivalsData.getFestivalsForYear(this.currentYear) : {},
+      ekadashi: this.ekadashiData ? this.ekadashiData.getEkadashiForYear(this.currentYear) : {}
     };
   }
   
@@ -53,14 +52,14 @@ class HinduCalendarEngine {
    * Get festivals data for a specific year
    */
   getFestivalsData(year) {
-    return window[`FESTIVALS_${year}`] || window[`FESTIVALS_${this.supportedYears[this.supportedYears.length - 1]}`] || {};
+    return this.festivalsData ? this.festivalsData.getFestivalsForYear(year) : {};
   }
   
   /**
    * Get ekadashi data for a specific year
    */
   getEkadashiData(year) {
-    return window[`EKADASHI_${year}`] || window[`EKADASHI_${this.supportedYears[this.supportedYears.length - 1]}`] || {};
+    return this.ekadashiData ? this.ekadashiData.getEkadashiForYear(year) : {};
   }
 
   /**
@@ -138,8 +137,8 @@ class HinduCalendarEngine {
     // Get Hindi months for this Gregorian month
     let hinduMonths = [];
     try {
-      if (typeof window.getHinduMonthsForGregorianMonth === 'function') {
-        hinduMonths = window.getHinduMonthsForGregorianMonth(month, year) || [];
+      if (this.hinduMonthsData) {
+        hinduMonths = this.hinduMonthsData.getHinduMonthsForGregorianMonth(month, year) || [];
       }
     } catch (error) {
       console.warn('Hindu months data not available:', error);
@@ -305,23 +304,18 @@ class HinduCalendarEngine {
    * Get Ekadashi for a specific date with year support
    */
   getEkadashiForDate(dateString) {
-    // Use unified ekadashi function if available
-    if (window.getEkadashiData) {
-      return window.getEkadashiData(dateString);
+    if (this.ekadashiData) {
+      return this.ekadashiData.getEkadashiData(dateString);
     }
-    
-    // Fallback to direct access
-    const year = parseInt(dateString.substring(0, 4));
-    const ekadashiData = this.getEkadashiData(year);
-    return ekadashiData[dateString] || null;
+    return null;
   }
 
   /**
    * Get Hindu month for Gregorian date
    */
   getHinduMonthForDate(gregorianDate) {
-    if (window.getHinduMonthForDate) {
-      return window.getHinduMonthForDate(gregorianDate);
+    if (this.hinduMonthsData) {
+      return this.hinduMonthsData.getHinduMonthForDate(gregorianDate);
     }
     return null;
   }
@@ -330,8 +324,8 @@ class HinduCalendarEngine {
    * Get Hindu months for Gregorian month
    */
   getHinduMonthsForGregorianMonth(gregorianMonth, year) {
-    if (window.getHinduMonthsForGregorianMonth) {
-      return window.getHinduMonthsForGregorianMonth(gregorianMonth, year);
+    if (this.hinduMonthsData) {
+      return this.hinduMonthsData.getHinduMonthsForGregorianMonth(gregorianMonth, year);
     }
     return [];
   }
@@ -504,29 +498,18 @@ class HinduCalendarEngine {
    */
   getUpcomingOccasions(daysAhead = 30) {
     const today = new Date();
-    const endDate = new Date(today.getTime() + (daysAhead * 24 * 60 * 60 * 1000));
     const upcoming = [];
 
     // Get upcoming festivals
-    if (window.getUpcomingFestivals) {
-      const upcomingFestivals = window.getUpcomingFestivals(today, daysAhead);
+    if (this.festivalsData) {
+      const upcomingFestivals = this.festivalsData.getUpcomingFestivals(today, daysAhead);
       upcoming.push(...upcomingFestivals.map(f => ({...f, type: 'festival'})));
     }
 
-    // Get upcoming Ekadashis using unified function
-    if (window.getUpcomingEkadashis) {
-      const upcomingEkadashis = window.getUpcomingEkadashis(today, daysAhead);
+    // Get upcoming Ekadashis
+    if (this.ekadashiData) {
+      const upcomingEkadashis = this.ekadashiData.getUpcomingEkadashis(today, daysAhead);
       upcoming.push(...upcomingEkadashis.map(e => ({...e, type: 'ekadashi'})));
-    } else if (window.getNextEkadashi) {
-      let nextEkadashi = window.getNextEkadashi(today);
-      let checkDate = new Date(today);
-      
-      while (nextEkadashi && new Date(nextEkadashi.date) <= endDate) {
-        upcoming.push({...nextEkadashi, type: 'ekadashi'});
-        checkDate = new Date(nextEkadashi.date);
-        checkDate.setDate(checkDate.getDate() + 1);
-        nextEkadashi = window.getNextEkadashi(checkDate);
-      }
     }
 
     // Sort by date and return

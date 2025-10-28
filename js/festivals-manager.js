@@ -123,11 +123,11 @@ class FestivalsManager {
   getAllFestivalsData(year) {
     const festivals = [];
     
-    // Dynamically access festivals data based on year
-    const festivalsData = window[`FESTIVALS_${year}`];
-    const ekadashiData = window[`EKADASHI_${year}`];
+    // Use new data managers
+    const festivalsData = window.festivalsData ? window.festivalsData.getFestivalsForYear(year) : {};
+    const ekadashiData = window.ekadashiData ? window.ekadashiData.getEkadashiForYear(year) : {};
     
-    // Add festivals from FESTIVALS_{year}
+    // Add festivals from festivalsData manager
     if (festivalsData) {
       for (const [date, festivalData] of Object.entries(festivalsData)) {
         if (Array.isArray(festivalData)) {
@@ -150,7 +150,7 @@ class FestivalsManager {
       }
     }
 
-    // Add Ekadashi from EKADASHI_{year}
+    // Add Ekadashi from ekadashiData manager
     if (ekadashiData) {
       for (const [date, ekadashiDataItem] of Object.entries(ekadashiData)) {
         festivals.push({

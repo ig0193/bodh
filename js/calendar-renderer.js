@@ -26,10 +26,14 @@ class CalendarRenderer {
    */
   renderCalendarHeader(calendarData) {
     const { year, monthName, hinduMonths } = calendarData;
+    console.log(`Rendering calendar header: ${monthName} ${year}`);
 
     // Gregorian month/year
     if (this.elements.currentMonth) {
       this.elements.currentMonth.textContent = `${monthName} ${year}`;
+      console.log(`Updated currentMonth element to: ${monthName} ${year}`);
+    } else {
+      console.error('currentMonth element not found!');
     }
 
     // Hindu months (simplified - no descriptions)

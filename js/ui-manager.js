@@ -696,11 +696,13 @@ class HinduCalendarUI {
   previousMonth() {
     this.engine.previousMonth();
     this.renderCalendar();
+    console.log(`Navigated to: ${this.engine.currentYear}-${this.engine.currentMonth + 1}`);
   }
 
   nextMonth() {
     this.engine.nextMonth();
     this.renderCalendar();
+    console.log(`Navigated to: ${this.engine.currentYear}-${this.engine.currentMonth + 1}`);
   }
 
   goToToday() {
